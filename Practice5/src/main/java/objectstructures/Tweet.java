@@ -1,3 +1,5 @@
+package objectstructures;
+
 public class Tweet {
 
     private String tweetText;
@@ -28,6 +30,9 @@ public class Tweet {
 
     public String getTweetText() {
         return this.tweetText;
+    }
+    public String getText() {
+        return this.getTweetText();
     }
 
     public TwitterAccount getOwner() {
