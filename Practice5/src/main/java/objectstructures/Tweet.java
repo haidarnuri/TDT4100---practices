@@ -2,50 +2,47 @@ package objectstructures;
 
 public class Tweet {
 
-    private String tweetText;
+    private String text;
+    private Tweet retweet;
     private Tweet originalTweet;
 
-    private int retweetCount;
-
-    private TwitterAccount account;
+    private int retweetCount = 0;
+    private TwitterAccount owner;
 
     //First creating two constructors
-    public Tweet(TwitterAccount account, String tweetText) {
-        this.tweetText = tweetText;
-        this.account = account;
+    public Tweet(TwitterAccount owner, String text) {
+        this.text = text;
+        this.owner = owner;
     }
 
-    public Tweet(TwitterAccount account, Tweet tweet) {
-        this.account = account;
-        this.retweetCount+=1;
-        for (Tweet e: account.tweetList) {
-            if(account.tweetList.contains(tweet)) {
-                this.originalTweet = e;
-            }
-            else {
-                this.tweetText = tweet.getTweetText();
-            }
+    public Tweet(TwitterAccount owner, Tweet retweet) {
+        this.retweetCount +=1;
+        this.text = retweet.getText();
+        this.owner = owner;
+        if(getOriginalTweet().equals(retweet)){
+            throw new RuntimeException("the original tweet comes from the same owner");
         }
-    }
 
-    public String getTweetText() {
-        return this.tweetText;
-    }
-    public String getText() {
-        return this.getTweetText();
     }
 
     public TwitterAccount getOwner() {
-        return this.account;
+        return this.owner;
     }
 
-    public Tweet getOriginalTweet() {
+    public String getText(){
+        return this.text;
+    }
+
+    public Tweet getOriginalTweet(){
         return this.originalTweet;
     }
 
     public int getRetweetCount() {
         return this.retweetCount;
     }
+
+
+
 }
 
 
