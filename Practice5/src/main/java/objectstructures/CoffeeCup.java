@@ -74,7 +74,7 @@ public class CoffeeCup {
         public double getCapacity(){
             return this.capacity;
         }
-
+        public double getCurrentVolume(){return this.currentVolume;}
     }
 
 

@@ -1,36 +1,39 @@
 package objectstructures;
 import junit.framework.TestCase;
+import org.junit.Assert;
 import org.junit.Test;
+import org.junit.function.ThrowingRunnable;
 
+import static org.junit.Assert.*;
+
+import java.io.IOException;
 import java.net.CookieHandler;
 
 
 @SuppressWarnings("all")
-public class CoffeeCupTest extends junit.framework.TestCase {
+public class CoffeeCupTest{
     //user1  = right amount of Volum compared to Capacity
-    CoffeeCup user1 = new CoffeeCup(2.0,1.0);
-
-    //user2 = too much Volum
-    CoffeeCup user2 = new CoffeeCup(2.0,3.0);
-
-    //user 3 = equal amount
-    CoffeeCup user3 = new CoffeeCup(2.0,2.0);
-
-    //user4 = object without parameters in constructor.
-    CoffeeCup user4 = new CoffeeCup();
+    CoffeeCup user1 ;
 
 
+    public void mainTest(){
+        testCoffeeCup();
+    }
 
+    @Test(expected=Exception.class)
     public void testCoffeeCup() {
-        testGetCapacity();
+        String testContructorText = "Testing constructor";
+        user1 = new CoffeeCup(-1,2.0);
+        //Testing user 1
+        assertThrows(IllegalArgumentException.class, (ThrowingRunnable)user1);
+        //DET ER NOE FEIL HER!
+        assertEquals(testContructorText,2.0,user1.getCapacity());
+        assertEquals(testContructorText,1.0,user1.getCurrentVolume());
     }
 
 
+
     public void testGetCapacity(){
-        //Testing different situations with getCapacity()
-        assertEquals("Testing getCapacity method", 2.0,user1.getCapacity());
-
-
 
     }
 }
