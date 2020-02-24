@@ -27,7 +27,7 @@ public class CoffeeCup {
     }
 
     public double getCapacity() {
-        return capacity;
+        return this.capacity;
     }
 
     public double getCurrentVolume() {
@@ -44,6 +44,9 @@ public class CoffeeCup {
     public void increaseCupSize(double biggerCapacity){
         if(isValidCapacity(biggerCapacity)){
             this.capacity += biggerCapacity;
+        }
+        else{
+            throw new IllegalArgumentException("Can not increase cup with this value");
         }
     }
 
