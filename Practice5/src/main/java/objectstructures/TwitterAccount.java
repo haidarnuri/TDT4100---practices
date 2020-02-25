@@ -1,18 +1,17 @@
 package objectstructures;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
+
 
 public class TwitterAccount {
 
     private String userName;
-    private String tweetText;
-    private int tweetCount;
+    private int retweetCount;
 
 
-    private TwitterAccount thisAccount;
+    // private TwitterAccount thisAccount;
     private ArrayList<Tweet> tweetArrayList = new ArrayList<Tweet>();
+    private ArrayList<TwitterAccount> listFollowers = new ArrayList<TwitterAccount>();
 
     public TwitterAccount(String userName) {
         this.userName = userName;
@@ -23,12 +22,55 @@ public class TwitterAccount {
     }
 
     public void tweet(String tweetText){
-        this.tweetCount +=1;
-        this.thisAccount = new TwitterAccount(this.userName);
-        tweetArrayList.add(new Tweet(this.thisAccount,tweetText));
+        Tweet newTweet = new Tweet(this, tweetText);
+        tweetArrayList.add(newTweet);
+    }
+    public void follow(TwitterAccount follower){
+        if(!listFollowers.contains(follower)){
+            listFollowers.add(follower);
+        }
+    }
+
+    public void unfollow(TwitterAccount userToUnfollow){
+        listFollowers.remove(userToUnfollow);
+    }
+
+    public boolean isFollowing(TwitterAccount doIFollowUser){
+        return listFollowers.contains(doIFollowUser);
+    }
+
+    public boolean isFollowedBy(TwitterAccount checkIfFollowedBy){
+        return checkIfFollowedBy.listFollowers.contains(this);
+    }
+
+    public void retweet(Tweet tweet){
+
+      if(!tweetArrayList.contains(tweet)) {
+            tweetArrayList.add(new Tweet(this, tweet));
+            if(tweet.isRetweet){
+                tweet.getOriginalTweet().getOwner().retweetCount++;
+            }else{
+                tweet.getOwner().retweetCount++;
+            }
+      }
+    }
+
+    //Start from the last element in tweetArrayList
+    public Tweet getTweet(int i){
+        return tweetArrayList.get(tweetArrayList.size()-i);
+
+    }
+
+    public int getRetweetCount(){
+        return retweetCount;
     }
 
     public int getTweetCount() {
-        return this.tweetCount;
+        return getTweetArrayList().size();
     }
+
+    private ArrayList<Tweet> getTweetArrayList() {
+        return tweetArrayList;
+    }
+
 }

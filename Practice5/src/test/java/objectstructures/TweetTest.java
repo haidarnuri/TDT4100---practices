@@ -229,17 +229,14 @@ public class TweetTest extends TestCase {
 
     private void _transition_exprAction__getRetweetCount_transitions1_actions0() {
         try {
-
             new Tweet(this.ole, this.tweet);
         } catch (junit.framework.AssertionFailedError error) {
             fail("new Tweet(ole, tweet) failed: " + error.getMessage());
         }
-
     }
 
     private void _test__getRetweetCount_transitions1_effects0_state() {
         _test__getRetweetCount_transitions1_effects0_state_objectTests0_test(tweet);
-
     }
 
     private void _test__getRetweetCount_transitions1_effects0_state_objectTests0_test(final Tweet it) {

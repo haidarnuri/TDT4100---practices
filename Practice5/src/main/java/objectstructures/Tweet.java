@@ -1,10 +1,14 @@
 package objectstructures;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+
 public class Tweet {
 
     private String text;
-    private Tweet retweet;
     private Tweet originalTweet;
+    public boolean isRetweet = false;
 
     private int retweetCount = 0;
     private TwitterAccount owner;
@@ -13,16 +17,22 @@ public class Tweet {
     public Tweet(TwitterAccount owner, String text) {
         this.text = text;
         this.owner = owner;
+        this.isRetweet = false;
     }
 
     public Tweet(TwitterAccount owner, Tweet retweet) {
-        this.retweetCount +=1;
+        if(retweet.getOwner().equals(owner)){
+            throw new IllegalArgumentException("The same owner");
+        }
+        retweet.retweetCount += 1;
         this.text = retweet.getText();
         this.owner = owner;
-        if(getOriginalTweet().equals(retweet)){
-            throw new RuntimeException("the original tweet comes from the same owner");
+        if(retweet.isRetweet){
+            this.originalTweet = retweet.originalTweet;
+        }else{
+            this.originalTweet = retweet;
         }
-
+        this.isRetweet = true;
     }
 
     public TwitterAccount getOwner() {
@@ -40,8 +50,6 @@ public class Tweet {
     public int getRetweetCount() {
         return this.retweetCount;
     }
-
-
 
 }
 
