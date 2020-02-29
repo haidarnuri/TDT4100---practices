@@ -1,19 +1,19 @@
 package objectstructures;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 
 public class TwitterAccount {
 
     private String userName;
     private int retweetCount;
-
+    private int numberOfIGetFollowedBy;
 
     // private TwitterAccount thisAccount;
     private ArrayList<Tweet> tweetArrayList = new ArrayList<Tweet>();
     private ArrayList<TwitterAccount> listFollowers = new ArrayList<TwitterAccount>();
 
-    private ArrayList<TwitterAccount> listFollowedBy = new ArrayList<TwitterAccount>();
 
 
     public TwitterAccount(String userName) {
@@ -31,6 +31,7 @@ public class TwitterAccount {
 
     public void follow(TwitterAccount follower){
         if(!listFollowers.contains(follower)){
+            follower.setNumberOfIGetFollowedBy();
             listFollowers.add(follower);
         }
     }
@@ -73,15 +74,18 @@ public class TwitterAccount {
         return getTweetArrayList().size();
     }
 
-    public ArrayList<TwitterAccount> setListFollowedBy(TwitterAccount followedBy) {
-        if(isFollowedBy(followedBy)){
-        this.listFollowedBy.add(followedBy);
-        }
-        return this.listFollowedBy;
-    }
 
-    public ArrayList<TwitterAccount> getListFollowedBy() {
-        return this.listFollowedBy;
+
+     public void setNumberOfIGetFollowedBy(){
+        this.numberOfIGetFollowedBy++;
+     }
+
+     public int getNumberOfIGetFollowedBy(){
+        return this.numberOfIGetFollowedBy;
+     }
+
+    public ArrayList<TwitterAccount> getFollowers(Comparator<TwitterAccount> t) {
+
     }
 
     private ArrayList<Tweet> getTweetArrayList() {
