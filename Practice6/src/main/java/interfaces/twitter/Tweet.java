@@ -1,4 +1,4 @@
-package objectstructures;
+package interfaces.twitter;
 
 public class Tweet {
 

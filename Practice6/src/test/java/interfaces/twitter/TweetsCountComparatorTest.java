@@ -1,7 +1,5 @@
 package interfaces.twitter;
 
-import interfaces.twitter.TweetsCountComparator;
-import objectstructures.TwitterAccount;
 import junit.framework.TestCase;
 import org.junit.Test;
 

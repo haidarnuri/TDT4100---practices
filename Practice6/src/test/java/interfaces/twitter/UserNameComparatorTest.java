@@ -1,6 +1,5 @@
 package interfaces.twitter;
 
-import objectstructures.TwitterAccount;
 import junit.framework.TestCase;
 import org.junit.Test;
 

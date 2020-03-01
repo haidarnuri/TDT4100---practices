@@ -1,7 +1,5 @@
 package interfaces.twitter;
 
-import objectstructures.TwitterAccount;
-
 import java.util.Comparator;
 
 public class TweetsCountComparator implements Comparator<TwitterAccount> {
