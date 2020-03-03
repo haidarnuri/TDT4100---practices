@@ -1,7 +1,7 @@
 package interfaces.twitter;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.Collections;
 import java.util.Comparator;
 
 
@@ -9,7 +9,7 @@ public class TwitterAccount {
 
     private String userName;
     private int retweetCount;
-    private int numberOfIGetFollowedBy;
+    private int followerCount;
 
     // private TwitterAccount thisAccount;
     private ArrayList<Tweet> tweetArrayList = new ArrayList<>();
@@ -32,13 +32,16 @@ public class TwitterAccount {
 
     public void follow(TwitterAccount follower){
         if(!listFollowers.contains(follower)){
-            follower.increaseNumberIGetFollowedBy();
+            follower.followerCount++;
             listFollowers.add(follower);
         }
     }
 
     public void unfollow(TwitterAccount userToUnfollow){
-        listFollowers.remove(userToUnfollow);
+        if(listFollowers.contains(userToUnfollow)) {
+            userToUnfollow.followerCount--;
+            listFollowers.remove(userToUnfollow);
+        }
     }
 
     public boolean isFollowing(TwitterAccount doIFollowUser){
@@ -64,42 +67,30 @@ public class TwitterAccount {
     //Start from the last element in tweetArrayList
     public Tweet getTweet(int i){
         return tweetArrayList.get(tweetArrayList.size()-i);
-
     }
 
     public int getRetweetCount(){
         return retweetCount;
     }
 
-    public int getTweetCount() {
-        return getTweetArrayList().size();
-    }
+    public int getTweetCount() {return getTweetArrayList().size();}
 
 
-
-     public void increaseNumberIGetFollowedBy(){
-        this.numberOfIGetFollowedBy++;
+     public int getFollowerCount(){
+        return this.followerCount;
      }
 
-     public int getNumberOfIGetFollowedBy(){
-        return this.numberOfIGetFollowedBy;
-     }
-
-    /*public Collection<TwitterAccount> getFollowers(Comparator<TwitterAccount> l){
-        if(l.equals(null)){
+     public ArrayList<TwitterAccount> getListFollowers(Comparator<TwitterAccount> l){
+        ArrayList<TwitterAccount> tempList = new ArrayList<>(this.listFollowers);
+        if(l.equals(null)) {
             return this.listFollowers;
         }
         else{
-
+            Collections.sort(tempList,l);
+            return tempList;
         }
+     }
 
-    }*/
-
-
-
-    private ArrayList<Tweet> getTweetArrayList() {
-        return tweetArrayList;
-    }
-
+     private ArrayList<Tweet> getTweetArrayList() {return tweetArrayList;}
 
 }
