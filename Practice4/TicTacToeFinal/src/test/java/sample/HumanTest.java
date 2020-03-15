@@ -1,3 +1,5 @@
+package sample;
+
 import com.google.gson.Gson;
 import org.junit.jupiter.api.Test;
 import sample.Human;
@@ -25,6 +27,9 @@ public class HumanTest {
 
         FileReader fileReader = new FileReader(file);
         String readFromFile = readAllCharactersOneByOne(fileReader);
+
+        Human humanFromFile = gson.fromJson(readFromFile, Human.class);
+
 
         System.out.println(readFromFile);
 
