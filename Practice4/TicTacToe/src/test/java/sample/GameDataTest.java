@@ -2,14 +2,12 @@ package sample;
 
 import com.google.gson.Gson;
 import org.junit.jupiter.api.Test;
-import sample.Game;
-import sample.Human;
 
 import java.io.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class GameTest {
+public class GameDataTest {
 
     Gson gson = new Gson();
     @Test
@@ -22,7 +20,7 @@ public class GameTest {
         int count = 4;
         String playerToMove = "X";
 
-        Game game = new Game(aBoard, count, playerToMove);
+        GameData game = new GameData(aBoard, count, playerToMove);
 
         String gameStringToSave = gson.toJson(game);
         System.out.println(gameStringToSave);

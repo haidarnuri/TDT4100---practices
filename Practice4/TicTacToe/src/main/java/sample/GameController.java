@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class GameController{
+    @FXML private Button[] buttonList = new Button[9];
     @FXML private Button A1;
     @FXML private Button A2;
     @FXML private Button A3;
@@ -28,14 +29,8 @@ public class GameController{
 
     @FXML private Label numberOfRounds;
 
-   // @FXML private Label showName;
-
-
-    @FXML private Button[] buttonList = new Button[9];
-
-   String[] board = new String[9];
-
-   SaveAndLoadBoard boardToSave = new SaveAndLoadBoard(this.board);
+    //private int counter = 0;
+    GameData gameData = new GameData();
 
     public GameController() {
     }
@@ -62,18 +57,15 @@ public class GameController{
         for(int i = 0; i<buttonList.length;i++) {
             int finalI = i;
             buttonList[i].setOnMouseClicked(e -> {
-                board[finalI] = changeButtonText(this.board, counter,finalI);
-                System.out.println(board);
+                gameData.getBoard()[finalI] = changeButtonText(gameData.getBoard(), gameData.getCount(),finalI);
                 updateUI();
-                boardToSave.setBoard(this.board);
-                //buttonList[finalI].setText(changeButtonText(buttonList[finalI], counter));
-                this.counter +=1;
+                gameData.count++;
                 showCounter();
                 if(checkIfWin()){
                     for(int j = 0; j<buttonList.length;j++) {
                         buttonList[j].setOnMouseClicked(null);
                     }
-                    this.numberOfRounds.setText(buttonList[finalI].getText() + " won on " + this.counter + " rounds!");
+                    this.numberOfRounds.setText(buttonList[finalI].getText() + " won on " + gameData.getCount() + " rounds!");
 
                 }
             });
@@ -84,7 +76,7 @@ public class GameController{
 
     private void updateUI() {
         for(int i = 0; i < 9; i++ ){
-            String buttonState = board[i];
+            String buttonState = gameData.getBoard()[i];
             if(buttonState == null){
                 continue;
             }
@@ -107,9 +99,9 @@ public class GameController{
     public void exitGame(ActionEvent event) throws IOException {
         System.exit(0);
     }
-    public void saveGame(ActionEvent event) throws IOException {
-        boardToSave.saveGame();
-    }
+   // public void saveGame(ActionEvent event) throws IOException {
+     //   boardToSave.saveGame();
+    //}
 
     private boolean checkIfWin(){
         //counting all the rows
@@ -152,18 +144,10 @@ public class GameController{
 
 
     private void showCounter(){
-        numberOfRounds.setText("Total number of clicks is " + this.counter);
-    }
-    public String[] getBoard(){
-        return this.board;
+        numberOfRounds.setText("Total number of clicks is " + gameData.getCount());
     }
 
-    private int counter = 0;
 
-    @Override
-    public String toString() {
-        return String.valueOf(getBoard());
-    }
 }
 
 
