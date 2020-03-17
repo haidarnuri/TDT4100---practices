@@ -13,13 +13,13 @@ public class SaveAndLoadBoard implements SaveAndLoadInterface{
     }
 
     public SaveAndLoadBoard(){
-        setBoard(new String[9]);
     }
 
 
     @Override
     public void saveGame(SaveAndLoadBoard saveBoard) {
-        this.boardStringToSave = gson.toJson(this);
+        System.out.println(saveBoard);
+        this.boardStringToSave = gson.toJson(saveBoard);
     }
 
     @Override
@@ -33,12 +33,8 @@ public class SaveAndLoadBoard implements SaveAndLoadInterface{
     }
 
     public void setBoard(String[] board) {
-        if(board.length == 9) {
             this.board = board;
-        }
-        else{
-            throw new IllegalArgumentException("Your board should have 9 places");
-        }
+        System.out.println(this.board);
     }
 
     @Override

@@ -34,7 +34,8 @@ public class GameController{
     @FXML private Button[] buttonList = new Button[9];
 
    String[] board = new String[9];
-   SaveAndLoadBoard boardToSave = new SaveAndLoadBoard();
+
+   SaveAndLoadBoard boardToSave = new SaveAndLoadBoard(this.board);
 
     public GameController() {
     }
@@ -61,8 +62,8 @@ public class GameController{
         for(int i = 0; i<buttonList.length;i++) {
             int finalI = i;
             buttonList[i].setOnMouseClicked(e -> {
-                board[finalI] = changeButtonText(buttonList[finalI], counter);
-
+                board[finalI] = changeButtonText(this.board, counter,finalI);
+                System.out.println(board);
                 updateUI();
 
                 //buttonList[finalI].setText(changeButtonText(buttonList[finalI], counter));
@@ -84,15 +85,11 @@ public class GameController{
     private void updateUI() {
         for(int i = 0; i < 9; i++ ){
             String buttonState = board[i];
-
             if(buttonState == null){
                 continue;
             }
-
-            if(buttonState.equals("X")) {
-                buttonList[i].setText("X");
-            }else if(buttonState.equals("O")) {
-                buttonList[i].setText("O");
+            else{
+                buttonList[i].setText(buttonState);
             }
         }
     }
@@ -142,28 +139,32 @@ public class GameController{
         else{return false;}
     }
 
-    private String changeButtonText(Button button, int counter){
+    private String changeButtonText(String[] board, int counter, int positionInBoard){
         String setX = "X";
         String setO = "O";
         if(counter%2==0){
-            button.setText(setX);
+            board[positionInBoard] = setX;
         }
         else{
-            button.setText(setO);
+            board[positionInBoard]=setO;
         }
-        return button.getText();
+        return board[positionInBoard];
     }
 
 
     private void showCounter(){
         numberOfRounds.setText("Total number of clicks is " + this.counter);
     }
+    public String[] getBoard(){
+        return this.board;
+    }
 
     private int counter = 0;
 
-
-
-
+    @Override
+    public String toString() {
+        return String.valueOf(getBoard());
+    }
 }
 
 
