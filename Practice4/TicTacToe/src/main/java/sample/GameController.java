@@ -65,7 +65,7 @@ public class GameController{
                 board[finalI] = changeButtonText(this.board, counter,finalI);
                 System.out.println(board);
                 updateUI();
-
+                boardToSave.setBoard(this.board);
                 //buttonList[finalI].setText(changeButtonText(buttonList[finalI], counter));
                 this.counter +=1;
                 showCounter();
@@ -108,8 +108,7 @@ public class GameController{
         System.exit(0);
     }
     public void saveGame(ActionEvent event) throws IOException {
-        boardToSave.setBoard(this.board);
-        boardToSave.saveGame(boardToSave);
+        boardToSave.saveGame();
     }
 
     private boolean checkIfWin(){

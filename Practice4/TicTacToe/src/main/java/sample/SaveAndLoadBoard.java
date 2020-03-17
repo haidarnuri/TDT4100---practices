@@ -2,6 +2,10 @@ package sample;
 
 import com.google.gson.Gson;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
 public class SaveAndLoadBoard implements SaveAndLoadInterface{
 
     private String[] board = new String[9];
@@ -17,9 +21,15 @@ public class SaveAndLoadBoard implements SaveAndLoadInterface{
 
 
     @Override
-    public void saveGame(SaveAndLoadBoard saveBoard) {
-        System.out.println(saveBoard);
-        this.boardStringToSave = gson.toJson(saveBoard);
+    public void saveGame() throws IOException {
+        this.boardStringToSave = gson.toJson(this);
+        File file = new File("test.txt");
+        file.createNewFile();
+        FileWriter writer = new FileWriter(file);
+        writer.write(this.boardStringToSave);
+        writer.flush();
+        writer.close();
+        System.out.println(boardStringToSave);
     }
 
     @Override
@@ -34,7 +44,6 @@ public class SaveAndLoadBoard implements SaveAndLoadInterface{
 
     public void setBoard(String[] board) {
             this.board = board;
-        System.out.println(this.board);
     }
 
     @Override

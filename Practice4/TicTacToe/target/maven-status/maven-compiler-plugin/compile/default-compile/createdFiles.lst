@@ -1,7 +1,7 @@
-sample\GameController.class
 Main.class
-sample\SaveAndLoadBoard.class
-sample\Game.class
-sample\Human.class
-sample\SaveAndLoadInterface.class
-sample\IntroductionController.class
+sample/Game.class
+sample/SaveAndLoadInterface.class
+sample/GameController.class
+sample/Human.class
+sample/IntroductionController.class
+sample/SaveAndLoadBoard.class
