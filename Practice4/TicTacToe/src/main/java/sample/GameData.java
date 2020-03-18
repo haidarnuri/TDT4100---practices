@@ -17,6 +17,9 @@ public class GameData {
     public String[] getBoard() {
         return board;
     }
+    public void setBoard(String[] board) {
+        this.board = board;
+    }
 
     public int getCount() {
         return count;

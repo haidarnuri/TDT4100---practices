@@ -28,6 +28,6 @@ public class SaveAndLoadGameTest {
 
     @Test
     public void testingLoadGame_testingMethodLoadGame_ExpectingToReadSavedString() throws IOException {
-        saveObject.loadGame(gameDataBoard1.getBoard());
+        saveObject.loadGame();
     }
 }

@@ -66,18 +66,15 @@ public class GameController{
                         buttonList[j].setOnMouseClicked(null);
                     }
                     this.numberOfRounds.setText(buttonList[finalI].getText() + " won on " + gameData.getCount() + " rounds!");
-
                 }
             });
-
-
         }
     }
 
     private void updateUI() {
         for(int i = 0; i < 9; i++ ){
             String buttonState = gameData.getBoard()[i];
-            if(buttonState == null){
+            if(buttonState==null ){
                 continue;
             }
             else{
@@ -88,6 +85,11 @@ public class GameController{
 
     public void saveGame(ActionEvent event){
         saveAndLoadGame.saveGame(gameData.getBoard());
+    }
+    public void loadGame(ActionEvent event){
+        String[] tempLoadBoard = saveAndLoadGame.loadGame(gameData.getBoard());
+        gameData.setBoard(tempLoadBoard);
+        updateUI();
     }
 
 
@@ -104,33 +106,27 @@ public class GameController{
     public void exitGame(ActionEvent event) throws IOException {
         System.exit(0);
     }
-   // public void saveGame(ActionEvent event) throws IOException {
-     //   boardToSave.saveGame();
-    //}
 
     private boolean checkIfWin(){
         //counting all the rows
         for(int i = 0; i<8;i = i + 3) {
-            if(buttonList[i].getText().equals(buttonList[i+1].getText()) && buttonList[i].getText().equals(buttonList[i+2].getText()) && !buttonList[i].getText().isEmpty()){
+            if(buttonList[i].getText().equals(buttonList[i+1].getText()) && buttonList[i].getText().equals(buttonList[i+2].getText()) && !(buttonList[i].getText().isEmpty())){
                 return true;
             }
         }
         //Counting columns
         for(int i = 0; i<3;i++) {
-            if(buttonList[i].getText().equals(buttonList[i+3].getText()) && buttonList[i].getText().equals(buttonList[i+6].getText()) && !buttonList[i].getText().isEmpty()){
+            if(buttonList[i].getText().equals(buttonList[i+3].getText()) && buttonList[i].getText().equals(buttonList[i+6].getText()) && !(buttonList[i].getText().isEmpty())){
                 return true;
-
             }
-
         }
+
         //checking one diagonal
-        if(buttonList[0].getText().equals(buttonList[4].getText()) && buttonList[0].getText().equals(buttonList[8].getText()) && !buttonList[0].getText().isEmpty()){
+        if(buttonList[0].getText().equals(buttonList[4].getText()) && buttonList[0].getText().equals(buttonList[8].getText()) && !(buttonList[0].getText().isEmpty())){
             return true;
-
         }
-        else if(buttonList[2].getText().equals(buttonList[4].getText()) && buttonList[2].getText().equals(buttonList[6].getText()) && !buttonList[2].getText().isEmpty()){
+        if(buttonList[2].getText().equals(buttonList[4].getText()) && buttonList[2].getText().equals(buttonList[6].getText()) && !(buttonList[2].getText().isEmpty())){
             return true;
-
         }
         else{return false;}
     }
@@ -151,7 +147,6 @@ public class GameController{
     private void showCounter(){
         numberOfRounds.setText("Total number of clicks is " + gameData.getCount());
     }
-
 
 }
 

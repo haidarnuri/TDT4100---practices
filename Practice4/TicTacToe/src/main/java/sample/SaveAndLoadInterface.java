@@ -4,5 +4,5 @@ import java.io.IOException;
 
 public interface SaveAndLoadInterface {
     void saveGame(String[] saveObj);
-    String[] loadGame(String[] loadBoard);
+    String[] loadGame(String[] boardToLoad);
 }
