@@ -22,8 +22,7 @@ public class GameData {
         return count;
     }
 
-    public void setCount(int count) {
-        this.count = count;
+    public void increaseCountByOne() {
+        this.count++;
     }
-
 }

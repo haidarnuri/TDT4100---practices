@@ -31,6 +31,7 @@ public class GameController{
 
     //private int counter = 0;
     GameData gameData = new GameData();
+    SaveAndLoadGame saveAndLoadGame = new SaveAndLoadGame();
 
     public GameController() {
     }
@@ -46,7 +47,6 @@ public class GameController{
         buttonList[6] = this.C1;
         buttonList[7] = this.C2;
         buttonList[8] = this.C3;
-
     }
 
     public void initData(String playername) {
@@ -54,12 +54,12 @@ public class GameController{
     }
 
     public void addSignToButton(){
-        for(int i = 0; i<buttonList.length;i++) {
+        for(int i = 0; i<gameData.getBoard().length;i++) {
             int finalI = i;
             buttonList[i].setOnMouseClicked(e -> {
-                gameData.getBoard()[finalI] = changeButtonText(gameData.getBoard(), gameData.getCount(),finalI);
+                gameData.getBoard()[finalI] = changeButtonText(gameData.getBoard(),gameData.getCount(),finalI);
                 updateUI();
-                gameData.count++;
+                gameData.increaseCountByOne();
                 showCounter();
                 if(checkIfWin()){
                     for(int j = 0; j<buttonList.length;j++) {
@@ -85,6 +85,11 @@ public class GameController{
             }
         }
     }
+
+    public void saveGame(ActionEvent event){
+        saveAndLoadGame.saveGame(gameData.getBoard());
+    }
+
 
     public void newGame(ActionEvent event) throws IOException {
         Stage primaryStage = new Stage();

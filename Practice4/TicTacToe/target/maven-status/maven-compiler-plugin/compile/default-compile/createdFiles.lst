@@ -1,7 +1,6 @@
 sample\GameController.class
 Main.class
 sample\SaveAndLoadGame.class
-sample\Human.class
 sample\SaveAndLoadInterface.class
 sample\IntroductionController.class
 sample\GameData.class

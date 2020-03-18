@@ -20,11 +20,6 @@ public class GameDataTest {
         int count = 4;
         String playerToMove = "X";
 
-        GameData game = new GameData(aBoard, count, playerToMove);
-
-        String gameStringToSave = gson.toJson(game);
-        System.out.println(gameStringToSave);
-
 
     }
 
