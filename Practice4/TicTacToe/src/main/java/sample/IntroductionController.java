@@ -18,23 +18,14 @@ public class IntroductionController {
     @FXML public Button newGame;
     @FXML public Button exit;
 
-    @FXML
+    GameScreen gameScreen = new GameScreen();
+
     public void start(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getClassLoader().getResource("GameWindow.fxml"));
-        Parent root = loader.load();
-        GameController display = loader.getController();
-        display.initName(writeName.getText());
-        Stage primaryStage = new Stage();
-        //GameController controller = root.<GameController>getController();
-        //controller.initData(writeName.getText());
-        primaryStage.setTitle("Game!");
-        primaryStage.setScene(new Scene(root));
-        primaryStage.show();
+        gameScreen.openGameScreen(writeName.getText());
     }
 
     @FXML
     public void exitGame(ActionEvent event) {
-        System.exit(0);
+        gameScreen.exitScreen();
     }
 }

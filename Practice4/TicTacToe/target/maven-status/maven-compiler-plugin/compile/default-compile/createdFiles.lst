@@ -1,5 +1,6 @@
 sample\GameController.class
 Main.class
+sample\GameScreen.class
 sample\SaveAndLoadGame.class
 sample\SaveAndLoadInterface.class
 sample\IntroductionController.class

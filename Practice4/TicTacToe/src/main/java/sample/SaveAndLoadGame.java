@@ -7,7 +7,6 @@ import java.util.Scanner;
 
 public class SaveAndLoadGame implements SaveAndLoadInterface{
     String filePath ="Saved Games/test.txt";
-    String stringFromTxtFile;
 
     public SaveAndLoadGame(){}
 
@@ -15,7 +14,6 @@ public class SaveAndLoadGame implements SaveAndLoadInterface{
     public void saveGame(String[] savedObj){
         try{
             PrintWriter saveFile = new PrintWriter(this.filePath);
-
             for(int i=0;i<savedObj.length;i++) {
                     saveFile.println(savedObj[i]);
                 }
@@ -46,8 +44,5 @@ public class SaveAndLoadGame implements SaveAndLoadInterface{
         boardToLoad=loadBoard;
         return boardToLoad;
     }
-
-
-
 }
 

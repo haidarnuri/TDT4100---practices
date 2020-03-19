@@ -10,7 +10,7 @@
     <children>
         <VBox layoutX="4.0" layoutY="4.0" prefHeight="400.0" prefWidth="200.0">
             <children>
-                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="208.0" text="Bondesjakk!" textFill="#6e3fcc" />
+                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="208.0" text="Welcome to TicTacToe!" textFill="#6e3fcc" />
                 <TextField fx:id="writeName" promptText="Write your name" />
                 <Button fx:id="newGame" mnemonicParsing="false" onAction="#start" prefHeight="150.0" prefWidth="200.0" text="Start game" />
                 <Button fx:id="exit" mnemonicParsing="false" onAction="#exitGame" prefHeight="150.0" prefWidth="200.0" text="Exit" />

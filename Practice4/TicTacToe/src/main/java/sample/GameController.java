@@ -2,12 +2,9 @@ package sample;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -32,8 +29,9 @@ public class GameController implements Initializable {
 
     @FXML private Label numberOfRounds;
 
-    GameData gameData = new GameData();
-    SaveAndLoadGame saveAndLoadGame = new SaveAndLoadGame();
+    private GameData gameData = new GameData();
+    private SaveAndLoadGame saveAndLoadGame = new SaveAndLoadGame();
+    private GameScreen gameScreen = new GameScreen();
 
     public GameController() {
     }
@@ -51,8 +49,8 @@ public class GameController implements Initializable {
         buttonList[8] = this.C3;
     }
 
-    public void initName(String nameFromIntroductionView) {
-        showName.setText(nameFromIntroductionView);
+    public void showNameOnScreen(String name) {
+        showName.setText(name);
     }
 
     public void addSignToButton(){
@@ -62,7 +60,7 @@ public class GameController implements Initializable {
                 gameData.getGameDataBoard()[finalI] = changeButtonText(gameData.getGameDataBoard(),gameData.getCount(),finalI);
                 updateGUI();
                 gameData.increaseCountByOne();
-                showCounter();
+                updateCounterOnScreen();
                 if(checkIfWin()){
                     for(int j = 0; j<buttonList.length;j++) {
                         buttonList[j].setOnMouseClicked(null);
@@ -73,44 +71,34 @@ public class GameController implements Initializable {
         }
     }
 
-    private void updateGUI() {
-        for(int i = 0; i < 9; i++ ){
-            String buttonState = gameData.getGameDataBoard()[i];
-            buttonList[i].setText(buttonState);
-        }
-    }
-
     public void saveGame(ActionEvent event){
         saveAndLoadGame.saveGame(gameData.getGameDataBoard());
     }
 
     public void loadGame(ActionEvent event){
         String[] tempLoadBoard = saveAndLoadGame.loadGame(gameData.getGameDataBoard());
-        for(String s: tempLoadBoard) {
-            System.out.println(s);
-        }
         gameData.setGameDataBoard(tempLoadBoard);
+        updateCounterOnScreen();
         updateGUI();
     }
 
     public void newGame(ActionEvent event) throws IOException {
-        Stage primaryStage = new Stage();
-        FXMLLoader root = FXMLLoader.load(getClass().getClassLoader().getResource("../../resources/GameWindow.fxml"));
-        GameController controller = root.<GameController>getController();
-        primaryStage.setTitle("Game!");
-        primaryStage.setScene(new Scene(root.load()));
-        primaryStage.show();
+        gameScreen.openGameScreen(showName.getText());
     }
 
-    public void exitGame(ActionEvent event) throws IOException {
-        System.exit(0);
+    public void exitGame(ActionEvent event){
+        gameScreen.exitScreen();
     }
 
+    //Allt the private methods below
+    private void updateGUI() {
+        for (int i = 0; i < 9; i++) {
+            String buttonState = gameData.getGameDataBoard()[i];
+            buttonList[i].setText(buttonState);
+        }
+    }
     private boolean checkIfWin(){
         //counting all the rows
-        for(Button s:buttonList){
-            System.out.println(s.getText());
-        }
         for(int i = 0; i<8;i = i + 3) {
                 if (buttonList[i].getText().equals(buttonList[i + 1].getText()) && buttonList[i].getText().equals(buttonList[i + 2].getText()) && !(buttonList[i].getText().isEmpty())) {
                     return true;
@@ -145,7 +133,7 @@ public class GameController implements Initializable {
         return board[positionInBoard];
     }
 
-    private void showCounter(){
+    private void updateCounterOnScreen(){
         numberOfRounds.setText("Total number of clicks is " + gameData.getCount());
     }
 }
