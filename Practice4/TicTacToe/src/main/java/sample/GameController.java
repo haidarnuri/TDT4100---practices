@@ -3,14 +3,17 @@ package sample;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class GameController{
+public class GameController implements Initializable {
     @FXML private Button[] buttonList = new Button[9];
     @FXML private Button A1;
     @FXML private Button A2;
@@ -25,7 +28,7 @@ public class GameController{
     @FXML private Button exitGame;
     @FXML private Button newGame;
 
-    @FXML private Label playerName;
+    @FXML private Label showName;
 
     @FXML private Label numberOfRounds;
 
@@ -36,8 +39,8 @@ public class GameController{
     public GameController() {
     }
 
-    @FXML
-    public void initialize(){
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
         buttonList[0] = this.A1;
         buttonList[1] = this.A2;
         buttonList[2] = this.A3;
@@ -49,8 +52,8 @@ public class GameController{
         buttonList[8] = this.C3;
     }
 
-    public void initData(String playername) {
-        playerName.setText(playername);
+    public void initName(String nameFromIntroductionView) {
+        showName.setText(nameFromIntroductionView);
     }
 
     public void addSignToButton(){
@@ -58,7 +61,7 @@ public class GameController{
             int finalI = i;
             buttonList[i].setOnMouseClicked(e -> {
                 gameData.getBoard()[finalI] = changeButtonText(gameData.getBoard(),gameData.getCount(),finalI);
-                updateUI();
+                updateGUI();
                 gameData.increaseCountByOne();
                 showCounter();
                 if(checkIfWin()){
@@ -71,13 +74,13 @@ public class GameController{
         }
     }
 
-    private void updateUI() {
+    private void updateGUI() {
         for(int i = 0; i < 9; i++ ){
             String buttonState = gameData.getBoard()[i];
-            if(buttonState==null ){
+            if(buttonState==null){
                 continue;
             }
-            else{
+            else {
                 buttonList[i].setText(buttonState);
             }
         }
@@ -86,18 +89,17 @@ public class GameController{
     public void saveGame(ActionEvent event){
         saveAndLoadGame.saveGame(gameData.getBoard());
     }
+
     public void loadGame(ActionEvent event){
         String[] tempLoadBoard = saveAndLoadGame.loadGame(gameData.getBoard());
         gameData.setBoard(tempLoadBoard);
-        updateUI();
+        updateGUI();
     }
-
 
     public void newGame(ActionEvent event) throws IOException {
         Stage primaryStage = new Stage();
         FXMLLoader root = FXMLLoader.load(getClass().getClassLoader().getResource("../../resources/GameWindow.fxml"));
         GameController controller = root.<GameController>getController();
-        controller.initData(playerName.getText());
         primaryStage.setTitle("Game!");
         primaryStage.setScene(new Scene(root.load()));
         primaryStage.show();
@@ -131,6 +133,35 @@ public class GameController{
         else{return false;}
     }
 
+    /*
+    private boolean checkIfWin(){
+        //counting all the rows
+        for(int i = 0; i<8;i = i + 3) {
+            if(gameData.getBoard()[i].equals(gameData.getBoard()[i+1]) && gameData.getBoard()[i].equals(gameData.getBoard()[i+2]) && !(gameData.getBoard()[i].equals(null))){
+                return true;
+            }
+        }
+
+        //Counting columns
+        for(int i = 0; i<3;i++) {
+            if(gameData.getBoard()[i].equals(gameData.getBoard()[i+3]) && gameData.getBoard()[i].equals(gameData.getBoard()[i+6]) && !(gameData.getBoard()[i].equals(null))){
+                return true;
+            }
+        }
+
+        //checking one diagonal
+        if(gameData.getBoard()[0].equals(gameData.getBoard()[4]) && gameData.getBoard()[0].equals(gameData.getBoard()[8]) && !(gameData.getBoard()[0].equals(null))){
+            return true;
+        }
+
+        if(gameData.getBoard()[2].equals(gameData.getBoard()[4]) && gameData.getBoard()[2].equals(gameData.getBoard()[6]) && !(gameData.getBoard()[2].equals(null))){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }*/
+
     private String changeButtonText(String[] board, int counter, int positionInBoard){
         String setX = "X";
         String setO = "O";
@@ -143,11 +174,9 @@ public class GameController{
         return board[positionInBoard];
     }
 
-
     private void showCounter(){
         numberOfRounds.setText("Total number of clicks is " + gameData.getCount());
     }
-
 }
 
 

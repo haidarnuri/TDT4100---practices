@@ -14,13 +14,18 @@ import java.io.IOException;
 
 public class IntroductionController {
 
-@FXML public TextField writeName;
-@FXML public Button newGame;
-@FXML public Button exit;
+    @FXML public TextField writeName;
+    @FXML public Button newGame;
+    @FXML public Button exit;
 
+    @FXML
     public void start(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getClassLoader().getResource("GameWindow.fxml"));
+        Parent root = loader.load();
+        GameController display = loader.getController();
+        display.initName(writeName.getText());
         Stage primaryStage = new Stage();
-        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("GameWindow.fxml"));
         //GameController controller = root.<GameController>getController();
         //controller.initData(writeName.getText());
         primaryStage.setTitle("Game!");
@@ -28,6 +33,7 @@ public class IntroductionController {
         primaryStage.show();
     }
 
+    @FXML
     public void exitGame(ActionEvent event) {
         System.exit(0);
     }

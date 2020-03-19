@@ -43,7 +43,6 @@ public class SaveAndLoadGame implements SaveAndLoadInterface{
             System.err.println("Error: file 'test.txt' could not be opened. Does it exist?");
             System.exit(1);
         }
-        //this.filePath ="Saved Games/test1.txt";
         boardToLoad=loadBoard;
         return boardToLoad;
     }
