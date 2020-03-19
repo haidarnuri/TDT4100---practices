@@ -32,7 +32,6 @@ public class GameController implements Initializable {
 
     @FXML private Label numberOfRounds;
 
-    //private int counter = 0;
     GameData gameData = new GameData();
     SaveAndLoadGame saveAndLoadGame = new SaveAndLoadGame();
 
@@ -57,10 +56,10 @@ public class GameController implements Initializable {
     }
 
     public void addSignToButton(){
-        for(int i = 0; i<gameData.getBoard().length;i++) {
+        for(int i = 0; i<gameData.getGameDataBoard().length; i++) {
             int finalI = i;
             buttonList[i].setOnMouseClicked(e -> {
-                gameData.getBoard()[finalI] = changeButtonText(gameData.getBoard(),gameData.getCount(),finalI);
+                gameData.getGameDataBoard()[finalI] = changeButtonText(gameData.getGameDataBoard(),gameData.getCount(),finalI);
                 updateGUI();
                 gameData.increaseCountByOne();
                 showCounter();
@@ -76,23 +75,21 @@ public class GameController implements Initializable {
 
     private void updateGUI() {
         for(int i = 0; i < 9; i++ ){
-            String buttonState = gameData.getBoard()[i];
-            if(buttonState==null){
-                continue;
-            }
-            else {
-                buttonList[i].setText(buttonState);
-            }
+            String buttonState = gameData.getGameDataBoard()[i];
+            buttonList[i].setText(buttonState);
         }
     }
 
     public void saveGame(ActionEvent event){
-        saveAndLoadGame.saveGame(gameData.getBoard());
+        saveAndLoadGame.saveGame(gameData.getGameDataBoard());
     }
 
     public void loadGame(ActionEvent event){
-        String[] tempLoadBoard = saveAndLoadGame.loadGame(gameData.getBoard());
-        gameData.setBoard(tempLoadBoard);
+        String[] tempLoadBoard = saveAndLoadGame.loadGame(gameData.getGameDataBoard());
+        for(String s: tempLoadBoard) {
+            System.out.println(s);
+        }
+        gameData.setGameDataBoard(tempLoadBoard);
         updateGUI();
     }
 
@@ -111,16 +108,19 @@ public class GameController implements Initializable {
 
     private boolean checkIfWin(){
         //counting all the rows
-        for(int i = 0; i<8;i = i + 3) {
-            if(buttonList[i].getText().equals(buttonList[i+1].getText()) && buttonList[i].getText().equals(buttonList[i+2].getText()) && !(buttonList[i].getText().isEmpty())){
-                return true;
-            }
+        for(Button s:buttonList){
+            System.out.println(s.getText());
         }
+        for(int i = 0; i<8;i = i + 3) {
+                if (buttonList[i].getText().equals(buttonList[i + 1].getText()) && buttonList[i].getText().equals(buttonList[i + 2].getText()) && !(buttonList[i].getText().isEmpty())) {
+                    return true;
+                }
+            }
         //Counting columns
         for(int i = 0; i<3;i++) {
-            if(buttonList[i].getText().equals(buttonList[i+3].getText()) && buttonList[i].getText().equals(buttonList[i+6].getText()) && !(buttonList[i].getText().isEmpty())){
-                return true;
-            }
+                if (buttonList[i].getText().equals(buttonList[i + 3].getText()) && buttonList[i].getText().equals(buttonList[i + 6].getText()) && !(buttonList[i].getText().isEmpty())) {
+                    return true;
+                }
         }
 
         //checking one diagonal
@@ -132,35 +132,6 @@ public class GameController implements Initializable {
         }
         else{return false;}
     }
-
-    /*
-    private boolean checkIfWin(){
-        //counting all the rows
-        for(int i = 0; i<8;i = i + 3) {
-            if(gameData.getBoard()[i].equals(gameData.getBoard()[i+1]) && gameData.getBoard()[i].equals(gameData.getBoard()[i+2]) && !(gameData.getBoard()[i].equals(null))){
-                return true;
-            }
-        }
-
-        //Counting columns
-        for(int i = 0; i<3;i++) {
-            if(gameData.getBoard()[i].equals(gameData.getBoard()[i+3]) && gameData.getBoard()[i].equals(gameData.getBoard()[i+6]) && !(gameData.getBoard()[i].equals(null))){
-                return true;
-            }
-        }
-
-        //checking one diagonal
-        if(gameData.getBoard()[0].equals(gameData.getBoard()[4]) && gameData.getBoard()[0].equals(gameData.getBoard()[8]) && !(gameData.getBoard()[0].equals(null))){
-            return true;
-        }
-
-        if(gameData.getBoard()[2].equals(gameData.getBoard()[4]) && gameData.getBoard()[2].equals(gameData.getBoard()[6]) && !(gameData.getBoard()[2].equals(null))){
-            return true;
-        }
-        else{
-            return false;
-        }
-    }*/
 
     private String changeButtonText(String[] board, int counter, int positionInBoard){
         String setX = "X";

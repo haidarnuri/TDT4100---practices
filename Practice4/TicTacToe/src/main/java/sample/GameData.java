@@ -1,24 +1,30 @@
 package sample;
 
 public class GameData {
-    String[] board;
+    String[] gameDataBoard;
     int count;
 
-    public GameData(String[] board, int count) {
-        this.board = board;
+    public GameData(String[] gameDataBoard, int count) {
+        setGameDataBoard(gameDataBoard);
         this.count = count;
     }
 
     public GameData() {
-        board = new String[9];
+        this.gameDataBoard = new String[9];
+        setGameDataBoard(gameDataBoard);
         this.count=0;
     }
 
-    public String[] getBoard() {
-        return board;
+    public String[] getGameDataBoard() {
+        return gameDataBoard;
     }
-    public void setBoard(String[] board) {
-        this.board = board;
+    public void setGameDataBoard(String[] gameDataBoard) {
+        for(int i = 0; i< gameDataBoard.length; i++) {
+            if (gameDataBoard[i] == null) {
+                gameDataBoard[i]="";
+            }
+        }
+        this.gameDataBoard = gameDataBoard;
     }
 
     public int getCount() {

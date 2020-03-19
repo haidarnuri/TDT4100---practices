@@ -23,7 +23,7 @@ public class SaveAndLoadGameTest {
 
     @Test
     public void testingSaveGame_AddingAnObjectInSaveGame_ExpectingSaveGameToSaveInString() throws IOException {
-        saveObject.saveGame(gameDataBoard1.getBoard());
+        saveObject.saveGame(gameDataBoard1.getGameDataBoard());
     }
 
     @Test

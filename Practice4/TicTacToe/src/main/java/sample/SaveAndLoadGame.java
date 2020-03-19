@@ -9,17 +9,16 @@ public class SaveAndLoadGame implements SaveAndLoadInterface{
     String filePath ="Saved Games/test.txt";
     String stringFromTxtFile;
 
-    String[] loadBoard = new String[9];
-
     public SaveAndLoadGame(){}
 
     @Override
     public void saveGame(String[] savedObj){
         try{
             PrintWriter saveFile = new PrintWriter(this.filePath);
+
             for(int i=0;i<savedObj.length;i++) {
                     saveFile.println(savedObj[i]);
-            }
+                }
             saveFile.close();
         }catch (FileNotFoundException e){
             System.err.println("File 'test.txt' could not be opened for writing");
@@ -28,13 +27,14 @@ public class SaveAndLoadGame implements SaveAndLoadInterface{
 
     @Override
     public String[] loadGame(String[] boardToLoad) {
+        String[] loadBoard = new String[9];
         Scanner in;
         int i =0;
         try {
             FileReader filePathLoad = new FileReader(this.filePath);
             in = new Scanner(filePathLoad);
             while (in.hasNext()) {
-                    this.loadBoard[i] = in.nextLine();
+                    loadBoard[i] = in.nextLine();
                     i++;
             }
             in.close();
