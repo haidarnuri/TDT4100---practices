@@ -3,11 +3,6 @@ package patterns.delegation.office;
 import java.util.Collection;
 import java.util.function.BinaryOperator;
 import junit.framework.TestCase;
-import no.hal.jex.runtime.JExercise;
-import patterns.delegation.office.Clerk;
-import patterns.delegation.office.Printer;
-
-import org.eclipse.xtext.xbase.lib.Conversions;
 
 import org.junit.Test;
 @SuppressWarnings("all")

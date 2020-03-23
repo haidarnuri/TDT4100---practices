@@ -6,14 +6,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.function.BinaryOperator;
 import junit.framework.TestCase;
-import no.hal.jex.runtime.JExercise;
-import patterns.delegation.office.Clerk;
-import patterns.delegation.office.Employee;
-import patterns.delegation.office.Manager;
-import patterns.delegation.office.Printer;
-
-import org.eclipse.xtext.xbase.lib.Conversions;
-
 import org.junit.Test;
 
 @SuppressWarnings("all")

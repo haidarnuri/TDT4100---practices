@@ -2,19 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f06b79a2-975f-4e6d-bc73-699727a40df2" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/patterns/delegation/office/Clerk.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/patterns/delegation/office/Employee.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/patterns/delegation/office/Printer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/patterns/delegation/DistributingLogger.jextest" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/patterns/delegation/DistributingLoggerTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/patterns/delegation/FilteringLogger.jextest" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/patterns/delegation/FilteringLoggerTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/patterns/delegation/Logger.ex" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/patterns/delegation/StreamLogger.jextest" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/patterns/delegation/StreamLoggerTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/patterns/delegation/office/Clerk.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/patterns/delegation/office/Clerk.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/patterns/delegation/office/Printer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/patterns/delegation/office/Printer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/patterns/delegation/office/ClerkTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/patterns/delegation/office/ClerkTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/patterns/delegation/office/ManagerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/patterns/delegation/office/ManagerTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,6 +50,28 @@
       <recent name="patterns.delegation.office" />
     </key>
   </component>
+  <component name="RunManager">
+    <configuration name="PrinterTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Practice8" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="patterns.delegation.office.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="patterns.delegation.office" />
+      <option name="MAIN_CLASS_NAME" value="patterns.delegation.office.PrinterTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.PrinterTest" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -72,10 +86,10 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state x="285" y="234" key="#com.intellij.ide.util.MemberChooser" timestamp="1584944441297">
+    <state x="285" y="234" key="#com.intellij.ide.util.MemberChooser" timestamp="1584972671846">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="285" y="234" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1584944441297" />
+    <state x="285" y="234" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1584972671846" />
     <state x="328" y="413" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog" timestamp="1584944232330">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
