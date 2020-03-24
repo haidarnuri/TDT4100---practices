@@ -6,18 +6,26 @@ import java.util.List;
 import java.util.Map;
 
 public class Printer{
-    private Map<Employee,List<String>> employeeHistory = new HashMap<>();
-   // List<String> employeeHistory = new ArrayList<>(){};
+    private Map<Employee,List<String>> employeeHistory;
+    List<String> documentHistory;
 
+    Printer(){
+    	employeeHistory = new HashMap<>();
+    	documentHistory = new ArrayList<>();
+    }
 
     public void printDocument(String document, Employee employee){
-        System.out.println(document);
-        employeeHistory.put(employee,);
-
+        if(!documentHistory.contains(document) && !document.isEmpty()) {
+        	documentHistory.add(document);
+        }
+        	employeeHistory.put(employee,documentHistory);
     }
 
     public List<String> getPrintHistory(Employee employee){
-        return employeeHistory;
+    	if(documentHistory.isEmpty()) {
+    		return documentHistory;
+    	}
+        return employeeHistory.get(employee);   
     }
 
 

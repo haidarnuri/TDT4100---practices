@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f06b79a2-975f-4e6d-bc73-699727a40df2" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/patterns/delegation/office/Manager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Practice4/TicTacToe/Saved Games/test.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../Practice4/TicTacToe/Saved Games/test.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Practice4/TicTacToe/src/main/java/sample/SaveAndLoadGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Practice4/TicTacToe/src/main/java/sample/SaveAndLoadGame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Practice4/TicTacToe/target/classes/sample/GameController.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Practice4/TicTacToe/target/classes/sample/GameController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Practice4/TicTacToe/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/../Practice4/TicTacToe/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Practice4/TicTacToe/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/../Practice4/TicTacToe/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+    <list default="true" id="b2a5b5fc-faf2-4e39-87cb-b8e5bb2309a1" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/patterns/delegation/office/Clerk.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/patterns/delegation/office/Clerk.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/patterns/delegation/office/Manager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/patterns/delegation/office/Manager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/patterns/delegation/office/Printer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/patterns/delegation/office/Printer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/patterns/delegation/office/PrinterTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/patterns/delegation/office/PrinterTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/patterns/delegation/office/Clerk.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/patterns/delegation/office/Clerk.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/patterns/delegation/office/Printer$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/patterns/delegation/office/Printer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/patterns/delegation/office/Printer.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,7 +53,22 @@
       <recent name="patterns.delegation.office" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="JUnit.ClerkTest">
+    <configuration name="ClerkTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Practice8" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="patterns.delegation.office.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="patterns.delegation.office" />
+      <option name="MAIN_CLASS_NAME" value="patterns.delegation.office.ClerkTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="PrinterTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Practice8" />
       <extension name="coverage">
@@ -73,6 +86,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.ClerkTest" />
         <item itemvalue="JUnit.PrinterTest" />
       </list>
     </recent_temporary>
@@ -103,5 +117,21 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="276" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1585034288852" />
+    <state width="1877" height="282" key="GridCell.Tab.0.bottom" timestamp="1585051098618">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="282" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1585051098618" />
+    <state width="1877" height="282" key="GridCell.Tab.0.center" timestamp="1585051098618">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="282" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1585051098618" />
+    <state width="1877" height="282" key="GridCell.Tab.0.left" timestamp="1585051098618">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="282" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1585051098618" />
+    <state width="1877" height="282" key="GridCell.Tab.0.right" timestamp="1585051098618">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="282" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1585051098618" />
   </component>
 </project>

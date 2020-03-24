@@ -2,7 +2,6 @@ package patterns.delegation.office;
 
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 import java.util.function.BinaryOperator;
 
 public class Manager implements Employee {
@@ -14,7 +13,7 @@ public class Manager implements Employee {
 
     @Override
     public double doCalculations(BinaryOperator<Double> operation, double value1, double value2) {
-
+        return 1;
     }
 
     @Override
