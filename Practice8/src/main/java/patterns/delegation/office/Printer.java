@@ -22,9 +22,10 @@ public class Printer{
     }
 
     public List<String> getPrintHistory(Employee employee){
-    	if(documentHistory.isEmpty()) {
-    		return documentHistory;
-    	}
+    	if(employeeHistory.get(employee)==null){
+    	    documentHistory.clear();
+    	    return documentHistory;
+        }
         return employeeHistory.get(employee);   
     }
 

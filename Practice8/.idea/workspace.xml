@@ -2,14 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b2a5b5fc-faf2-4e39-87cb-b8e5bb2309a1" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/patterns/delegation/office/Clerk.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/patterns/delegation/office/Clerk.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/patterns/delegation/office/Manager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/patterns/delegation/office/Manager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/patterns/delegation/office/Printer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/patterns/delegation/office/Printer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/patterns/delegation/office/Clerk.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/patterns/delegation/office/Clerk.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/patterns/delegation/office/Printer$1.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/patterns/delegation/office/Printer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/patterns/delegation/office/Printer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/META-INF/Practice8.kotlin_module" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,7 +51,7 @@
       <recent name="patterns.delegation.office" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.ClerkTest">
+  <component name="RunManager" selected="JUnit.PrinterTest">
     <configuration name="ClerkTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Practice8" />
       <extension name="coverage">
@@ -86,8 +84,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.ClerkTest" />
         <item itemvalue="JUnit.PrinterTest" />
+        <item itemvalue="JUnit.ClerkTest" />
       </list>
     </recent_temporary>
   </component>
@@ -96,7 +94,7 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="f06b79a2-975f-4e6d-bc73-699727a40df2" name="Default Changelist" comment="" />
+      <changelist id="b2a5b5fc-faf2-4e39-87cb-b8e5bb2309a1" name="Default Changelist" comment="" />
       <created>1584904094519</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -117,21 +115,55 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="276" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1585034288852" />
-    <state width="1877" height="282" key="GridCell.Tab.0.bottom" timestamp="1585051098618">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1320" height="175" key="GridCell.Tab.0.bottom" timestamp="1585061741691">
+      <screen x="0" y="27" width="1366" height="741" />
     </state>
     <state width="1877" height="282" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1585051098618" />
-    <state width="1877" height="282" key="GridCell.Tab.0.center" timestamp="1585051098618">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1320" height="175" key="GridCell.Tab.0.bottom/0.27.1366.741@0.27.1366.741" timestamp="1585061741691" />
+    <state width="1320" height="175" key="GridCell.Tab.0.center" timestamp="1585061741688">
+      <screen x="0" y="27" width="1366" height="741" />
     </state>
     <state width="1877" height="282" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1585051098618" />
-    <state width="1877" height="282" key="GridCell.Tab.0.left" timestamp="1585051098618">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1320" height="175" key="GridCell.Tab.0.center/0.27.1366.741@0.27.1366.741" timestamp="1585061741688" />
+    <state width="1320" height="175" key="GridCell.Tab.0.left" timestamp="1585061741687">
+      <screen x="0" y="27" width="1366" height="741" />
     </state>
     <state width="1877" height="282" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1585051098618" />
-    <state width="1877" height="282" key="GridCell.Tab.0.right" timestamp="1585051098618">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1320" height="175" key="GridCell.Tab.0.left/0.27.1366.741@0.27.1366.741" timestamp="1585061741687" />
+    <state width="1320" height="175" key="GridCell.Tab.0.right" timestamp="1585061741690">
+      <screen x="0" y="27" width="1366" height="741" />
     </state>
     <state width="1877" height="282" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1585051098618" />
+    <state width="1320" height="175" key="GridCell.Tab.0.right/0.27.1366.741@0.27.1366.741" timestamp="1585061741690" />
+    <state width="1320" height="133" key="GridCell.Tab.1.bottom" timestamp="1585061498760">
+      <screen x="0" y="27" width="1366" height="741" />
+    </state>
+    <state width="1320" height="133" key="GridCell.Tab.1.bottom/0.27.1366.741@0.27.1366.741" timestamp="1585061498760" />
+    <state width="1320" height="133" key="GridCell.Tab.1.center" timestamp="1585061498760">
+      <screen x="0" y="27" width="1366" height="741" />
+    </state>
+    <state width="1320" height="133" key="GridCell.Tab.1.center/0.27.1366.741@0.27.1366.741" timestamp="1585061498760" />
+    <state width="1320" height="133" key="GridCell.Tab.1.left" timestamp="1585061498759">
+      <screen x="0" y="27" width="1366" height="741" />
+    </state>
+    <state width="1320" height="133" key="GridCell.Tab.1.left/0.27.1366.741@0.27.1366.741" timestamp="1585061498759" />
+    <state width="1320" height="133" key="GridCell.Tab.1.right" timestamp="1585061498760">
+      <screen x="0" y="27" width="1366" height="741" />
+    </state>
+    <state width="1320" height="133" key="GridCell.Tab.1.right/0.27.1366.741@0.27.1366.741" timestamp="1585061498760" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/test/java/patterns/delegation/office/PrinterTest.java</url>
+          <line>168</line>
+          <properties class="patterns.delegation.office.PrinterTest" method="_test__printMulipleClerks_transitions1_effect_state_objectTests0_test">
+            <option name="EMULATED" value="true" />
+          </properties>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
