@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.function.BinaryOperator;
 import junit.framework.TestCase;
 
+import org.eclipse.xtext.xbase.lib.Conversions;
 import org.junit.Test;
 @SuppressWarnings("all")
 public class ClerkTest extends TestCase {
@@ -161,7 +162,7 @@ public class ClerkTest extends TestCase {
   private void _test__printDocuments_transitions1_effect_state_objectTests0_test() {
     
     Collection<String> _printHistory = this.printer.getPrintHistory(this.clerk);
-    String _get = ((String[])Conversions.unwrapArray(_printHistory, String.class))[0];
+    String _get = ((String[]) Conversions.unwrapArray(_printHistory, String.class))[0];
     assertEquals("printer.getPrintHistory(clerk).get(0) == \"dokument1\" failed after clerk.printDocument(\"dokument1\")", "dokument1", _get);
     
     int _taskCount = this.clerk.getTaskCount();
@@ -272,7 +273,6 @@ public class ClerkTest extends TestCase {
   private void _test__resourceCount_transitions0_effect_state_objectTests0_test() {
     
     int _resourceCount = this.clerk.getResourceCount();
-    assertEqual("clerk.resourceCount == 1 failed", 1, _resourceCount);
-    
+    assertEquals("clerk.resourceCount == 1 failed", 1, _resourceCount);
   }
 }

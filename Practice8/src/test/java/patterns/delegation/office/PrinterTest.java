@@ -2,6 +2,9 @@ package patterns.delegation.office;
 
 import java.util.Collection;
 import junit.framework.TestCase;
+
+import org.eclipse.xtext.xbase.lib.Conversions;
+
 import org.junit.Test;
 @SuppressWarnings("all")
 public class PrinterTest extends TestCase {
@@ -125,7 +128,9 @@ public class PrinterTest extends TestCase {
     int _size = _printHistory.size();
     assertEquals("printer.getPrintHistory(clerk1).size == 2 failed after printer.printDocument(\"dokument2\", clerk1)", 2, _size);
     
-
+    Collection<String> _printHistory_1 = this.printer.getPrintHistory(this.clerk1);
+    String _get = ((String[])Conversions.unwrapArray(_printHistory_1, String.class))[1];
+    assertEquals("printer.getPrintHistory(clerk1).get(1) == \"dokument2\" failed after printer.printDocument(\"dokument2\", clerk1)", "dokument2", _get);
     
   }
   
