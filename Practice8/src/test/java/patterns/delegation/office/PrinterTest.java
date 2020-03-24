@@ -2,9 +2,6 @@ package patterns.delegation.office;
 
 import java.util.Collection;
 import junit.framework.TestCase;
-import no.hal.jex.runtime.JExercise;
-import patterns.delegation.office.Clerk;
-import patterns.delegation.office.Printer;
 
 import org.eclipse.xtext.xbase.lib.Conversions;
 
