@@ -15,8 +15,8 @@ public class SaveAndLoadGame implements SaveAndLoadInterface{
         try{
             PrintWriter saveFile = new PrintWriter(this.filePath);
             for(int i=0;i<savedObj.length;i++) {
-                    saveFile.println(savedObj[i]);
-                }
+                saveFile.println(savedObj[i]);
+            }
             saveFile.close();
         }catch (FileNotFoundException e){
             System.err.println("File 'test.txt' could not be opened for writing");

@@ -12,6 +12,7 @@ public class Clerk implements Employee{
 
     @Override
     public double doCalculations(BinaryOperator<Double> operation, double value1, double value2) {
+        operation.apply()
         this.taskCount++;
         return 0;
     }
