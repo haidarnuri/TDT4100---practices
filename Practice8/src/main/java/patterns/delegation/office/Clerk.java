@@ -33,6 +33,10 @@ public class Clerk implements Employee{
         return this.calculationTaskCount+this.printerTaskCount;
     }
 
+    public void increaseTaskCount(){
+        this.printerTaskCount++;
+    }
+
     @Override
     public int getResourceCount() {
         return 1;
