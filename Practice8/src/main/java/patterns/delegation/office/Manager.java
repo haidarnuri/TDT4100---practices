@@ -2,12 +2,14 @@ package patterns.delegation.office;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.function.BinaryOperator;
 
 public class Manager implements Employee {
     private Collection<Employee> employeesList = new ArrayList<>();
     private int taskCount = 0;
+    private int resourceCount = 0;
+
+    int leastAmountOfTaskCountOfEmployee = 0;
 
 
     Manager(Collection<Employee> employees){
@@ -16,13 +18,28 @@ public class Manager implements Employee {
 
     @Override
     public double doCalculations(BinaryOperator<Double> operation, double value1, double value2) {
+        leastAmountOfTaskCountOfEmployee=findEmployeeWithLeastTaskCount(getEmployeesList());
+        double calculations = 0;
+        for(Employee employee:employeesList){
+            if(employee.getTaskCount()==leastAmountOfTaskCountOfEmployee) {
+                calculations = employee.doCalculations(operation, value1, value2);
+                break;
+            }
+        }
         this.taskCount++;
-        return 1;
+        return calculations;
     }
 
     @Override
     public void printDocument(String document) {
-        this.taskCount++;
+        leastAmountOfTaskCountOfEmployee=findEmployeeWithLeastTaskCount(getEmployeesList());
+        for(Employee employee:employeesList) {
+            if (employee.getTaskCount() == leastAmountOfTaskCountOfEmployee) {
+                employee.printDocument(document);
+                this.taskCount++;
+                break;
+            }
+        }
     }
 
     @Override
@@ -33,7 +50,10 @@ public class Manager implements Employee {
     //Hvorfor legger man til 1??
     @Override
     public int getResourceCount() {
-        return getEmployeesList().size() + 1;
+        for (Employee employee: employeesList){
+            this.resourceCount += employee.getResourceCount();
+        }
+        return this.resourceCount+1;
     }
 
     private void setEmployeesList(Collection<Employee> employees){
@@ -43,9 +63,33 @@ public class Manager implements Employee {
         this.employeesList = employees;
     }
 
-    private Collection<Employee> getEmployeesList(){
+    public Collection<Employee> getEmployeesList(){
         return this.employeesList;
     }
 
+    public int findEmployeeWithLeastTaskCount(Collection<Employee> employeesList){
+        Employee currentEmployee;
+        int tempTaskCount=0;
+
+        for(Employee employee: employeesList){
+            currentEmployee = employee;
+            tempTaskCount = currentEmployee.getTaskCount();
+            break;
+        }
+
+        for(Employee employee: employeesList) {
+            if(employee.getTaskCount()<tempTaskCount){
+                tempTaskCount=employee.getTaskCount();
+            }
+        }
+
+        /*while(employeesList.iterator().hasNext()){
+            if(employeesList.iterator().next().getTaskCount()<leastAmountOfTaskCount){
+                leastAmountOfTaskCount = employeesList.iterator().next().getTaskCount();
+            }
+            }*/
+        this.leastAmountOfTaskCountOfEmployee=tempTaskCount;
+        return this.leastAmountOfTaskCountOfEmployee;
+    }
 
 }
