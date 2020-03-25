@@ -1,13 +1,13 @@
 package inheritance;
 
-import inheritance.BSU;
 import junit.framework.TestCase;
 import no.hal.jex.jextest.extensions.JextestExtensions;
-import no.hal.jex.runtime.JExercise;
 
-@JExercise(description = "Tests inheritance.BSU")
+import org.junit.Test;
 @SuppressWarnings("all")
-public class BSUTest extends TestCase {
+
+public class
+BSUTest extends TestCase {
   private BSU bsu;
   
   private BSU _init_bsu() {
@@ -18,10 +18,9 @@ public class BSUTest extends TestCase {
   @Override
   protected void setUp() {
     bsu = _init_bsu();
-    
   }
-  
-  @JExercise(tests = "BSU(double,double);void deposit(double);void endYearUpdate()", description = "Tests \n\t\tthe following sequence:\n\t\t<ul>\n\t\t<li>bsu.deposit(10000.0)</li>\n\t\t<li>bsu.deposit(-10000.0)</li>\n\t\t<li>bsu.deposit(20000.0)</li>\n\t\t<li>bsu.endYearUpdate(), bsu.deposit(20000.0)</li>\n\t\t</ul>\n")
+
+  @Test
   public void testDeposit() {
     _transition_exprAction__deposit_transitions0_actions0(bsu);
     _test__deposit_transitions0_effects0_state(bsu);
@@ -44,8 +43,8 @@ public class BSUTest extends TestCase {
     _test__deposit_transitions5_effects0_state(bsu);
     
   }
-  
-  @JExercise(tests = "BSU(double,double);void deposit(double);void withdraw(double);void endYearUpdate()", description = "Tests \n\t\tthe following sequence:\n\t\t<ul>\n\t\t<li>bsu.deposit(20000.0), bsu.withdraw(5000.0)</li>\n\t\t<li>bsu.withdraw(-10000.0)</li>\n\t\t<li>bsu.withdraw(20000.0)</li>\n\t\t<li>bsu.endYearUpdate(), bsu.withdraw(10000.0)</li>\n\t\t</ul>\n")
+
+  @Test
   public void testWithdraw() {
     _transition_exprAction__withdraw_transitions0_actions0(bsu);
     _transition_exprAction__withdraw_transitions0_actions1(bsu);
@@ -74,8 +73,8 @@ public class BSUTest extends TestCase {
     _test__withdraw_transitions6_effects0_state(bsu);
     
   }
-  
-  @JExercise(tests = "BSU(double,double);void deposit(double);void endYearUpdate()", description = "Tests \n\t\tthe following sequence:\n\t\t<ul>\n\t\t<li>bsu.deposit(20000.0)</li>\n\t\t<li>bsu.endYearUpdate, bsu.deposit(10000.0)</li>\n\t\t<li>bsu.endYearUpdate</li>\n\t\t</ul>\n")
+
+  @Test
   public void testGetTaxDeduction() {
     _transition_exprAction__getTaxDeduction_transitions0_actions0(bsu);
     _test__getTaxDeduction_transitions0_effects0_state(bsu);

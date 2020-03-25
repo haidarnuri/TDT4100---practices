@@ -1,10 +1,8 @@
 package inheritance;
 
-import inheritance.DebitAccount;
 import junit.framework.TestCase;
-import no.hal.jex.runtime.JExercise;
 
-@JExercise(description = "Tests inheritance.DebitAccount")
+import org.junit.Test;
 @SuppressWarnings("all")
 public class DebitAccountTest extends TestCase {
   private DebitAccount sub;
@@ -19,8 +17,8 @@ public class DebitAccountTest extends TestCase {
     sub = _init_sub();
     
   }
-  
-  @JExercise(tests = "DebitAccount()", description = "<h3>Setter inn midler</h3>Tests \n\t\tthe following sequence:\n\t\t<ul>\n\t\t<li>Penger settes inn: deposit(10000.0)</li>\n\t\t<li>Tester negativt bel\u00F8p: deposit(-10000.0)</li>\n\t\t</ul>\n")
+
+  @Test
   public void testDeposit() {
     _test__deposit_transitions0_source_state(sub);
     _transition_exprAction__deposit_transitions0_actions0(sub);
@@ -34,8 +32,8 @@ public class DebitAccountTest extends TestCase {
     _test__deposit_transitions2_effects0_state(sub);
     
   }
-  
-  @JExercise(tests = "DebitAccount()", description = "Tests \n\t\tthe following sequence:\n\t\t<ul>\n\t\t<li>Setter inn og tar ut: deposit(20000.0), withdraw(5000.0)</li>\n\t\t<li>Tester negativt bel\u00F8p: withdraw(-10000.0)</li>\n\t\t<li>Tester for stort bel\u00F8p: withdraw(20000.0)</li>\n\t\t</ul>\n")
+
+  @Test
   public void testWithdraw() {
     _transition_exprAction__withdraw_transitions0_actions0(sub);
     _transition_exprAction__withdraw_transitions0_actions1(sub);
