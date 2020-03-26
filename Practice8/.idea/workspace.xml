@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b2a5b5fc-faf2-4e39-87cb-b8e5bb2309a1" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../Innlevering/Innlevering - øving 8/svar teori-  øving 8.doc" beforeDir="false" afterPath="$PROJECT_DIR$/../Innlevering/Innlevering - øving 8/svar teori-  øving 8.doc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Innlevering/Innlevering - øving 8/~$ar teori-  øving 8.doc" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/patterns/delegation/office/Clerk.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/patterns/delegation/office/Clerk.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,7 +47,7 @@
       <recent name="patterns.delegation.office" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.main">
+  <component name="RunManager" selected="JUnit.ClerkTest">
     <configuration name="main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="patterns.delegation.office.main" />
       <module name="Practice8" />
@@ -58,6 +57,21 @@
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ClerkTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Practice8" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="patterns.delegation.office.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="patterns.delegation.office" />
+      <option name="MAIN_CLASS_NAME" value="patterns.delegation.office.ClerkTest" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -73,37 +87,6 @@
       <option name="PACKAGE_NAME" value="patterns.delegation.office" />
       <option name="MAIN_CLASS_NAME" value="patterns.delegation.office.ManagerTest" />
       <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ManagerTest2" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Practice8" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="patterns.delegation.office.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="patterns.delegation.office" />
-      <option name="MAIN_CLASS_NAME" value="patterns.delegation.office.ManagerTest2" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ManagerTest2.testingFindEmployeeWithLeastWork_insertingTwoDifferentClerksWithDifferentAmountWork_gettingClerkWithLeastAmountOfTask" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Practice8" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="patterns.delegation.office.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="patterns.delegation.office" />
-      <option name="MAIN_CLASS_NAME" value="patterns.delegation.office.ManagerTest2" />
-      <option name="METHOD_NAME" value="testingFindEmployeeWithLeastWork_insertingTwoDifferentClerksWithDifferentAmountWork_gettingClerkWithLeastAmountOfTask" />
-      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -124,13 +107,28 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="PrinterTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Practice8" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="patterns.delegation.office.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="patterns.delegation.office" />
+      <option name="MAIN_CLASS_NAME" value="patterns.delegation.office.PrinterTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.main" />
+        <item itemvalue="JUnit.ClerkTest" />
         <item itemvalue="JUnit.ManagerTest" />
+        <item itemvalue="JUnit.PrinterTest" />
+        <item itemvalue="Application.main" />
         <item itemvalue="JUnit.ManagerTest.testResourceCount" />
-        <item itemvalue="JUnit.ManagerTest2.testingFindEmployeeWithLeastWork_insertingTwoDifferentClerksWithDifferentAmountWork_gettingClerkWithLeastAmountOfTask" />
-        <item itemvalue="JUnit.ManagerTest2" />
       </list>
     </recent_temporary>
   </component>
@@ -156,29 +154,29 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="328" y="413" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1584944232330" />
-    <state x="740" y="276" key="FileChooserDialogImpl" timestamp="1585034288852">
+    <state x="740" y="276" key="FileChooserDialogImpl" timestamp="1585206445282">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="740" y="276" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1585034288852" />
-    <state width="1877" height="273" key="GridCell.Tab.0.bottom" timestamp="1585134838460">
+    <state x="740" y="276" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1585206445282" />
+    <state width="1877" height="195" key="GridCell.Tab.0.bottom" timestamp="1585225738224">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="273" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1585134838460" />
+    <state width="1877" height="195" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1585225738224" />
     <state width="1320" height="133" key="GridCell.Tab.0.bottom/0.27.1366.741@0.27.1366.741" timestamp="1585066165408" />
-    <state width="1877" height="273" key="GridCell.Tab.0.center" timestamp="1585134838460">
+    <state width="1877" height="195" key="GridCell.Tab.0.center" timestamp="1585225738224">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="273" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1585134838460" />
+    <state width="1877" height="195" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1585225738224" />
     <state width="1320" height="133" key="GridCell.Tab.0.center/0.27.1366.741@0.27.1366.741" timestamp="1585066165408" />
-    <state width="1877" height="273" key="GridCell.Tab.0.left" timestamp="1585134838459">
+    <state width="1877" height="195" key="GridCell.Tab.0.left" timestamp="1585225738224">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="273" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1585134838459" />
+    <state width="1877" height="195" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1585225738224" />
     <state width="1320" height="133" key="GridCell.Tab.0.left/0.27.1366.741@0.27.1366.741" timestamp="1585066165407" />
-    <state width="1877" height="273" key="GridCell.Tab.0.right" timestamp="1585134838460">
+    <state width="1877" height="195" key="GridCell.Tab.0.right" timestamp="1585225738224">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="273" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1585134838460" />
+    <state width="1877" height="195" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1585225738224" />
     <state width="1320" height="133" key="GridCell.Tab.0.right/0.27.1366.741@0.27.1366.741" timestamp="1585066165408" />
     <state width="1877" height="273" key="GridCell.Tab.1.bottom" timestamp="1585134838460">
       <screen x="0" y="0" width="1920" height="1040" />
@@ -208,6 +206,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="225" y="223" key="new project wizard/0.0.1920.1040@0.0.1920.1040" timestamp="1585140465085" />
+    <state x="143" y="230" width="672" height="678" key="search.everywhere.popup" timestamp="1585148025354">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="143" y="230" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1585148025354" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
