@@ -1,7 +1,6 @@
 package inheritance;
 
 import junit.framework.TestCase;
-import no.hal.jex.jextest.extensions.JextestExtensions;
 
 import org.junit.Test;
 @SuppressWarnings("all")

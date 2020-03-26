@@ -1,10 +1,8 @@
 package inheritance;
 
-import inheritance.SavingsAccount;
 import junit.framework.TestCase;
-import no.hal.jex.runtime.JExercise;
 
-@JExercise(description = "Tests inheritance.SavingsAccount")
+import org.junit.Test;
 @SuppressWarnings("all")
 public class SavingsAccountTest extends TestCase {
   private SavingsAccount savingsAccount;
@@ -28,23 +26,23 @@ public class SavingsAccountTest extends TestCase {
     }
     return _xblockexpression;
   }
-  
-  @JExercise(tests = "SavingsAccount(double);void deposit(double)", description = "Tests \n\t\tthe following sequence:\n\t\t<ul>\n\t\t<li>savingsAccount.deposit(100.0)</li>\n\t\t</ul>\n")
+
+  @Test
   public void testBalanceField() {
     _transition_exprAction__balanceField_transitions0_actions0(savingsAccount);
     _test__balanceField_transitions0_effects0_state(savingsAccount);
     
   }
-  
-  @JExercise(tests = "SavingsAccount(double);void deposit(double);void withdraw(double)", description = "Tests \n\t\tthe following sequence:\n\t\t<ul>\n\t\t<li>savingsAccount.deposit(100.0), savingsAccount.withdraw(40.0)</li>\n\t\t</ul>\n")
+
+  @Test
   public void testDepositAndWithdraw() {
     _transition_exprAction__depositAndWithdraw_transitions0_actions0(savingsAccount);
     _transition_exprAction__depositAndWithdraw_transitions0_actions1(savingsAccount);
     _test__depositAndWithdraw_transitions0_effects0_state(savingsAccount);
     
   }
-  
-  @JExercise(tests = "SavingsAccount(double);void deposit(double);void withdraw(double)", description = "Tests \n\t\tthe following sequence:\n\t\t<ul>\n\t\t<li>savingsAccount.deposit(10.0), savingsAccount.deposit(-100.0)</li>\n\t\t<li>savingsAccount.deposit(10.0), savingsAccount.withdraw(-100.0)</li>\n\t\t<li>savingsAccount.deposit(10.0), savingsAccount.withdraw(40.0)</li>\n\t\t</ul>\n")
+
+  @Test
   public void testDepositAndWithdrawIllegalStateOrInput() {
     try {
       _transition_exprAction__depositAndWithdrawIllegalStateOrInput_transitions0_actions0(savingsAccount);
@@ -72,8 +70,8 @@ public class SavingsAccountTest extends TestCase {
     _test__depositAndWithdrawIllegalStateOrInput_transitions5_effects0_state(savingsAccount);
     
   }
-  
-  @JExercise(tests = "SavingsAccount(double);void deposit(double);void endYearUpdate()", description = "Tests \n\t\tthe following sequence:\n\t\t<ul>\n\t\t<li>savingsAccount.deposit(100.0), savingsAccount.endYearUpdate()</li>\n\t\t</ul>\n")
+
+  @Test
   public void testEndYearUpdate() {
     _transition_exprAction__endYearUpdate_transitions0_actions0(savingsAccount);
     _transition_exprAction__endYearUpdate_transitions0_actions1(savingsAccount);
