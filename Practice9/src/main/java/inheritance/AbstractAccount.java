@@ -7,18 +7,26 @@ public abstract class AbstractAccount {
         this.balance=0;
     }
 
-    public void deposit(double temp){
 
+    public void deposit(double amount) {
+        if(amount <= 0){
+            throw new IllegalArgumentException("The amount you deposit must be positive.");
+        }
+        this.balance+=amount;
     }
 
-    public void withdraw(double temp){
-
+    public void withdraw(double amount){
+        if(amount<0){
+            throw new IllegalArgumentException("Can not withdraw a negative value");
+        }
+        internalWithdraw(amount);
+        this.balance-=amount;
     }
 
-    abstract void internalWithdraw(double temp);
+    abstract void internalWithdraw(double amount);
 
     public double getBalance(){
-        return 0;
+        return this.balance;
     }
 
 }

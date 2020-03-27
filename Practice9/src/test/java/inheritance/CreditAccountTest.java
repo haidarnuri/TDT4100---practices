@@ -322,6 +322,5 @@ public class CreditAccountTest extends TestCase {
     
     double _creditLine = it.getCreditLine();
     assertEquals("getCreditLine() == 5000.0 failed", 5000.0, _creditLine);
-    
   }
 }
