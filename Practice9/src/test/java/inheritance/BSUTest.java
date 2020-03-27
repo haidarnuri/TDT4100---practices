@@ -163,12 +163,10 @@ BSUTest extends TestCase {
   
   private void _transition_exprAction__deposit_transitions5_actions1(final BSU it) {
     try {
-      
       this.bsu.deposit(20000.0);
       } catch (junit.framework.AssertionFailedError error) {
       fail("bsu.deposit(20000.0) failed: " + error.getMessage());
     }
-    
   }
   
   private void _test__deposit_transitions5_effects0_state(final BSU it) {
