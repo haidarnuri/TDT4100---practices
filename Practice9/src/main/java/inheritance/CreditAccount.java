@@ -2,8 +2,6 @@ package inheritance;
 
 public class CreditAccount extends AbstractAccount {
     private double creditLine=0;
-    private double amountAfterBalance = 0;
-    private double remainingCredit;
 
     CreditAccount(double creditLine){
         super();
@@ -14,7 +12,7 @@ public class CreditAccount extends AbstractAccount {
     @Override
     void internalWithdraw(double amount) {
         if(this.balance-amount<-getCreditLine()){
-            throw new IllegalStateException("");
+            throw new IllegalStateException("This amount is larger than the Credit Line allows");
         }
     }
     public double getCreditLine() {
@@ -22,13 +20,11 @@ public class CreditAccount extends AbstractAccount {
     }
 
     public void setCreditLine(double creditLine) {
-        System.out.println(creditLine);
-        System.out.println(getBalance());
         if(creditLine<0){
             throw new IllegalArgumentException("Credit line has do be positive");
         }
         if(this.balance+creditLine<0){
-            throw new IllegalStateException("ddd");
+            throw new IllegalStateException("You have to have a larger Credit Line than the balance");
         }
         this.creditLine=creditLine;
     }
