@@ -7,31 +7,29 @@ public class CreditAccount extends AbstractAccount {
 
     CreditAccount(double creditLine){
         super();
-        this.remainingCredit=creditLine;
         setCreditLine(creditLine);
     }
 
+
     @Override
     void internalWithdraw(double amount) {
-        amountAfterBalance = getBalance()-amount;
-        if(amountAfterBalance<0 && -1*amountAfterBalance>getCreditLine()){
-            throw new IllegalStateException("The amount is larger than the credit line can cover");
+        if(this.balance-amount<-getCreditLine()){
+            throw new IllegalStateException("");
         }
-            this.remainingCredit = getCreditLine() + this.amountAfterBalance;
     }
     public double getCreditLine() {
         return this.creditLine;
     }
 
     public void setCreditLine(double creditLine) {
+        System.out.println(creditLine);
+        System.out.println(getBalance());
         if(creditLine<0){
             throw new IllegalArgumentException("Credit line has do be positive");
         }
-        else if(this.remainingCredit<creditLine && getBalance()<0){
-            throw new IllegalStateException("You have to set more credit than the amount in your balance");
+        if(this.balance+creditLine<0){
+            throw new IllegalStateException("ddd");
         }
         this.creditLine=creditLine;
     }
-
-
 }

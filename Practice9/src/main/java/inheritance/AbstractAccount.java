@@ -1,7 +1,7 @@
 package inheritance;
 
 public abstract class AbstractAccount {
-    private double balance;
+    protected double balance;
 
     AbstractAccount(){
         this.balance=0;
