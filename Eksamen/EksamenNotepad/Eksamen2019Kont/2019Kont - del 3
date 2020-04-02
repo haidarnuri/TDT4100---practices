@@ -1,0 +1,53 @@
+//Oppgave del 3
+
+/*
+Delegering brukes når man har to eller flere klasser som implementerer samme interface/grensesnitt. 
+
+I dette tilfelle skal vi se på utgiftene, som i mitt tilfelle blir veldig styrt i BikePayment klassen. 
+
+Mitt forlsag er å lage et grensesnitt som bruker mye av de samme metodene som klassen min. 
+
+Eksemple på grensesnitt under:
+*/
+
+interface BikePaymentInterface{
+	void setRentAmount(LocalDateTime now, LocalDateTime returnTime);
+	void paymentForExtension();
+	void extraPaymentForLateDeliveryOrExtension();
+}
+
+class BikePayment implements BikePaymentInterface{
+
+	....
+
+}
+
+/*
+På denne måten kan alt av regning av utgifter i hovedsak delegeres til BikePayment klassen. Så lenge den delegerende 
+implementerer samme grensesnitt, så blir det lettere å delegere arbeid videre til delegatet.
+*/
+
+/*
+Antar at BikePayment har implementert grensnittet over. Tenker at Person klassen gjør det samme. 
+*/
+
+class Person implements BikePaymentInterface(){
+	
+	BikePayment payment = new BikePayment();
+	
+	
+	@Override
+	void setRentAmount(LocalDateTime now, LocalDateTime returnTime){
+	
+	}
+	
+	@Override
+	void paymentForExtension(){
+	
+	}
+	
+	@Override
+	void extraPaymentForLateDeliveryOrExtension(){
+	
+	}
+}

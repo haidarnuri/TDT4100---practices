@@ -42,6 +42,8 @@ public class Bike {
     private GeoLocation location;
     private Person renter;
 	private double amountRent;
+	private double numberOfExtensions=0;
+	private LocaleDate returnTime=null;
 	
 	public Bike(GeoLocation location){
 		this.location=location;
@@ -66,7 +68,16 @@ public class Bike {
 	public double getAmountRent(){
 		return this.amountRent;
 	}
+	public void increaseExtensionNumber(){
+		this.numberOfExtensions+=1;
+	}
+	public void getExtensionNumber(){
+		return this.numberOfExtensions;
+	}
 	
+	public void eraseNumberOfExtensions(){
+		this.numberOfExtensions=0;
+	}
 	
 }
 
@@ -164,7 +175,7 @@ public BikeRental{
 	//Lager to objekter som har oversikt over utgiftene og tiden.
 	private BikePayment amount = new BikePayment();
 	private BikeTimeSchedule timer = new BikeTimeSchedule();
-
+	
 	public void rentBike(Person person, Bike bike, LocalDateTime now, LocalDateTime returnTime) {
 		if(person==null){
 			throw new IllegalArgumetException("This person is uknown");
@@ -174,14 +185,22 @@ public BikeRental{
 		}
 		timer.startTimer(now,returnTime);
 		bike.setRenter(person);
+		amount.setAmountRent(timer.getStartTime(),timer.getExpectedReturnTime());
     }
 	
 	public void extendRental(Person person, Bike bike, LocalDateTime now, LocalDateTime returnTime) {
+		if(!getRentedBikes().contains(bike)){
+			throw new RuntimeException("This bike is not rented");
+		}
         if(!bike.getRenter().equals(person)){
 			throw new RuntimeException("This person is not renting this bike");
 		}
-		
-		
+		if(timer.checkIfTimeIsAfterExpectedTime(now)){
+			amount.extraPaymentForLateDeliveryOrExtension();
+		}
+		timer.startExtendedTimer(now,returnTime);
+		amount.paymentForExtension();
+		bike.increaseExtensionNumber();
     }
 	
 	
@@ -192,22 +211,25 @@ public BikeRental{
 		if(getStationNearby(bike,30)==null){
 			throw new RuntimeException("There is no station within 30 m");
 		}
-		amount.setAmountRent(timer.getStartTime(),timer.getExpectedReturnTime());
+		timer.setReturnTime(now);
+		if(timer.checkIfTimeIsAfterExpectedTime(now)){
+			amount.extraPaymentForLateDeliveryOrExtension();
+		}
 		person.withdraw(amount.getRentAmount());
 		printReceipt(person,bike);
 		bike.setRenter(null);
 		amount.eraseAmount();
 		timer.restartTime();
     }
- 
+	//Ikke helt fullført del 2, men tror jeg skjønner hva som er feil. 
     public void printReceipt(Person person, Bike bike) {
-		System.out.println(bike.getRenter()+" has delivered the bike in location "+bike.getLocation()+". 
-							You have payed " + amount.getRentAmount()+" kr. Thank you!"); 
+		System.out.println("Initial rent from "+timer.getStartTime()+" to "+timer.getExpectedReturnTime());
+		if(timer.getStartExtendedTimer()!=null){
+		System.out.println("Extension "+bike.getNumberOfExtensions()+" from "+timer.getStartExtendedTimer() +
+							" to "+timer.getExpectedExtendedReturnTime()+".");
+		}
+		System.out.println("Bike ");
     }
-	
-	
-	
-	
 	
 }
 
