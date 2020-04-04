@@ -6,7 +6,7 @@ import java.util.Iterator;
 
 public class Dice implements Iterable<Integer> {
 
-    private final int[] valueCounters = new int[6];
+    protected final int[] valueCounters = new int[6];
 
     public Dice(Iterator<Integer> dieValues) {
         while (dieValues.hasNext()) {
@@ -34,7 +34,6 @@ public class Dice implements Iterable<Integer> {
         }
         int dieCount = 0;
         int dieVal = 0;
-
         for (int value : valueCounters){
             dieCount += value;
             dieVal++;
@@ -52,23 +51,76 @@ public class Dice implements Iterable<Integer> {
         }
         return valueCounters[value - 1];
     }
-
-
+    /**
+     * @param dice
+     * @return true if all die values in the Dice argument appear in this Dice
+     */
     public boolean contains(Dice dice) {
-        Collection<Integer> currentDiceValuesCollection = new ArrayList<Integer>();
-        Collection<Integer> diceValuesCollection = new ArrayList<Integer>();
-        return true;
-
-
+        boolean contains = true;
+        for(int i=1;i<7;i++){
+            if(dice.getValueCount(i)!=0&&getValueCount(i)!=dice.getValueCount(i)){
+                    contains = false;
+            }
+        }
+        return contains;
     }
 
 
+    /**
+     * @param dice
+     * @return true if this Dice and the one provided have exactly the same die values
+     */
     public boolean isSame(Dice dice) {
-        return true;
+        boolean contains = true;
+        for(int i=1;i<7;i++){
+            if(getValueCount(i)!=dice.getValueCount(i)){
+                contains = false;
+                break;
+            }
+        }
+        return contains;
     }
+
+    public Dice add(Dice dice) {
+        int[] arrayTemp = new int[6];
+        Collection<Integer> newDiceList=new ArrayList<Integer>();
+        for(int i=1;i<7;i++){
+            arrayTemp[i-1]=getValueCount(i)+dice.getValueCount(i);
+        }
+        int count=0;
+        for(int i:arrayTemp){
+            count++;
+            while(i>0){
+                newDiceList.add(count);
+                i--;
+            }
+        }
+        return new Dice(newDiceList);
+    }
+
+    public Dice remove(Dice dice) {
+        int[] arrayTemp = new int[6];
+        Collection<Integer> newDiceList=new ArrayList<Integer>();
+        for(int i=1;i<7;i++){
+            int diff = getValueCount(i)-dice.getValueCount(i);
+            if(diff>0){
+                arrayTemp[i-1]=diff;
+            }
+        }
+        int count=0;
+        for(int i:arrayTemp){
+            count++;
+            while(i>0){
+                newDiceList.add(count);
+                i--;
+            }
+        }
+        return new Dice(newDiceList);
+    }
+
 
     @Override
     public Iterator<Integer> iterator() {
-        return null;
+        return new DiceIterator(this);
     }
 }
