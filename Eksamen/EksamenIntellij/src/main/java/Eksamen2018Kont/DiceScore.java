@@ -10,26 +10,17 @@ public class DiceScore {
         scoreBoard.put(scoringDice,score);
     }
 
-    public Dice getSpecificScoringDice(Dice dice){
-         for(Dice diceCompare:scoreBoard.keySet()){
-             if(diceCompare.equals(dice)){
-                 return diceCompare;
-             }
-         }
-         return null;
+    //Unødvendig å lage en mapping, men morsomt å prøve
+    public int getScore(){
+        return scoreBoard.get(getDice());
     }
 
-    public int getSpecificScore(Dice diceCheckScore){
-        return scoreBoard.get(diceCheckScore);
-    }
-
-    public Dice getSpecificDice(int score){
+    public Dice getDice(){
+        Dice diceTemp = null;
         for(Dice dice:scoreBoard.keySet()){
-            if(scoreBoard.get(dice)==score){
-                return dice;
+                diceTemp=dice;
             }
-        }
-        return null;
+        return diceTemp;
     }
 
 

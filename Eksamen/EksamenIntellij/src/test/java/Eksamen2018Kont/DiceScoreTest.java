@@ -26,7 +26,7 @@ public class DiceScoreTest  {
         int score1 = 5;
         Dice dice1 = new Dice(diceValues1);
         DiceScore diceScoreDice1 = new DiceScore(score1,dice1);
-        Assert.assertEquals(score1,diceScoreDice1.getSpecificScore(dice1));
+        Assert.assertEquals(score1,diceScoreDice1.getScore());
     }
 
     @Test
@@ -34,18 +34,6 @@ public class DiceScoreTest  {
         int score1 = 5;
         Dice dice1 = new Dice(diceValues1);
         DiceScore diceScoreDice1 = new DiceScore(score1,dice1);
-        Assert.assertEquals(dice1,diceScoreDice1.getSpecificDice(score1));
+        Assert.assertEquals(dice1,diceScoreDice1.getDice());
     }
-    @Test
-    public void test2GetSpecificDice_getExpectedDice(){
-        int score1 = 5;
-        int score2 = 6;
-        Dice dice1 = new Dice(diceValues1);
-        DiceScore diceScoreDice1 = new DiceScore(score1,dice1);
-        Assert.assertEquals(null,diceScoreDice1.getSpecificDice(score2));
-    }
-
-
-
-
 }
