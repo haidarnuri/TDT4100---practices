@@ -19,8 +19,17 @@ public class DiceScore {
          return null;
     }
 
-    public int getSpesificScore(Dice diceCheckScore){
+    public int getSpecificScore(Dice diceCheckScore){
         return scoreBoard.get(diceCheckScore);
+    }
+
+    public Dice getSpecificDice(int score){
+        for(Dice dice:scoreBoard.keySet()){
+            if(scoreBoard.get(dice)==score){
+                return dice;
+            }
+        }
+        return null;
     }
 
 
