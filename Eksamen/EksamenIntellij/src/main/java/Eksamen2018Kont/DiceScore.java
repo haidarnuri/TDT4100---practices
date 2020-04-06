@@ -1,4 +1,4 @@
-package Eksamen2018Kont;
+import Eksamen2018Kont.Dice;
 
 import java.util.HashMap;
 import java.util.Map;
