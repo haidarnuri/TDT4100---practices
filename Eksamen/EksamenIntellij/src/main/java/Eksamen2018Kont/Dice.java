@@ -19,6 +19,7 @@ public class Dice implements Iterable<Integer> {
         this(dieValues.iterator());
     }
 
+
     public int getDieCount() {
         int count = 0;
         for (int val : valueCounters) {
@@ -123,4 +124,17 @@ public class Dice implements Iterable<Integer> {
     public Iterator<Integer> iterator() {
         return new DiceIterator(this);
     }
+
+    @Override
+    public String toString() {
+        int count=0;
+        while(count<7){
+            count++;
+            if(getValueCount(count)>0){
+                return "Your object contains value " +count;
+            }
+        }
+        return null;
+    }
+
 }

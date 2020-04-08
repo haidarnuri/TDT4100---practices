@@ -24,6 +24,7 @@ public class DiceTest {
     Collections.addAll(diceValues3,1,1,1,2,2,2,4);
     Collections.addAll(diceValues4,1,1,1,1,1,1,2,2,3,4,4);
     Collections.addAll(diceValues5,2,2,3);
+
     }
 
     @Test
@@ -65,30 +66,35 @@ public class DiceTest {
 
         }
     }
+
     @Test
     public void testingContains_expectingTrue() {
         Dice dice = new Dice(diceValues1);
         Dice dice2 = new Dice(diceValues2);
         Assert.assertEquals(true,dice.contains(dice2));
     }
+
     @Test
     public void testingContains_expectingFalse() {
         Dice dice = new Dice(diceValues1);
         Dice dice3 = new Dice(diceValues3);
         Assert.assertEquals(false,dice.contains(dice3));
     }
+
     @Test
     public void testingIsSame_expectingTrue() {
         Dice dice = new Dice(diceValues1);
         Dice dice4 = new Dice(diceValues1);
         Assert.assertEquals(true,dice.isSame(dice4));
     }
+
     @Test
     public void testingIsSame_expectingFalse() {
         Dice dice = new Dice(diceValues1);
         Dice dice3 = new Dice(diceValues3);
         Assert.assertEquals(false,dice.isSame(dice3));
     }
+
     @Test
     public void testingAdd_expectingTrueWhenAddingTwoDicesAndComparingWithLastDice() {
         Dice dice = new Dice(diceValues1);
@@ -106,6 +112,7 @@ public class DiceTest {
         Dice dice4 = new Dice(diceValues4);
         Assert.assertEquals(false,dice4.isSame(dice3));
     }
+
     @Test
     public void testingRemove_expectingTrueWhenRemovingOneDiceObjectFromAnotherAndCompareToLastObject() {
         Dice dice = new Dice(diceValues1);
@@ -117,13 +124,13 @@ public class DiceTest {
     @Test
     public void testingIterator_expectingTrueWhenRemovingOneDiceObjectFromAnotherAndCompareToLastObject() {
         Dice dice5 = new Dice(diceValues5);
+        int counter = 0;
+        int[] expectedValuesDice5 = {0,2,1,0,0,0};
         Iterator<Integer> diceIterator = dice5.iterator();
-        System.out.println(diceIterator.next());
-        diceIterator.next();
-        System.out.println(diceIterator.next());
-        diceIterator.next();
-        System.out.println(diceIterator.next());
-
+        while(diceIterator.hasNext()){
+            Assert.assertEquals(0,Integer.compare(expectedValuesDice5[counter],diceIterator.next()));
+            counter++;
+        }
     }
 
 
