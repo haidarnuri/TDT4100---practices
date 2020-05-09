@@ -1,0 +1,29 @@
+package patterns.delegation;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+public class FilteringLogger implements ILogger{
+
+	
+	private ILogger logger;
+	private List<String> listSevereties = new ArrayList<String>();
+	
+	public FilteringLogger(ILogger logger, String ...severities) {
+		this.logger=logger;
+		this.listSevereties = Arrays.asList(severities);
+	}
+	
+	public boolean isLogging(String severity) {
+		return listSevereties.contains(severity);		
+	}
+	
+	
+	@Override
+	public void log(String severity, String message, Exception exception) {
+		
+		
+	}
+
+}

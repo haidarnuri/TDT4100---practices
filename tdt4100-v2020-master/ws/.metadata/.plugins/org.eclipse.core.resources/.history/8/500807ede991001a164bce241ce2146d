@@ -1,0 +1,5 @@
+package patterns.delegation;
+
+public class StreamLogger {
+
+}

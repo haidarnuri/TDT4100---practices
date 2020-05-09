@@ -1,0 +1,41 @@
+package patterns.delegation;
+
+
+import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.charset.Charset;
+
+
+public class StreamLogger implements ILogger{
+	
+	OutputStream stream;
+	String logMessage = new String();
+	String format = new String();	
+	
+	public StreamLogger(OutputStream stream) {
+		this.stream=stream;
+	}
+	
+	
+	
+	
+	@Override
+	public void log(String severity, String message, Exception exception) {
+		setFormatString(this.format);	
+		this.logMessage  = String.format(this.format, severity, message, exception);
+		try {
+			this.stream.write(logMessage.getBytes(Charset.forName("UTF-8")));
+			this.stream.flush();
+			this.stream.close(); 
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void setFormatString(String formatString) {
+		formatString = String.format("%s : %s (%s)");
+	}
+	
+
+	
+}

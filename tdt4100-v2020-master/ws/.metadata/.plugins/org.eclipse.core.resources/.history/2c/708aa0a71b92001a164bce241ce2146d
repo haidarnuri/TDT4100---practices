@@ -1,0 +1,49 @@
+package patterns.observable;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+public class StockIndex implements StockListener{
+
+	private String name = new String();
+	private List<Stock> listStock = new ArrayList<>(); 
+	private double price;
+	
+	public StockIndex(String name, Stock ...stocks) {
+		this.name=name;
+		this.listStock = Arrays.asList(stocks);
+		setPrice();
+	}
+	
+	private void setPrice() {
+		if(this.listStock==null) {
+			this.price = 0;
+		}
+		for(Stock stock:listStock) {
+			this.price+=stock.getPrice();
+		}
+	}
+	
+	public void addStock(Stock stock) {
+		if(stock!=null) {
+			this.price +=stock.getPrice();
+		}		
+	}
+	
+	public void removeStock(Stock stock) {
+		if()		
+	}
+	
+	public double getIndex(){
+		return this.price;
+	}
+	
+	@Override
+	public void stockPriceChanged(Stock stock, double oldValue, double newValue) {
+		if(listStock.contains(stock)) {
+			this.price =newValue-oldValue;			
+		}
+	}
+
+}

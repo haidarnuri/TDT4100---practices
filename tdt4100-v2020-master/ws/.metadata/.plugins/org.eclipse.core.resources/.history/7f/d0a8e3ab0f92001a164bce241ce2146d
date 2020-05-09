@@ -1,0 +1,52 @@
+package patterns.observable;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Stock implements StockListener{
+	
+	String ticker;
+	double price;
+	List<StockListener> listListener = new ArrayList<>();
+	
+	public Stock(String ticker, double price) {
+		setPrice(price);
+		this.ticker =ticker;
+	}
+	
+	public void setPrice(double newPrice) {
+		if(price<=0) {
+			throw new IllegalArgumentException("The price can not be negative");
+		}
+		stockPriceChanged(this, this.price, newPrice);
+		this.price=newPrice;
+	}
+	
+	public String getTicker() {
+		return this.ticker;		
+	}
+	
+	public double getPrice() {
+		return this.price;
+	}
+
+	public void addStockListener(StockListener StockListener) {
+		if(!listListener.contains(StockListener)) {
+			listListener.add(StockListener);
+		}		
+	}
+	
+	public void removeStockListener(StockListener StockListener) {
+		listListener.remove(StockListener);
+	}
+	
+	
+	@Override
+	public void stockPriceChanged(Stock stock, double oldValue, double newValue) {
+		for(StockListener listener : listListener) {
+			listener.stockPriceChanged(stock, oldValue, newValue);
+		}
+	}
+	
+	
+}

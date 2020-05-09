@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring accessors="true" comment="Delete element from project &apos;ovinger&apos;&#x0D;&#x0A;- Original project: &apos;ovinger&apos;&#x0D;&#x0A;- Original element: &apos;patterns.delegation.OutputStream.java&apos;" description="Delete element" element1="/src=/optional=/true=/=/maven.pomderived=/true=/=/test=/true=/&lt;patterns.delegation{OutputStream.java" elements="1" flags="589830" id="org.eclipse.jdt.ui.delete" resources="0" stamp="1589025473438" subPackages="false" version="1.0"/>
+</session>

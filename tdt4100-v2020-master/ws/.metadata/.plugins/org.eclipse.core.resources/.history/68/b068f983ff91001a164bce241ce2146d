@@ -1,0 +1,32 @@
+package patterns.delegation;
+
+
+import java.io.OutputStream;
+
+
+public class StreamLogger implements ILogger{
+	
+	
+	private OutputStream stream;
+	String logFormat;
+	
+	public StreamLogger(OutputStream stream) {
+		
+	}
+	
+	
+	
+	
+	@Override
+	public void log(String severity, String message, Exception exception) {
+		this.logFormat = setFormatString(severity + "/n" + message + "/n" + exception); 	
+	}
+	
+	private String setFormatString(String formatString) {
+		String tempFormat = String.format("%s: %s (%s)",formatString);
+		return tempFormat;
+	}
+	
+
+	
+}

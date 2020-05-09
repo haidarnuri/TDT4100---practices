@@ -1,0 +1,29 @@
+package patterns.delegation;
+
+import java.io.PrintStream;
+
+public class StreamLogger implements ILogger{
+	
+	
+	private PrintStream stream;
+	
+	public StreamLogger(PrintStream stream) {
+		this.stream=stream;
+	}
+	
+	
+	
+	@Override
+	public void log(String severity, String message, Exception exception) {
+		
+		
+	}
+	
+	
+	public static void main(String[] args) {
+		ILogger logger = new StreamLogger(System.out);
+		logger.log(ILogger.INFO, "Denne meldingen er til informasjon og skrives til System.out", null);
+
+	}
+	
+}

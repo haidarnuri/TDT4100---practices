@@ -88,6 +88,38 @@ public class Diner {
               allTables.add(splitTable2);
     }
 
+    /**
+     * Tells whether a table has the provided capacity,
+     * i.e. if that number of new guests can be seated there.
+     * Note that a table cannot be shared among different groups.
+     * @param table
+     * @param capacity
+     * @return true of capacity number of guests can be seated here, false otherwise.
+     */
+    public boolean hasCapacity(Table table, int capacity) {
+        return table.getCapacity()>=capacity;
+    }
+
+    /**
+     * Returns the tables that has the provided capacity.
+     * The tables should be sorted with the one with the least capacity (but enough) first.
+     * @param capacity
+     * @return the tables that has the provided capacity
+     */
+    public Collection<Table> findAvailableTables(int capacity) {
+            Table tempWithLeastCap = null;
+            for(Table table: allTables){
+                if(hasCapacity(table,capacity)){
+                    tempWithLeastCap = table;
+                }
+              }
+            for(Table table:allTables){
+                if(hasCapacity(table,capacity) && table.getCapacity()<tempWithLeastCap.getCapacity()){
+
+                }
+            }
+    }
+
 
 
 

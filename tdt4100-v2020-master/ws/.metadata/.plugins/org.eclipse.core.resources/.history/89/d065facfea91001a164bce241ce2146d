@@ -1,0 +1,14 @@
+package patterns.delegation;
+
+public class StreamLogger implements ILogger{
+	
+	
+	
+	@Override
+	public void log(String severity, String message, Exception exception) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	
+}
