@@ -1,0 +1,32 @@
+package EksamenKont2012;
+
+import org.junit.Test;
+
+import junit.framework.TestCase;
+
+@SuppressWarnings("all")
+public class WordListTest extends TestCase{
+	
+	private WordList list1 = new WordList("Karoline","Dalene", "Nalin", "Alan");
+
+	
+	@Test
+	public void testAddWordMethod_expectingTrue() {
+		assertTrue(list1.addWord("Haidar"));
+	}
+	
+	@Test
+	public void testRemoveWordMethod_expectingTrue() {	
+		assertTrue(list1.removeWord("Dalene"));
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}

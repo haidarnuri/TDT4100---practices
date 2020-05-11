@@ -1,0 +1,96 @@
+package bike;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+/*
+ * @startuml
+ * class Bike
+ * Bike --> Location: location
+ * Bike --> Person: renter
+ * @enduml
+ */
+public class Bike {
+
+	private GeoLocation location;
+	private Person renter;
+	private Date startTime,endTime;
+	Collection<Date> startTimeAndEndTime = new ArrayList<>();
+	Map<Person, Collection<Date>> map = new HashMap<Person, Collection<Date>>();
+	
+	map.put("mango", new ArrayList<Integer>(Arrays.asList(0, 4, 8, 9, 12)));
+
+	
+	public Bike(GeoLocation location) {
+		setLocation(location);
+	}
+	
+	//Skriver private for at ikke hvem som helst kan skrive en lokasjon på sykkelen. 
+	//bruker protected for da kan kan BikeRental endre adresser. Det er kjekt. 
+	//Greit å unngå public for da får alle tilgang til denne metoden. 
+	protected void setLocation(GeoLocation location) {
+		checkValidLocation(location);
+		this.location=location;
+	}
+	
+	//tenker at man ikke kan aktivere en leier uten at man har betalt for det, altså gått via rentABike. Dette for å sikre betaling. 
+	private void setRenter(Person renter) {
+		this.renter=renter;
+	}
+	
+	public GeoLocation getLocation() {
+		return this.location;
+	}
+	
+	public Person getRenter() {
+		return this.renter;
+	}
+	
+	// TODO: del 1, assosiasjoner
+
+	// TODO: del 1, registrering av leie
+	public void rentABike(Person renter, Date startTime, Date endTime) {
+		checkValidRenter(renter);
+		setRenter(renter);
+		Collections.addAll(this.startTimeAndEndTime, startTime,endTime);	
+		//Bruker denne mappingen til å koble en person til en startTid og en sluttTid
+		map.put(getRenter(), this.startTimeAndEndTime);
+					
+	}
+	
+	//Når sykkelen blir levert er man interessert i når den faktisk ble levert
+	public void deliverBike(Date actualEndTime, GeoLocation location) {
+		
+	}
+	
+	
+	
+	
+	
+	
+	//skriver to metoder for å validere location og renter under. 
+	private void checkValidLocation(GeoLocation location) {
+		if(location == null) {
+			throw new IllegalArgumentException("this location does not exist");
+		}
+	}
+	
+	private boolean checkValidRenter(Person renter) {
+		if(renter == null) {
+			throw new IllegalArgumentException("this renter does not exist");
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}

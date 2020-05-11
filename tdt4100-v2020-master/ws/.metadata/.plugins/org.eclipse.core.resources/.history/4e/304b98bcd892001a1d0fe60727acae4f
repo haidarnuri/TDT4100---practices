@@ -1,0 +1,7 @@
+package EksamenKont2014;
+
+public class SafeBank extends Bank{
+	
+	
+
+}

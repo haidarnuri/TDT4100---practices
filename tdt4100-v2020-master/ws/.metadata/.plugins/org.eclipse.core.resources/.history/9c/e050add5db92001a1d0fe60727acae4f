@@ -1,0 +1,27 @@
+package EksamenKont2014;
+
+public class SafeBank extends Bank{
+	
+	private int maxAmountTransactions;
+	
+	public SafeBank(int maxAmountTransactions) {
+		this.maxAmountTransactions=maxAmountTransactions;
+	}
+	
+	 
+	 public void checkMaxTransactions() {
+		 if(numberOfTransfers>=this.maxAmountTransactions) {
+			 throw new IllegalArgumentException("You have reached maximum amount of transfers");
+		 }
+		 super.transfer(Account source, Account target, int amount);
+		 
+		 
+		 
+	 }
+	
+	
+	
+	
+	
+	
+}

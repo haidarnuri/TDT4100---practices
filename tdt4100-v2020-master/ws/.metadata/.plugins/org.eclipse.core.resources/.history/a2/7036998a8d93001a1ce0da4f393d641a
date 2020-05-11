@@ -1,0 +1,24 @@
+package stuff;
+
+import java.util.Iterator;
+
+public class StringBuilderCharacterIterator implements Iterator<Character> {
+
+	private final StringBuilder stringBuilder;
+	private int count=0;
+
+	public StringBuilderCharacterIterator(final StringBuilder stringBuilder) {
+		this.stringBuilder=stringBuilder;
+	}
+
+	@Override
+	public boolean hasNext() {
+		return count<this.stringBuilder.length();
+	}
+
+	@Override
+	public Character next() {
+		this.stringBuilder.charAt(count++);
+	}
+
+}

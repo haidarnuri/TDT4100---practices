@@ -1,0 +1,9 @@
+package EksamenKont2012;
+
+public interface Words {
+	public boolean containsWord(String word);
+	public String getWordsStartingWith(String prefix);
+	public boolean addWord(String word);
+	public boolean removeWord(String word);
+	
+}

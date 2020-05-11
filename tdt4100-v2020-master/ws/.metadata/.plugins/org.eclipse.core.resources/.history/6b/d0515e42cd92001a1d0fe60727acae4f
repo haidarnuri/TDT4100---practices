@@ -1,0 +1,63 @@
+package EksamenKont2014;
+
+public class Account {
+	
+	private int balance=0;
+	private final String accountId;
+	
+	public Account(String accountId) {
+		
+		this.accountId=accountId;
+	}	
+	
+	
+	public String getAccountId() {
+		return this.accountId;
+	}
+	
+	
+	public int getBalance() {
+		return this.balance;
+	}
+	
+	public void deposit(int amount) {
+		if(checkNegativeAmount(amount)) {
+			throw new IllegalArgumentException("Amount can not be negativ");
+		}
+		this.balance+=amount;
+	}
+	
+	public void withdraw(int amount) {
+		if(checkNegativeAmount(amount)) {
+			throw new IllegalArgumentException("Amount can not be negativ");
+		}
+		if(checkTooLargeAmount(amount)) {
+			throw new IllegalArgumentException("Amount can not be larger than balance");
+		}
+		
+		this.balance-=amount;
+	}
+	
+	private boolean checkTooLargeAmount(int amount) {
+		return amount<this.balance;
+	}
+	
+	private boolean checkNegativeAmount(int amount) {
+		return amount<0;
+	}
+	
+	private void checkValidAccoundId(String accountId) {
+		boolean containsLetter = false;
+	    for (char c : accountId.toCharArray()) {
+	        if (!Character.isDigit(c)) {
+	        	containsLetter=true;
+	             break;
+	        }
+	    }
+		if(containsLetter) {
+			throw new IllegalArgumentException("accounID can only contains digit");
+		}
+	}
+	
+	
+}

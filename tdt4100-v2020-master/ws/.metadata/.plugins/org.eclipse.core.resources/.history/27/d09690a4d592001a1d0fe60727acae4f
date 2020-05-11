@@ -1,0 +1,24 @@
+package EksamenKont2014;
+
+import java.util.Date;
+
+public class Transaction {
+	private final Account source;
+    private final Account target;
+    private final int amount;
+    private final Date date = new Date();
+    
+    public Transaction(Account source, Account target, int amount) {
+    	this.amount=amount;
+    	this.source=source;
+    	this.target=target;
+    	this.date.
+    }
+    
+    public int getTransefSum(Account account, int year, int month) {
+    	
+	}
+    
+    
+
+}

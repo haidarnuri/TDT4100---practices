@@ -1,0 +1,19 @@
+package bike;
+
+public class Person {
+	
+	private double price;
+	
+	
+	
+	//optimalt så burde man sjekke om denne personen har en sykkel, men gjør det hvis jeg får tid senere. 
+	public void pay(double price) {
+		//antar at det finnes en algoritme som gjør at personen betaler. 
+	}
+	
+	
+	
+	
+	
+	
+}

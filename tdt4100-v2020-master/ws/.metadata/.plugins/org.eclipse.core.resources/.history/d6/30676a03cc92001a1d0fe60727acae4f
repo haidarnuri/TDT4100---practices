@@ -1,0 +1,24 @@
+package EksamenKont2014;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+public class Bank {
+	
+	private Collection<Account> accountList = new ArrayList<>();
+	
+	public void addAccount(Account account){
+		if(!accountList.contains(account)) {
+			accountList.add(account);
+		}
+	}
+	
+	public void addAccount(Account account){
+		if(!accountList.contains(account)) {
+			accountList.add(account);
+		}
+	}
+	
+
+}

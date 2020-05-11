@@ -1,0 +1,76 @@
+package EksamenKont2012;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+
+public class WordList {
+	
+	private Collection<String> wordList = new ArrayList<>();
+	
+	public WordList() {}
+	
+	public WordList(Collection<String> wordList) {
+		this.wordList=wordList;
+	}
+		
+	public boolean addWord(String word) {
+		if(!wordList.contains(word)) {
+			wordList.add(word.trim());
+		}		
+		return containsWord(word);
+	}
+	
+	
+	public boolean removeWord(String word) {
+		if(wordList.contains(word)) {
+			wordList.remove(word);}
+		return !containsWord(word);
+	}
+	
+	protected boolean containsWord(String word) {
+		return this.wordList.contains(word);
+	}
+	
+	public Collection<String> getWordsStartingWith(String prefix){
+		Collection<String> newPrefixList = new ArrayList<>();
+		for(String word:this.wordList) {
+			if(word.startsWith(prefix)) {
+				newPrefixList.add(word);
+			}
+		}
+		return newPrefixList;
+	}
+	
+	public boolean removeWordsStartingWith(String prefix){
+		return this.wordList.removeAll(getWordsStartingWith(prefix));
+	}
+	
+	public String getPrefix(String word, String suffix) {
+		String newString=null;
+		if(word.endsWith(suffix)) {
+			newString=word.replaceAll(suffix,"");
+		}
+		return newString;
+	}
+	
+	public boolean hasSuffixes(String prefix, List<String> suffixes) {
+		boolean hasSuffix=true;
+		for(String suffix:suffixes) {
+			if(!this.wordList.contains(prefix+suffix)){
+				hasSuffix = false;
+			}
+		}
+		return hasSuffix;
+	}
+	
+	public List<String> findPrefices(List<String> suffixes){
+		
+	}
+	
+	
+	
+	
+	
+}

@@ -1,0 +1,48 @@
+package EksamenKont2012;
+
+import java.util.ArrayList;
+import java.util.Collection;
+
+import org.junit.Before;
+import org.junit.Test;
+
+import junit.framework.TestCase;
+
+@SuppressWarnings("all")
+public class WordListTest extends TestCase{
+	
+	private Collection<String> list1 = new ArrayList<>();
+	;
+
+	
+	@Before
+	void init() {
+		list1.add("Karoline");
+		list1.add("Dalene");
+		list1.add("Alan");
+		list1.add("Nalin");
+		
+	}
+	
+	private WordList list2 = new WordList(list1);
+	
+	@Test
+	public void testAddWordMethod_expectingTrue() {
+		assertTrue(list2.addWord("Haidar"));
+	}
+	
+	@Test
+	public void testRemoveWordMethod_expectingTrue() {	
+		assertTrue(list2.removeWord("Dalene"));
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}

@@ -1,0 +1,18 @@
+package EksamenKont2014;
+
+public class Transaction {
+	private final Account source;
+    private final Account target;
+    private int amount;
+    
+    public Transaction(Account source, Account target, int amount) {
+    	this.amount=amount;
+    	this.source=source;
+    	this.target=target;
+    }
+    
+    
+    
+    
+
+}
