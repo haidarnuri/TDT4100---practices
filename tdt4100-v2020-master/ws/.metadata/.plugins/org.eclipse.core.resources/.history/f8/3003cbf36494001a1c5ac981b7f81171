@@ -1,0 +1,49 @@
+package EksamenKont2015;
+
+public class Value implements Comparable<Value>{
+
+	
+	private final Unit unit;
+	private final double value;
+	
+	public Value(Unit unit,double value) {
+		this.unit=unit;
+		this.value=value;
+	}
+	
+	public Unit getUnit() {
+		return this.unit;
+	}
+	
+	public double getValue() {
+		return this.value;
+	}
+	
+    public static Value valueOf(String s) {
+		char[] chars = s.toCharArray();
+        String valueString = "";
+        String unitString = "";
+        for(char temp: chars) {
+        	if(Character.isDigit(temp) || temp == '.') {
+        		valueString+=temp;
+        	}else {
+        		unitString+=temp;
+        	}
+        }
+        return new Value(new Unit(unitString.trim()), Double.valueOf(valueString));
+    }
+	
+	
+	@Override
+    public String toString() {
+        return getValue() + unit.toString();
+    }
+	
+	
+	@Override
+	public int compareTo(Value o) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+}

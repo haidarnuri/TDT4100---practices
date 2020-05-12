@@ -1,0 +1,74 @@
+package EksamenKont2015;
+
+public class Value implements Comparable<Value>{
+
+	
+	private final Unit unit;
+	private final double value;
+	
+	public Value(Unit unit,double value) {
+		this.unit=unit;
+		this.value=value;
+	}
+	
+	public Unit getUnit() {
+		return this.unit;
+	}
+	
+	public double getValue() {
+		return this.value;
+	}
+	
+    public static Value valueOf(String s) {
+		char[] chars = s.toCharArray();
+        String valueString = "";
+        String unitString = "";
+        for(char temp: chars) {
+        	if(Character.isDigit(temp) || temp == '.') {
+        		valueString+=temp;
+        	}else {
+        		unitString+=temp;
+        	}
+        }
+        return new Value(new Unit(unitString.trim()), Double.valueOf(valueString));
+    }
+	
+    /**
+     * Computes the sum of this and other (both Value objects).
+     * The Unit of the returned Value is the common base Unit of this and other's Units.
+     * Hence, both Value object's double values are properly converted before adding.
+     * @param other the other Value
+     * @return a new Value object representing the sum of this and other
+     */
+    //Validerer i første omgang om de har felles enhet. Ikke mening å legge sammen kr og meter.
+    public Value add(Value other) {
+    	Unit commonUnit = getUnit().findCommonBaseUnit(other.getUnit());
+    	checkIfValidCommonUnit(commonUnit);
+    	
+    	
+    	
+    	
+    	
+    }
+	
+	@Override
+    public String toString() {
+        return getValue() + unit.toString();
+    }
+	
+	
+	@Override
+	public int compareTo(Value o) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+	private void checkIfValidCommonUnit(Unit commonUnit) {
+		if(commonUnit==null) {
+			throw new IllegalArgumentException("No common unit");
+		}
+	}
+	
+	
+	
+}
