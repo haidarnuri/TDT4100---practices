@@ -1,0 +1,52 @@
+package bike;
+
+import java.time.LocalDateTime;
+
+/*
+ * Lager en sykkelabonnomentklasse som inneholder ulike abbonomenter i form av objekter. 
+ */
+public class SykkelAbonnomentPris implements SykkelAbonnoment{
+	
+	//dersom en av disse et true så har vedkommende dette abbonomentet. 
+	private boolean dagsPass,mndPass;
+	//Har oversikt over prisBeregnigner i denne klassen. 
+	private double priceForExtensions=5;
+	private double pricePrHour=10;
+
+	
+	
+	//har ikke tenkt på om prisene er realistiske eller ikke. 	
+	@Override
+	public double ingenAbonnoment(int numberOfHours, int numberOfExtensions) {
+		return this.pricePrHour*numberOfHours+priceForExtensions*numberOfExtensions;
+	}
+
+	//selv om det er urealistisk antar jeg at personen kan ha sykkelen så lenge han vil enten en dag eller en mnd.
+	//Tenker at personen må betale et gebyr på 200 kr i tillegg dersom han levere for sent. 
+	@Override
+	public double dagsAbonnoment(LocalDateTime start, LocalDateTime delivered) {
+		if(TooLateDelivery) {
+			return 200+200;
+		}
+		
+		
+		
+		return 200;
+	}
+
+	@Override
+	public double mndsAbonnoment(LocalDateTime start, LocalDateTime delivered) {
+		return 5000;
+	}
+	
+	/*
+	 * Tenker at denne sammenligner start og slutt tid med tidsbegrenesningen for mnd og dag. 
+	 * Altså er limit = 30*24 på mnd og 24 på dag. Det går på antall timer. 
+	 */
+	private boolean deliveredTooLate(LocalDateTime start, LocalDateTime delivered, int limit) {
+		return delivered.getHour()-
+	}
+	
+	
+
+}

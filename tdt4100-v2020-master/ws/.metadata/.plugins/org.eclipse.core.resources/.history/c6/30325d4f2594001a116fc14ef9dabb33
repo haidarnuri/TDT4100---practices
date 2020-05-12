@@ -1,0 +1,68 @@
+package bike;
+
+import java.time.LocalDateTime;
+
+/*
+ * Lager en sykkelabonnomentklasse som inneholder ulike abbonomenter i form av objekter. 
+ */
+public class SykkelAbonnomentPris implements SykkelAbonnoment{
+	
+	//dersom en av disse et true så har vedkommende dette abbonomentet. 
+	private boolean dagsPass,mndPass;
+	//Har oversikt over prisBeregnigner i denne klassen. 
+	private double priceForExtensions=5;
+	private double pricePrHour=10;
+
+	
+	
+	//har ikke tenkt på om prisene er realistiske eller ikke. 	
+	//Gir et gebyr dersom den leveres etter forventet tid. 
+	@Override
+	public double ingenAbonnoment(int numberOfHours, int numberOfExtensions,LocalDateTime expectedTime, LocalDateTime actualTime) {
+		double price = this.pricePrHour*numberOfHours+this.priceForExtensions*numberOfExtensions;
+		if(checkIfDeliveredLate(expectedTime,actualTime)) {
+			price+=10;
+		}
+		return price;
+	}
+
+	
+	//selv om det er urealistisk antar jeg at personen kan ha sykkelen så lenge han vil enten en dag eller en mnd.
+	//Tenker at personen må betale et gebyr på 200 kr i tillegg dersom han levere for sent. 
+	@Override
+	public double dagsAbonnoment(LocalDateTime start, LocalDateTime delivered) {
+		if(checkDeliveredTooLate(start, delivered,24)) {
+			return 200+200;
+		}else {
+			return 200;
+		}	
+	}
+
+	/*
+	 * Antar et gebyr dersom han har levert etter 1 mnd. 
+	 * 24*30 = 720 timer i mnd.
+	 */
+	
+	@Override
+	public double mndsAbonnoment(LocalDateTime start, LocalDateTime delivered) {
+		if(checkDeliveredTooLate(start, delivered,24)) {
+			return 200+200;
+		}else {
+			return 200;
+		}	
+	}
+	
+	/*
+	 * Tenker at denne sammenligner start og slutt tid med tidsbegrenesningen for mnd og dag. 
+	 * Altså er limit = 30*24 på mnd og 24 på dag. Det går på antall timer. 
+	 */
+	private boolean checkDeliveredTooLate(LocalDateTime start, LocalDateTime delivered, int limit) {
+		return (delivered.getHour()-start.getHour())>limit;
+	}
+	
+	private boolean checkIfDeliveredLate(LocalDateTime expectedTime, LocalDateTime actualTime) {
+		return expectedTime.isAfter(actualTime);		
+	}
+	
+
+}

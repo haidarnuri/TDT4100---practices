@@ -1,0 +1,283 @@
+package bike;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.junit.runners.AllTests;
+
+public class BikeRental implements SykkelAbonnoment{
+
+	// TODO: del 1, stations and bikes
+	
+	private Collection<GeoLocation> allStations = new ArrayList<>();
+	private Collection<Bike> allBikes = new ArrayList<>();
+	
+	//Variabler som knytter person og tidspunkt sammen. 
+	private LocalDateTime startTime,endTime;
+	private List<LocalDateTime> startTimeAndEndTime = new ArrayList<>();
+	private Map<Person, List<LocalDateTime>> map = new HashMap<Person, List<LocalDateTime>>();
+	
+	//Dette er et objekt som denne klassen delegerer prisene til. Antar at dette objektet gjør alt av prisberegninger.  
+	private SykkelAbonnomentPris sykkelPris;
+	
+	
+	
+	public BikeRental(Collection<GeoLocation> allStations, Collection<Bike> allBikes) {
+		this.allBikes=allBikes;
+		this.allStations=allStations;
+	}
+	
+	/**
+	 * Counts the number of available bikes within a certain distance of a provided location.
+	 * @param location
+	 * @param distance
+	 * @return the number of available bikes within a certain distance of a provided location
+	 */
+	private int countAvailableBikesNearby(final GeoLocation location, final double distance) {
+		int counter=0;
+		for(Bike bike : allBikes) {
+			if(bike.getLocation().distance(location)<distance) {
+				counter++;
+			}
+		}
+		return counter;
+	}
+
+	/**
+	 * Finds the closest station (location) within the provided (maximum) distance of the provided bike
+	 * @param bike
+	 * @param minDistance
+	 * @return the closest station (location) within the provided (maximum) distance of the provided bike
+	 */
+	private GeoLocation getStationNearby(final Bike bike, final double maxDistance) {
+		double minDistance = 0;
+		GeoLocation tempLocation = null;
+		//finner en stasjon som er innenfor radiusen.
+		for(GeoLocation location:allStations) {
+			if(location.distance(bike.getLocation())<maxDistance) {
+				minDistance= location.distance(bike.getLocation());
+				tempLocation=location;
+				break;
+			}
+		}
+		//Finner den stasjonen som er nærmest til sykelen. 
+		for(GeoLocation location:allStations) {
+			if(location.distance(bike.getLocation())<minDistance) {
+				tempLocation=location;
+			}
+		}
+		return tempLocation;
+	}
+
+	/**
+	 * @return the bikes that currently are rented
+	 */
+	private Collection<Bike> getRentedBikes() {
+		Collection<Bike> currentlyRented = new ArrayList<>();
+		for(Bike bike:allBikes) {
+			if(bike.getRenter()!=null) {
+				currentlyRented.add(bike);
+			}
+		}
+		return currentlyRented;
+	}
+
+	/**
+	 * @return the bikes that are close to a station (within 30 meters), but still are rented
+	 */
+	private Collection<Bike> getUnreturnedBikes() {
+		Collection<Bike> rentedBikesWithin30 = new ArrayList<>();
+		for(Bike bike:getRentedBikes()) {
+			if(getStationNearby(bike,30)!=null && bike.getRenter()!=null) {
+				rentedBikesWithin30.add(bike);
+			}
+		}
+		return rentedBikesWithin30;		
+	}
+
+	/**
+	 * Called when a person starts renting a bike by taking it from a station.
+	 * Checks the arguments before registering all necessary info of the rental.
+	 * @param person
+	 * @param now the start time of the rental
+	 * @param returnTime the expected return time
+	 * @throws (some subclass of) RuntimeException if the now isn't before returnTime
+	 * @throws (some subclass of) RuntimeException if the bike isn't available for rental
+	 */
+	public void rentBike(final Person person, final Bike bike, final LocalDateTime now, final LocalDateTime returnTime) {
+		checkIfBikesIsCurrentlyRented(bike);
+		checkIfReturnDateIsAfterNowDate(now, returnTime);
+		checkValidRenter(person);
+		bike.setRenter(person);
+		Collections.addAll(this.startTimeAndEndTime, now,returnTime);	
+		//Bruker denne mappingen til å koble en person til en startTid og en sluttTid
+		map.put(bike.getRenter(), this.startTimeAndEndTime);
+	}
+
+	/**
+	 * Called when a person extends an ongoing bike rental.
+	 * Checks the arguments before registering all necessary info of the rental extension.
+	 * @param person
+	 * @param bike
+	 * @param now the time the extension starts
+	 * @param returnTime the (new) expected return time
+	 * @throws (some subclass of) RuntimeException if the now isn't before returnTime
+	 * @throws (some subclass of) RuntimeException if the bike isn't currently being rented
+	 * @throws (some subclass of) RuntimeException if person isn't currently renting the bike
+	 */
+	//Lagrer totalpris i en variabel.
+	private double totalPrice=0;
+	//Har oversikt over antall ganger vedkommende har utvide tiden. 
+	private int numberOfExtensions=0;
+	
+	
+	
+	//Man burde sjekkke om sykkelen er leid av personen ellers så ville ikke det gi mening å utvide leietiden. 
+	public void extendRental(final Person person, final Bike bike, final LocalDateTime now, final LocalDateTime returnTime) {
+		checkIfBikesIsRentedByPerson(bike,person); 
+		//Burde også sjekke om ny sluttid er tidligere enn opprinnelig starttid. 
+		checkIfReturnDateIsAfterNowDate(startTimeAndEndTime.get(0),returnTime);		
+		this.numberOfExtensions+=1;
+		//Her sjekker jeg om sluttiden er etter opprinnelig sluttid. 
+		if(now.isAfter(returnTime)) {
+			this.totalPrice+=10;
+		}
+		//Her endrer jeg slutttiden til ny sluttid. Da knytter jeg personen til ny start og slutttid. 
+		//Den opprinnelige startiden er ikke endret. 
+		startTimeAndEndTime.set(1, returnTime);
+		map.put(person,startTimeAndEndTime);
+	}
+	
+	
+	
+	/**
+	 * Called when a person returns a bike.
+	 * Checks the arguments, computes the price, performs the payment and clears the rental info.
+	 * Note that if the payment isn't completed, the rental info should not be cleared.
+	 * @param person
+	 * @param bike
+	 * @param now the time the bike is returned
+	 * @throws (some subclass of) RuntimeException if the bike isn't currently being rented by the person argument
+	 * @throws (some subclass of) RuntimeException if person isn't near (within 30 meters of) a station
+	 */
+	public void returnBike(final Person person, final Bike bike, final LocalDateTime now) {
+		checkIfBikesIsRentedByPerson(bike,person);
+		checkIfNearStation(bike);
+		double finalPrice;
+		//Her sjekker den om personen har et abonnoment eller ikke. 
+		if(checkIfPersonHasDayPass(person)) {
+			finalPrice = dagsAbonnoment(map.get(person).get(0),now);
+		}else if(checkIfPersonHasMonthPass(person)) {
+			finalPrice = mndsAbonnoment(map.get(person).get(0),now);
+		}else {
+			finalPrice = ingenAbonnoment(map.get(person).get(0), map.get(person).get(1), now, numberOfExtensions);
+		}
+		//antar det finnes en metode som regner ut prisen. her betaler han et gebyr fordi at han lever sykkelen for sent. 
+		person.pay(finalPrice);
+		//antar at betalingen har gått i orden videre i koden. 
+		startTimeAndEndTime.clear();
+		bike.setRenter(null);
+		//Setter ny lokasjon for sykkelen til en stasjon i nærheten. 
+		bike.setLocation(getStationNearby(bike,30));
+	}
+	
+	/*
+	 * Dette er metodene som SykkelAbonnomentPris og BikeRental implementerte fra SykkeAbonnoment grensesnittet. 
+	 * Beregningene blir delegert videre til SykkelAbonnomentPris klassen. 
+	 */
+	@Override
+	public double ingenAbonnoment(LocalDateTime start, LocalDateTime expectedTime, LocalDateTime actualTime, int numberOfExtensions) {
+		return this.sykkelPris.ingenAbonnoment(start, expectedTime, actualTime, numberOfExtensions);
+	}
+
+	@Override
+	public double dagsAbonnoment(LocalDateTime start, LocalDateTime delivered) {
+		return this.sykkelPris.dagsAbonnoment(start, delivered);
+	}
+
+	@Override
+	public double mndsAbonnoment(LocalDateTime start, LocalDateTime delivered) {
+		return this.sykkelPris.mndsAbonnoment(start, delivered);
+	}
+
+
+	//Alle private sjekkemetoder er under her. 
+	
+	private boolean checkIfPersonHasDayPass(Person renter) {
+		return renter.isDagsPass();
+	}
+	
+	private boolean checkIfPersonHasMonthPass(Person renter) {
+		return renter.isMndPass();
+	}
+	
+	
+	private void checkIfNearStation(Bike bike) {
+		if(getUnreturnedBikes().contains(bike)) {
+			throw new IllegalArgumentException("You har not near a station");
+		}
+	}
+	
+	private void checkIfReturnDateIsAfterNowDate(LocalDateTime now, LocalDateTime returnTime) {
+		if(now.isAfter(returnTime)) {
+			throw new IllegalArgumentException("Return time is before currently time");
+		}
+	}
+	
+	private void checkIfBikesIsCurrentlyRented(Bike bike) {
+		if(getRentedBikes().contains(bike)) {
+			throw new IllegalArgumentException("Bike is currently unavalible");
+		}
+	}
+	
+	private void checkIfBikesIsRentedByPerson(Bike bike,Person renter) {
+		if(!bike.getRenter().equals(renter)) {
+			throw new IllegalArgumentException("This bike is not rented by this person");
+		}
+	}
+	
+
+	private boolean checkIfRenterKeptHisTime(Bike bike,LocalDateTime actualEndTime) {
+		return map.get(bike.getRenter()).get(1).isBefore(actualEndTime);
+	}
+	
+	
+	
+	
+	//skriver to metoder for å validere location og renter under. 
+	
+	private void checkValidRenter(Person renter) {
+		if(renter == null) {
+			throw new IllegalArgumentException("this renter does not exist");
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	public static void main(final String[] args) {
+		// Some geo-locations to use in testing:
+		// In the hall outside F1: 63.416522, 10.403345
+		// By the entrance to Realfagsbygget closest to F1: 63.416017, 10.404729
+		// Another spot by the same entrance, closer than 30 meters: 63.416079, 10.404565
+		System.out.println(GeoLocation.distance(63.416017, 10.404729, 63.416079, 10.404565));
+	}
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+}

@@ -1,0 +1,8 @@
+package bike;
+
+public interface SykkelAbonnoment {
+	double ingenAbonnoment(int numberOfHours,int numberOfExtensions);
+	double dagsAbonnoment();
+	double mndsAbonnoment();	
+	
+}

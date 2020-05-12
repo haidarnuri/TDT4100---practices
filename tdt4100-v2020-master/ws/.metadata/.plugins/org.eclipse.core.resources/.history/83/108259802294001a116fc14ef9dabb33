@@ -1,0 +1,35 @@
+package bike;
+
+
+/*
+ * Lager en sykkelabonnomentklasse som inneholder ulike abbonomenter i form av objekter. 
+ */
+public class SykkelAbonnomentPris implements SykkelAbonnoment{
+	
+	//dersom en av disse et true så har vedkommende dette abbonomentet. 
+	private boolean dagsPass,mndPass;
+	//Har oversikt over prisBeregnigner i denne klassen. 
+	
+	//har ikke tenkt på om prisene er realistiske eller ikke. 
+
+	@Override
+	public double ingenAbonnoment(double price, double priceForExtensions) {
+		return price+priceForExtensions;
+	}
+
+	@Override
+	public double dagsAbonnoment() {
+		return 200;
+	}
+
+	@Override
+	public double mndsAbonnoment() {
+		// TODO Auto-generated method stub
+		return 5000;
+	}
+	
+	
+	
+	
+
+}

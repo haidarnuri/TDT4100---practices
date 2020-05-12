@@ -1,0 +1,10 @@
+package bike;
+
+import java.time.LocalDateTime;
+
+public interface SykkelAbonnoment {
+	double ingenAbonnoment(int numberOfHours, int numberOfExtensions,LocalDateTime expectedTime, LocalDateTime actualTime);
+	double dagsAbonnoment(LocalDateTime start, LocalDateTime delivered);
+	double mndsAbonnoment(LocalDateTime start, LocalDateTime delivered);	
+	
+}

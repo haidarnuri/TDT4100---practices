@@ -18,15 +18,19 @@
     <fullyQualifiedTypeName name="junit.framework.TestCase"/>
     <fullyQualifiedTypeName name="java.util.NoSuchElementException"/>
     <fullyQualifiedTypeName name="bike.Bike"/>
-    <fullyQualifiedTypeName name="java.lang.IllegalArgumentException"/>
     <fullyQualifiedTypeName name="bike.BikeRental"/>
     <fullyQualifiedTypeName name="java.util.Date"/>
     <fullyQualifiedTypeName name="java.util.Map"/>
     <fullyQualifiedTypeName name="java.util.HashMap"/>
     <fullyQualifiedTypeName name="java.util.Collection"/>
-    <fullyQualifiedTypeName name="java.util.ArrayList"/>
     <fullyQualifiedTypeName name="java.util.Collections"/>
     <fullyQualifiedTypeName name="java.util.List"/>
     <fullyQualifiedTypeName name="bike.Person"/>
+    <fullyQualifiedTypeName name="org.junit.runners.AllTests"/>
     <fullyQualifiedTypeName name="bike.GeoLocation"/>
+    <fullyQualifiedTypeName name="java.util.ArrayList"/>
+    <fullyQualifiedTypeName name="java.lang.IllegalArgumentException"/>
+    <fullyQualifiedTypeName name="bike.SykkelAbonnoment"/>
+    <fullyQualifiedTypeName name="bike.SykkelAbonnomentPris"/>
+    <fullyQualifiedTypeName name="java.time.LocalDateTime"/>
 </qualifiedTypeNameHistroy>

@@ -1,0 +1,42 @@
+package bike;
+
+
+/*
+ * Lager en sykkelabonnomentklasse som inneholder ulike abbonomenter i form av objekter. 
+ */
+public class SykkelAbonnoment {
+	
+	//dersom en av disse et true så har vedkommende dette abbonomentet. 
+	private boolean dagsPass,mndPass;
+	
+	//skriver vedkommende false på begge så har han ikke abbonoment. 
+	public SykkelAbonnoment(Boolean dagsPass, Boolean mndPass) {
+		this.dagsPass=dagsPass;
+		this.mndPass=mndPass;
+	}
+	
+	public boolean getDagsPass() {
+		return this.dagsPass;
+	}
+	
+	public boolean getMndPass() {
+		return this.mndPass;
+	}
+	
+	//har ikke tenkt på om prisene er realistiske eller ikke. 
+	
+	//Antar en pris for dagen er 300 kr
+	public double dagPassPris() {
+		return 200;
+	}
+	
+	//Antar en pris for mnd er 
+	public double mndPassPris() {
+		return 5000;
+	}
+	
+	
+	
+	
+
+}

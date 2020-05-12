@@ -1,0 +1,4 @@
+1589267626667	Rename type 'SykkelAbonnoment'
+1589268851737	Encapsulate field 'mndPass'
+1589268859396	Encapsulate field 'dagsPass'
+1589270797828	Rename field 'numberOfExtendals'
