@@ -29,8 +29,9 @@
     <fullyQualifiedTypeName name="org.junit.runners.AllTests"/>
     <fullyQualifiedTypeName name="bike.GeoLocation"/>
     <fullyQualifiedTypeName name="java.util.ArrayList"/>
-    <fullyQualifiedTypeName name="java.lang.IllegalArgumentException"/>
     <fullyQualifiedTypeName name="bike.SykkelAbonnoment"/>
     <fullyQualifiedTypeName name="bike.SykkelAbonnomentPris"/>
     <fullyQualifiedTypeName name="java.time.LocalDateTime"/>
+    <fullyQualifiedTypeName name="java.lang.IllegalArgumentException"/>
+    <fullyQualifiedTypeName name="com.sun.jdi.DoubleValue"/>
 </qualifiedTypeNameHistroy>

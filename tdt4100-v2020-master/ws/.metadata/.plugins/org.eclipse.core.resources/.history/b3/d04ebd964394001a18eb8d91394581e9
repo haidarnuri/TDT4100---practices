@@ -1,0 +1,95 @@
+package EksamenKont2015;
+
+public class Unit {
+	
+	private String symbol = null;
+	private Unit base = null;
+	private double factor;
+	private double offset;
+	
+
+	
+	
+	
+	public Unit(String symbol) throws IllegalArgumentException {
+		checkValidSymbol(symbol);
+        this.symbol=symbol;
+    }
+	
+	 
+    public Unit(String symbol, Unit base, double factor, double offset) throws IllegalArgumentException {
+        this(symbol,base,factor);
+        this.offset=offset;
+    }
+	
+    
+    /**
+     * Constructor for derived units, e.g. kilometer, milligram and Celcius, derived from meter, gram and Kelwin respectively.
+     * A derived unit includes the factor and offset for the linear formula for computing the base unit from the derived one.
+     * base-unit-value = derived-unit-value * factor + offset
+     * @param symbol The symbol for the derived Unit
+     * @param base The base unit, e.g. meter for kilometer, gram for milligram
+     * @param factor The factor in the formula, e.g. 1000 for km to m or 0.001 for mg to g. The offset is set to 0.0.
+     * @throws IllegalArgumentException if the symbol contains characters that are not alphabetic
+     */
+    public Unit(String symbol, Unit base, double factor) throws IllegalArgumentException {
+        this(symbol);
+        this.base=base;
+        this.factor=factor;
+        
+    }
+    
+    public String getSymbol() {
+    	return this.symbol;
+    }
+    
+    public Unit getBase() {
+    	return this.base;
+    }
+    
+    
+    //Returner null dersom de ikke har samme grunnenhet.
+    public Unit findCommonBaseUnit(Unit other) {
+    	Unit noCommonUnit = null;
+        if(getBase().equals(other)) {
+        	return other;
+        }else if(other.getBase().equals(this)) {
+        	return this;
+        	/*
+        	 * Her dobbeltsjekker jeg at begge verdiene har en grunnenhet. 
+        	 * Hvis jeg ikke hadde hatt getBase()!=null så kunne begge to hatt grunnenheten null, 
+        	 * som ikke er bra. 
+        	 */
+        }else if(getBase().equals(other.getBase()) && getBase()!=null){
+        	return getBase();
+        }else {
+        	return noCommonUnit;
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    @Override
+    public String toString() {
+        return symbol;
+    }
+	
+    
+    private void checkValidSymbol(String symbol) {
+    	if(!symbol.contains("[a-zA-Z]+")) {
+    		throw new IllegalArgumentException("Symbol can only contains letters");
+    	}
+    }
+	
+	
+	
+	
+	
+}
