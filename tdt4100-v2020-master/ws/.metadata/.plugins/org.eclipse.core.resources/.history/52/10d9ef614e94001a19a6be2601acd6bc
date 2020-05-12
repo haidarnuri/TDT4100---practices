@@ -1,0 +1,35 @@
+package EksamenKont2015;
+
+public class Value implements Comparable<Value>{
+
+	
+	private Unit unit;
+	private double value;
+	
+	public public Value(final Unit unit, final double value) {
+		this.unit=unit;
+		this.value=value;
+	}
+	
+	public Unit getUnit() {
+		return this.unit;
+	}
+	
+	public double getValue() {
+		return this.value;
+	}
+	
+	
+	@Override
+    public String toString() {
+        return getValue() + unit.toString();
+    }
+	
+	
+	@Override
+	public int compareTo(Value o) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+}

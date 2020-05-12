@@ -1,0 +1,18 @@
+package EksamenKont2015;
+
+import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class something {
+	public static void main(String[] args) {
+		String string = "2.3ji";
+		Scanner st = new Scanner(string);
+        while (!st.hasNextDouble())
+        {
+            st.next();
+        }
+        double value = st.nextDouble();
+		System.out.println(value);
+	}
+}

@@ -1,0 +1,13 @@
+package EksamenKont2015;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class something {
+	public static void main(String[] args) {
+		String string = "2.3ji";
+		Pattern p = Pattern.compile("^([+-]?\\d*\\.?\\d*)$");
+		Matcher m = p.matcher(string);
+		System.out.println(m.find());
+	}
+}

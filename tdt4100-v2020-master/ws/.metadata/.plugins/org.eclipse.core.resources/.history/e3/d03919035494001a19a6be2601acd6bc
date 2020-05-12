@@ -1,0 +1,23 @@
+package EksamenKont2015;
+
+import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class something {
+	public static void main(String[] args) {
+		String string = "2.3 ji";
+		char[] chars = string.toCharArray();
+        String test = "";
+        String unit = "";
+        for(char temp: chars) {
+        	if(Character.isDigit(temp) || temp == '.') {
+        		test+=temp;
+        	}else {
+        		unit+=temp;
+        	}
+        }
+        System.out.println(test);
+        System.out.println(unit);
+	}
+}

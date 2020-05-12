@@ -1,0 +1,49 @@
+package EksamenKont2015;
+
+public class Value implements Comparable<Value>{
+
+	
+	private final Unit unit;
+	private final double value;
+	
+	public Value(Unit unit,double value) {
+		this.unit=unit;
+		this.value=value;
+	}
+	
+	public Unit getUnit() {
+		return this.unit;
+	}
+	
+	public double getValue() {
+		return this.value;
+	}
+	
+	 /**
+     * Returns a Value instance from the provided String.
+     * The format is a double (as parsed by Double.valueOf) followed by a Unit symbol (as parsed by Unit.valueOf), e.g. "1.0m" or "2.5km".
+     * @param s
+     * @return the String parses as a Value instance
+     */
+    public static Value valueOf(String s) {
+        char[] chars = s.toCharArray();
+        for(char temp: chars) {
+        	temp
+        }
+        
+    }
+	
+	
+	@Override
+    public String toString() {
+        return getValue() + unit.toString();
+    }
+	
+	
+	@Override
+	public int compareTo(Value o) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+}

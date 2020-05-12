@@ -1,0 +1,17 @@
+package EksamenKont2015;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class something {
+	public static void main(String[] args) {
+		String string = "2.3m";
+		try {
+		     Float.parseFloat(string);
+		     System.out.println("true");
+		}
+		catch (NumberFormatException ex) {
+		    System.out.println("false");
+		}
+	}
+}

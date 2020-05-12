@@ -1,0 +1,15 @@
+package EksamenKont2015;
+
+
+public class something {
+	public static void main(String[] args) {
+		String string = "2.3ji";
+		try {
+		     Float.parseFloat(string);
+		     System.out.println("true");
+		}
+		catch (NumberFormatException ex) {
+		    System.out.println("false");
+		}
+	}
+}
