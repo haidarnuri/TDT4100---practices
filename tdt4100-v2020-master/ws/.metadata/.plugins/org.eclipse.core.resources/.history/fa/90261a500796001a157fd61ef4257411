@@ -1,0 +1,18 @@
+package EksamenKont2015;
+
+import org.junit.Test;
+
+import junit.framework.TestCase;
+
+public class ValueTest extends TestCase{
+	String double1 = "2.1";
+	String double2 = "12.1";
+	String expectdFail1 = "fail";
+	String s = null;
+	
+	@Test
+	public void testValueOf_expetcingTrue() {
+		assertEquals(2.1, Value.valueOf(double1));
+	}
+
+}
