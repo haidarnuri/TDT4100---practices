@@ -1,0 +1,10 @@
+package EksamenKont2016;
+
+public class Exam {
+	
+	//Tenker at man ikke kan endre koden når den er satt. 
+	private final String code;
+	private double credits;
+	
+	
+}

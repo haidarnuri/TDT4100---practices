@@ -1,0 +1,138 @@
+package EksamenKont2016;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
+public class Course implements Comparable<Course>{
+	
+	//Tenker at man ikke kan endre en fagkoden når den er satt. 
+		private final String code;
+		private double credits;
+		private String time;
+		
+		private char semester;
+		private int year;
+		
+		//Validerer at koden og semesteret ikke er null
+		public Course(String code) {
+			checkIfNotNull(code);
+			this.code=code;
+		}	
+		
+		 
+	      /**
+	       * Sets the time that this Course is taught. The format is the semester
+	       * (char) followed by the year. The year may be shortened to two digits;
+	       * if it is below 50 then 2000 should be added, otherwise 1900.
+	       * E.g. S16 means Spring 2016, while F86 means Fall 1986.
+	       * @param time The time in the format <semester><year>
+	       * @throws IllegalArgumentException if the format is incorrect
+	       */
+		
+		public void setTime(String time) {
+			//Sjekker om strengen er tom eller null.	
+			checkIfNotNull(time);
+			//Denne validerer at det skal starte med en bokstav etterfulgt med 2 eller 4 siffer. 
+			//Alle andre tegn vil utløse et unntak. 
+			checkIfRightFormat(time);		
+			//Finere med stor bokstav.
+			this.semester=time.toUpperCase().charAt(0);
+			this.year=returnRightTime(time);
+							
+		}
+					
+		public int getYear() { 
+			return this.year; 
+		}
+	      
+	    public char getSemester() { 
+	    	return this.semester; 
+	    }
+	  
+		
+		public void setCredits(double credits) {
+			this.credits = credits;
+		}
+
+		public double getCredits() {
+				return credits;
+		}
+		
+		public String getTime() {
+			return getSemester()+String.valueOf(getYear());
+		}
+	    
+		
+		//Alle private metoder og main er under her. 
+		
+		//Lager en generell metode som sjekker at verdiene ikke er null
+		private void checkIfNotNull(String validate) {
+			if(validate == null) {
+				throw new IllegalArgumentException("The input is unknown");
+			}		
+		}
+		
+
+		 private void checkIfRightFormat(String time) {
+		        if(!time.matches("^[S,Fs,F]{1}\\d{2,4}$")) {
+		        	throw new IllegalArgumentException("Has to begin with F or L letter and then two or four digits");
+		        }
+		    }
+		private int returnRightTime(String time) {
+			int tempYear = Integer.parseInt(time.substring(1));
+			if(tempYear<=50) {
+				tempYear+=2000;
+			}else if(tempYear<100) {
+				tempYear+=1900;
+			}
+			return tempYear;
+		}
+		
+		@Override
+		public String toString() {
+			return String.valueOf(getTime());
+		}
+		
+		@Override
+		public int compareTo(Course o) {
+			if(this.getYear()==o.getYear()) {
+				return this.getSemester()-o.getSemester();
+			}
+			else {
+				return this.getYear()-o.getYear();
+			}
+		}
+		
+		public static void main(final String[] args) {
+			Course course = new Course("TDT4100");
+			Course course1 = new Course("TDT4100");
+			Course course2 = new Course("TDT4100");
+			Course course3 = new Course("TDT4100");
+			Course course4 = new Course("TDT4100");
+
+			
+			course.setTime("F14");
+			course1.setTime("S16");
+			course2.setTime("S15");
+			course3.setTime("F15");
+			course4.setTime("S14");
+			Collection<Course> courseList = new ArrayList<>();
+			Collections.addAll(courseList, course,course1,course2,course3,course4);
+			Collections.sort(courseList);
+			for (Course course11:courseList) {
+				System.out.println(course11);
+			}
+			
+		}
+
+
+		
+}
+
+
+
+
+
