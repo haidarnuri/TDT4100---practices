@@ -1,0 +1,14 @@
+package EksamenKont2016;
+
+import java.util.Collection;
+
+public class ExamReader {
+	
+	
+	public static Collection<Exam> readExams(Reader input){
+		
+	}
+	
+	
+	
+}

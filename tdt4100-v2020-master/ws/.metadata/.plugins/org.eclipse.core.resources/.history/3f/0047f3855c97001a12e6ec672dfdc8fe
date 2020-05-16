@@ -1,0 +1,146 @@
+package EksamenKont2016;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.DoubleSummaryStatistics;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+public class Person {
+	
+	private List<Course> courses = new ArrayList<>();
+	private List<Exam> exams = new ArrayList<>();
+	
+	private String name;
+	
+	public Person(String name) {
+		//Validerer at navnet ikke er null, tomt eller noe annet enn bokstaver
+		validateName(name);
+		this.name=name;
+	}
+	
+	public String getName() {
+		return this.name;
+	}
+	
+    public boolean addCourse(Course course) { 
+    	boolean addedCourse = false;
+    	if(!checkIfContainsCourse(course)) {
+    		courses.add(course);
+    		addedCourse=true;
+    	}
+    	return addedCourse; 			
+    }
+  
+    public boolean hasCourse(String code) { 
+    	boolean hasCourse =false;
+    	for(Course course: courses) {
+    		if(course.getCode().equals(code)) {
+    			hasCourse=true;
+    			break;
+    		}
+    	}
+    	return hasCourse;
+    }
+
+   
+    public Exam addExam(Course course, char grade) { 
+    	Exam exam=null;
+    	if(!hasCourse(course.getCode())) {
+    		return exam;
+    	}
+    	for(Exam tempExam:exams) {
+    		if(tempExam.getCourse().equals(course) && tempExam.isPass()) {
+    			return exam;
+    		}
+    	}
+    	exam = new Exam(course, grade);
+    	exams.add(exam);
+    	return exam;
+    }
+
+    public Exam getLastExam(String code) { 
+    	Exam lastExam = null;
+    	//Denne teller hvor mange eksamener med denne koden som finnes. 
+    	int countExams=0;
+    	for(Exam tempExam:exams) {
+    		if(tempExam.getCourse().getCode().equals(code)){
+    			if(countExams==0) {
+    				lastExam=tempExam;
+    			}else{
+    				if(lastExam.getCourse().compareTo(tempExam.getCourse())<1) {
+    					lastExam = tempExam;
+    				}
+    			}
+    			
+    		}
+    	}
+		return lastExam;
+    }
+    
+   
+    public boolean hasPassed(String code) {
+    	return getLastExam(code).isPass() && getLastExam(code)!=null;
+    }
+    
+  
+    public double countCredits() { 
+    	double examThatCounts=exams.stream()
+    						  .filter(exam-> hasPassed(exam.getCourse().getCode()))
+    						  .filter(exam -> getLastExam(exam.getCourse().getCode()).equals(exam))				  
+    						  .collect(Collectors.summingDouble(exam -> exam.getCourse().getCredits()));
+    	return examThatCounts;
+    }
+
+    
+    
+    
+
+    
+	//Private metoder og main under her. 
+    
+    private boolean checkIfContainsCourse(Course course) {
+    	boolean containsCourse = false;
+    	for(Course tempCourse:courses) {
+    		if(tempCourse.getCode().equals(course.getCode()) && tempCourse.compareTo(course)==0) {
+    			containsCourse=true;
+    			break;
+    		}
+    	}
+    	return containsCourse;
+    }
+    
+  
+	private void validateName(String name) {
+		if(name==null || name.isEmpty()) {
+			throw new IllegalArgumentException("Navnet kan ikke være null eller tomt");
+		}
+		char[] letters = name.toCharArray();
+		for(char chars:letters) {
+			//Det er greit med mellomrom i navnene. 
+			if(!Character.isLetter(chars) && chars!= ' ') {
+				throw new IllegalArgumentException("Må inneholde KUN bokstaver");
+			}
+		}
+	}
+	
+	public static void main(String[] args) {
+		Course course = new Course("TDT4100");
+		Course course1 = new Course("TDT4101");
+		course.setCredits(7.5);
+		course1.setCredits(7.5);
+		Exam examResult = new Exam(course, 'D');
+		Exam examResult1 = new Exam(course1, 'B');
+		Person person = new Person("Haidar");
+		Collections.addAll(person.courses, course,course1);
+		Collections.addAll(person.exams, examResult,examResult1);
+
+		System.out.println(person.countCredits());
+		
+		
+		
+		
+	}
+	
+}
