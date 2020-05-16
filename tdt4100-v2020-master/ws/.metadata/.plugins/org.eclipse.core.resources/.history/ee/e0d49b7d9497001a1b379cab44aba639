@@ -1,0 +1,80 @@
+package EksamenKont2017;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+
+/**
+ * Represents a set of (pre-defined) Courses that are ordered as a whole
+ */
+//Implementerer Itrable grensesnittet slik at jeg bestemmer hvordan et Meal objekt skal bli iterert
+public class Meal implements Iterable<Course>{
+  
+    private final String name, description;
+    private Collection<Course> courses = new ArrayList<>();
+  
+    public Meal(String name, String description, Course[] courses) {
+        this.name=name;
+        this.description=description;
+        this.courses = Arrays.asList(courses);
+    }
+     
+    public String getName() {
+        return name;
+    }
+     
+    public String getDescription() {
+        return description;
+    }
+
+
+	public Collection<Course> getCourses() {
+		return courses;
+	}
+	
+	/*
+	 * Det er greit for kunder å legge til to av samme rett, 
+	 * det er vanlig i restauranter. Derfor sjekker jeg ikke om 
+	 * retten allerde finnes i courses
+	 */
+	public void addCourse(Course course) {
+		
+	}
+	
+	@Override
+	public Iterator<Course> iterator() {
+		return getCourses().iterator();
+	}
+    
+	
+	/*
+	 * Bruker static som gjør at man ikke er avhengig av å kalle denne metoden gjennom
+	 *et objekt fra klassen
+	 */
+	public static Collection<Course> asList(Course ...courseAsArray) {
+		Collection<Course> allCourses = new ArrayList<>();
+		for(int i=0;i<courseAsArray.length;i++) {
+			allCourses.add(courseAsArray[i]);
+		}		
+		return allCourses;
+	}
+	
+	//Bruker dette som en test underveis. 
+    public static void main(String[] args) {
+    	Course course1 = new Course("Biff","mye kjøtt");
+    	Course course2 = new Course("salat","ingen kjøtt");
+    	Course[] courses = {course1, course2};
+    	Collection<Course> coursesAsList = Meal.asList(courses);
+    	coursesAsList.stream()
+    				 .forEach(course -> System.out.println(course));
+   
+    }
+
+	
+    
+    
+    
+
+}

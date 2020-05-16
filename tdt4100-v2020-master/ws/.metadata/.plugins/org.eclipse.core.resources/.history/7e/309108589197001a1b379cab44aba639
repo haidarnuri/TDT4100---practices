@@ -1,0 +1,52 @@
+package EksamenKont2017;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+
+/**
+ * Represents a set of (pre-defined) Courses that are ordered as a whole
+ */
+public class Meal {
+  
+    private final String name, description;
+    private Collection<Course> courses = new ArrayList<>();
+  
+    public Meal(String name, String description, Course[] courses) {
+        this.name=name;
+        this.description=description;
+        this.courses = Arrays.asList(courses);
+    }
+     
+    public String getName() {
+        return name;
+    }
+     
+    public String getDescription() {
+        return description;
+    }
+
+
+	public Collection<Course> getCourses() {
+		return courses;
+	}
+    
+	
+	public static Collection<Course> asList(Course[] courseAsArray) {
+		Collection allCourses = null;
+		
+		
+		return courses;
+		
+	}
+	
+	
+    public static void main(String[] args) {
+		
+	}
+    
+    
+    
+
+}

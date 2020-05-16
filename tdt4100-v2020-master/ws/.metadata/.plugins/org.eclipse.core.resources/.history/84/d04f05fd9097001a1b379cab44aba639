@@ -1,0 +1,30 @@
+package EksamenKont2017;
+
+public class Course {
+	  
+    public final String name, description;
+  
+    public Course(String name, String description) {
+        super();
+        ... initialization ...
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    public static void main(String[] args) {
+		
+	}
+}

@@ -1,5 +1,0 @@
-package patterns.delegation;
-
-public interface ILogger {
-
-}

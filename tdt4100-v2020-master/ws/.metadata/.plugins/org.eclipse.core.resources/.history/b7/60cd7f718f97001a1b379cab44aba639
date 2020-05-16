@@ -1,0 +1,10 @@
+Oppgave 1a)
+
+Fordelen med at har public felt er at man kan få tilgang til metodene . Ulempene med dette er 
+at tilstanden til klassen er veldig disponert for andre. Og andre kan få direkte tilgang til å gjøre 
+endringer. Her brukes også final ordet, som sikrer at det ikke er mulig å gjøre endringer etter at 
+disse er initialisert. 
+
+Fordelen med private felt og public getmetode er at tilstanden er mer inkapslet og andre brukere
+har ikke direkte tilgang til å gjøre endringer. De kan se verdien ved å kalle get, men ikke endre. 
+Det kan også være en ulempe å ikke kunne endre tilstanden, dersom det er behov for det. 

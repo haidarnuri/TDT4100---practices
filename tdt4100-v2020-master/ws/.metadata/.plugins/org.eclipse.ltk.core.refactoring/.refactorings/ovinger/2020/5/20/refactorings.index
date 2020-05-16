@@ -5,3 +5,6 @@
 1589561349687	Rename method 'checkGrade'
 1589567093597	Encapsulate field 'name'
 1589571698324	Rename compilation unit 'testPerson.java'
+1589644675365	Delete element
+1589645793473	Encapsulate field 'courses'
+1589646178149	Rename local variable 'course'
