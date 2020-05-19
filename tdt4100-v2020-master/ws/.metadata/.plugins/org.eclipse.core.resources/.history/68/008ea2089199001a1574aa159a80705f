@@ -1,0 +1,11 @@
+package EksamenKont2017;
+
+
+
+/*
+ * Det Course og Meal har til felles er at disse to har tilstander som beskriver
+ * navn og beskrivelse. 
+ */
+public class MenuItem {
+
+}

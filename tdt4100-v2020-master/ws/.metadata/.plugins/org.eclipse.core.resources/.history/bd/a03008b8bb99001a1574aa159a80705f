@@ -1,0 +1,84 @@
+package EksamenKont2017;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
+public class Kitchen{
+	  
+    Collection<KitchenListener> kitchenListener = new ArrayList<KitchenListener>();
+    private Map<Table, Collection<Course>> courseQueue = new HashMap<Table, Collection<Course>>();
+    
+    //Observert metodene
+    public void addKitchenListener(KitchenListener listener) {
+    	if(!this.kitchenListener.contains(listener)) {
+    		kitchenListener.add(listener);
+    	}
+    }
+    
+    public void removeKitchenListener(KitchenListener listener) {
+    	kitchenListener.remove(listener);
+    }    
+    
+    /**
+     * Enqueues a Course in the production queue, that is part of the provided Table.
+     * @param table
+     * @param course
+     */
+    
+    private void produceCourse(Table table, Course course) {
+    	Collection<Course> courses = courseQueue.get(table);
+    	if(courses==null) {
+    		courses = new ArrayList<>();
+    	}
+        courseQueue.put(table, courses);
+        courses.add(course);
+    }
+  
+    /**
+     * Internal methods that must be called when a Course of a Table has been produced.
+     * Notifies registered listeners about the event.
+     * @param table
+     * @param course
+     */
+
+    private void courseProduced(Table table, Course course) {
+        Collection<Course> courses = courseQueue.get(table);
+        courseReady(table, course);
+        courses.remove(course);
+        
+     //   ... what should be done here, to support observers? ...
+    }
+  
+    /**
+     * Should be called when a MenuItem is added to a Table,
+     * so the corresponding Courses can be produced.
+     * @param table
+     * @param item
+     */
+    
+    //item kan enten være en Course eller en Meal. 
+    public void menuItemAdded(Table table, MenuItem item) {
+    	if(item instanceof Course) {
+    		produceCourse(table, (Course) item);
+    	}else {
+    		Meal tempMeal = (Meal) item;
+    		Iterator<Course> iterateMeal = tempMeal.iterator();
+    		while(iterateMeal.hasNext()) {
+    			produceCourse(table, iterateMeal.next());
+    		}
+    	}
+    	
+    }
+    
+	@Override
+	public void courseReady(Table table, Course course) {
+		 this.kitchenListeners.stream()
+		   					.filter(tempTable -> tempTable.equals(table))
+		   					.forEach(temp -> temp.courseReady(table, course));
+	} 
+	
+}

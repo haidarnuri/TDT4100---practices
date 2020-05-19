@@ -1,0 +1,5 @@
+package EksamenKont2017;
+
+public interface KitchenListener {
+
+}

@@ -1,0 +1,66 @@
+package EksamenKont2017;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+public class Menu {
+	  
+	//Tenker å bruke mapping som bruker courses som nøkkel og pris som andre element. 
+	private Map<MenuItem,Double> itemsAndPrices = new HashMap<>();
+
+	
+    public double getPrice(MenuItem menuItem) throws IllegalArgumentException { 	
+    	MenuItem itemFromStream = this.itemsAndPrices.keySet().stream()
+    													.filter(tempItem -> tempItem.equals(menuItem))
+    													.findAny().orElse(null);
+    	checkItemExists(itemFromStream);
+		return this.itemsAndPrices.get(itemFromStream);	
+    }
+  
+    
+    public void updatePrice(MenuItem menuItem, double price) {
+        this.itemsAndPrices.put(menuItem, price);
+    }
+     
+  
+    //alle private metoder under her. 
+    //Sjekker om måltidene eller rettene eksistrere. 
+    private void checkItemExists(MenuItem menuItem) {
+    	if(menuItem==null) {
+    		throw new IllegalArgumentException("This menu does not contain this item");
+    	}
+    }
+ 
+    
+    public static void main(String[] args) {
+		Course course1 = new Course("indisk", "");
+		Course course2 = new Course("thai", "");
+		Course course3 = new Course("sushi", "");
+		Course course4 = new Course("burger", "");
+		Meal meal1 = new Meal("måltid 1", "", course1,course2);
+		Meal meal2 = new Meal("måltid 2", "", course3,course4);
+		Menu meny1=new Menu();
+		meny1.updatePrice(course1, 100.0);
+		meny1.updatePrice(course2, 150.0);
+		meny1.updatePrice(meal1, 1500);
+		System.out.println(meny1.getPrice(meal1));
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	}
+    
+    
+    
+}

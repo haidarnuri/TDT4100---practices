@@ -1,0 +1,29 @@
+package EksamenKont2017;
+
+public class Course {
+	  
+    public final String name, description;
+  
+    public Course(String name, String description) {
+        this.name=name;
+        this.description=description;
+    }
+    
+    
+    
+    @Override
+    public String toString() {
+    	return this.name;
+    }
+    
+       
+    
+    
+    
+    
+    
+    
+    public static void main(String[] args) {
+		
+	}
+}

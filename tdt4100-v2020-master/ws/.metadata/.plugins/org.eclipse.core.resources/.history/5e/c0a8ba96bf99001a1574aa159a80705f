@@ -1,0 +1,58 @@
+package EksamenKont2017;
+
+import java.util.ArrayList;
+import java.util.Collection;
+
+public class Table implements KitchenListener{
+	
+	
+	private Kitchen kitchen;
+	private Collection<MenuItem> menuItem = new ArrayList<>();
+	
+	//Tenker at kjøkkenet begynner å produsere maten når måltidet er bestilt. 
+	public void addMenuItem(MenuItem item) {
+	   this.menuItem.add(item);
+	   this.kitchen.menuItemAdded(this, item);
+	}
+	 
+	private final Menu menu;
+	  
+	public Table(Menu menu) {
+	   this.menu = menu;
+	}
+	  
+	public double getPrice() throws IllegalStateException {
+	   double total = 0.0;
+	   for (MenuItem tempItem : menuItem) {
+	      try {
+	         total += menu.getPrice(tempItem);
+	      } catch (IllegalArgumentException e) {
+	         throw new IllegalStateException(e);
+	      }
+	   }
+	  
+	   return total;
+	}
+	
+	public void setKitchen(Kitchen kitchen) {
+		validateKitchen(kitchen);
+		if(this.kitchen!=kitchen) {
+			kitchen.addKitchenListener(this);
+			this.kitchen=kitchen;
+		}
+	}
+
+	@Override
+	public void courseReady(Table table, Course course) {
+		//sjekker om det er seg selv den mener. 
+	}
+	
+	private void validateKitchen(Kitchen kitchen) {
+		if(kitchen==null) {
+			throw new IllegalArgumentException("This kitchen does noe exist");
+		}
+	}
+	
+	
+	
+}

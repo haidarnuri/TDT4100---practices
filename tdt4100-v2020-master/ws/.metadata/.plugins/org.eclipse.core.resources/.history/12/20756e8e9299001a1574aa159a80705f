@@ -1,0 +1,17 @@
+package EksamenKont2017;
+
+public class Course extends MenuItem{
+	  
+    
+  
+    public Course(String name, String description) {
+		super(name,description);
+    }
+    
+    
+    
+    public static void main(String[] args) {
+		Course course = new Course("Indisk", "Sterkt");
+		System.out.println(course);
+	}
+}

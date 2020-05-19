@@ -1,0 +1,122 @@
+package EksamenKont2017;
+
+import java.util.ArrayList;
+import java.util.Collection;
+
+public class Table implements KitchenListener{
+	
+	
+	private Kitchen kitchen;
+	private Collection<MenuItem> menuItems = new ArrayList<>();
+	private Collection<MenuItem> itemsReady = new ArrayList<>();
+	
+	public void addMenuItem(MenuItem item) {
+	   this.menuItems.add(item);
+	   this.kitchen.menuItemAdded(this, item);
+	   
+	}
+	 
+	private final Menu menu;
+	  
+	public Table(Menu menu) {
+	   this.menu = menu;
+	}
+	  
+	public double getPrice() throws IllegalStateException {
+	   double total = 0.0;
+	   for (MenuItem tempItem : menuItems) {
+	      try {
+	         total += menu.getPrice(tempItem);
+	      } catch (IllegalArgumentException e) {
+	         throw new IllegalStateException(e);
+	      }
+	   }
+	   return total;
+	}
+	
+	public void setKitchen(Kitchen kitchen) {
+		validateKitchen(kitchen);
+		if(this.kitchen!=kitchen) {
+			kitchen.addKitchenListener(this);
+			this.kitchen=kitchen;
+		}
+	}
+	
+	//Alle item er enten enkle course objekter eller course arrays(altså meals)
+	@Override
+	public void courseReady(Table table, Course course) {
+		if(this.equals(table)) {
+			boolean payBill = true;
+			this.itemsReady.add(course);
+			Collection<Course> comparisonCollection = divideAllItemsToCourse(this.menuItems);
+			for(Course temp:comparisonCollection) {
+				if(!this.itemsReady.contains(temp)) {
+					payBill=false;
+				}
+			}
+			if(payBill) {
+				getPrice();
+				this.itemsReady.clear();
+				this.menuItems.clear();
+				System.out.println("NAMANM!");
+			}
+		}
+	}
+	
+	private Collection<Course> divideAllItemsToCourse(Collection<MenuItem> items){
+		Collection<Course> tempCourses = new ArrayList<>();
+		for(MenuItem tempItem : items) {
+			if(tempItem instanceof Course) {
+				Course course = (Course)tempItem;
+				tempCourses.add(course);
+			}else {
+				Meal meal = (Meal)tempItem;
+				meal.getCourses().stream()
+								 .forEach(temp -> tempCourses.add(temp));
+			}
+		}
+		return tempCourses;
+	}
+		
+	private void validateKitchen(Kitchen kitchen) {
+		if(kitchen==null) {
+			throw new IllegalArgumentException("This kitchen does noe exist");
+		}
+	}
+	
+	
+	public static void main(String[] args) {
+		Course course1 = new Course("indisk", "");
+		Course course2 = new Course("thai", "");
+		Course course3 = new Course("sushi", "");
+		Course course4 = new Course("burger", "");
+		Meal meal1 = new Meal("måltid 1", "", course1,course2);
+		Meal meal2 = new Meal("måltid 2", "", course3,course4);
+		Menu meny1=new Menu();
+		meny1.updatePrice(course1, 100.0);
+		meny1.updatePrice(course2, 150.0);
+		meny1.updatePrice(meal1, 1500);
+		Table table1 = new Table(meny1);
+		Kitchen haidarsKitchen = new Kitchen();
+		table1.setKitchen(haidarsKitchen);
+		table1.addMenuItem(meal1);
+		haidarsKitchen.courseReady(table1, meal1);
+
+		
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}

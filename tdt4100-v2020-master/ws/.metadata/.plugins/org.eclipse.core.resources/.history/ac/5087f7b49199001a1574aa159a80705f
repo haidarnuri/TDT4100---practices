@@ -1,0 +1,29 @@
+package EksamenKont2017;
+
+public class Course extends MenuItem{
+	  
+    public final String name ="", description = "";
+  
+    public Course(String name, String description) {
+		super(name,description);
+    }
+    
+    
+    
+    @Override
+    public String toString() {
+    	return this.name;
+    }
+    
+       
+    
+    
+    
+    
+    
+    
+    public static void main(String[] args) {
+		MenuItem course = new Course("Indisk", "Sterkt");
+		System.out.println(course.getName());
+	}
+}

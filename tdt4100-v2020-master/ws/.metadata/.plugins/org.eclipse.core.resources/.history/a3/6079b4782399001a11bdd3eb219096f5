@@ -1,0 +1,117 @@
+package EksamenKont2017;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+public class Menu {
+	  
+	//Tenker å bruke mapping som bruker courses som nøkkel og pris som andre element. 
+	private Map<Course,Double> coursesAndPrices = new HashMap<>();
+	private Map<Meal,Double> mealsAndPrices = new HashMap<>();
+
+	public Menu() {
+		
+	}
+    /**
+     * Gets the price for a Course.
+     * @param course
+     * @return the price
+     * @throws IllegalArgumentException if this Menu doesn't include the provided Course
+     */
+    public double getPrice(Course course) throws IllegalArgumentException { 	
+    	Course courseFromStream = this.coursesAndPrices.keySet().stream()
+    													.filter(tempCourse -> tempCourse.equals(course))
+    													.findAny().orElse(null);
+    	checkCourseExists(courseFromStream);
+		return this.coursesAndPrices.get(courseFromStream);	
+    }
+  
+    /**
+     * Sets/changes the price of the provided Course.
+     * @param course
+     * @param price
+     */
+    public void updatePrice(Course course, double price) {
+        this.coursesAndPrices.put(course, price);
+    }
+     
+    /**
+     * Gets the price for a Meal. If the registered price is 0.0,
+     * the price is computed as the sum of the prices of the Meal's courses.
+     * @param meal
+     * @return
+     * @throws IllegalArgumentException if this Menu doesn't include the provided Meal,
+     *  or if a price of a Course is needed, but is missing
+     */
+    public double getPrice(Meal meal) throws IllegalArgumentException {
+    	double price = 0;
+    	Meal mealFromStream = this.mealsAndPrices.keySet().stream()
+												 .filter(tempMeal -> tempMeal.equals(meal))
+												 .findAny().orElse(null);
+		checkMealExists(mealFromStream);
+		if(this.mealsAndPrices.get(mealFromStream)==0) {
+			price = mealFromStream.getCourses().stream()
+											   .collect(Collectors.summingDouble(course -> getPrice(course)));
+		}else {
+			price = this.mealsAndPrices.get(mealFromStream);
+		}
+		return price;
+    	
+    }   
+  
+    /**
+     * Sets/changes the price of the provided Meal.
+     * @param meal
+     * @param price
+     */
+    public void updatePrice(Meal meal, double price) {
+        this.mealsAndPrices.put(meal, price);
+
+    }
+    
+    //alle private metoder under her. 
+    //Sjekker om måltidene eller rettene eksistrere. 
+    private void checkCourseExists(Course course) {
+    	if(course==null) {
+    		throw new IllegalArgumentException("This menu does not contains course");
+    	}
+    }
+    
+    private void checkMealExists(Meal meal) {
+    	if(meal==null) {
+    		throw new IllegalArgumentException("This menu does not contains this meal");
+    	}
+    }
+    
+    public static void main(String[] args) {
+		Course course1 = new Course("indisk", "");
+		Course course2 = new Course("thai", "");
+		Course course3 = new Course("sushi", "");
+		Course course4 = new Course("burger", "");
+		Meal meal1 = new Meal("måltid 1", "", course1,course2);
+		Meal meal2 = new Meal("måltid 2", "", course3,course4);
+		Menu meny1=new Menu();
+		meny1.updatePrice(course1, 100.0);
+		meny1.updatePrice(course2, 150.0);
+		meny1.updatePrice(meal1, 0);
+		System.out.println(meny1.getPrice(meal1));
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	}
+    
+    
+    
+}

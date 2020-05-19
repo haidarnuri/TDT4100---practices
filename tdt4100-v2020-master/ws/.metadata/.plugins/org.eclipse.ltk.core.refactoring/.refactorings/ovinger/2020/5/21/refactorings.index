@@ -1,0 +1,4 @@
+1589882306382	Rename field 'tableListeners'
+1589882693334	Rename method 'addTable'
+1589889349145	Rename local variable 'comparisonCollection'
+1589889383770	Rename local variable 'expectedItems'

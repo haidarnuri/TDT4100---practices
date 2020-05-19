@@ -1,0 +1,83 @@
+package EksamenKont2017;
+
+import java.util.ArrayList;
+import java.util.Collection;
+
+public class Table implements KitchenListener{
+	
+	
+	private Kitchen kitchen;
+	private Collection<MenuItem> menuItems = new ArrayList<>();
+	private Collection<MenuItem> itemsReady = new ArrayList<>();
+	
+	public void addMenuItem(MenuItem item) {
+	   this.menuItems.add(item);
+	   this.kitchen.menuItemAdded(this, item);
+	   
+	}
+	 
+	private final Menu menu;
+	  
+	public Table(Menu menu) {
+	   this.menu = menu;
+	}
+	  
+	public double getPrice() throws IllegalStateException {
+	   double total = 0.0;
+	   for (MenuItem tempItem : menuItems) {
+	      try {
+	         total += menu.getPrice(tempItem);
+	      } catch (IllegalArgumentException e) {
+	         throw new IllegalStateException(e);
+	      }
+	   }
+	   return total;
+	}
+	
+	public void setKitchen(Kitchen kitchen) {
+		validateKitchen(kitchen);
+		if(this.kitchen!=kitchen) {
+			kitchen.addKitchenListener(this);
+			this.kitchen=kitchen;
+		}
+	}
+	
+	//Alle item er enten enkle course objekter eller course arrays(altså meals)
+	@Override
+	public void courseReady(Table table, Course course) {
+		if(this.equals(table)) {
+			boolean payBill = true;
+			this.itemsReady.add(course);
+			Collection<Course> comparisonCollection = divideAllItemsToCourse(this.menuItems);
+			for(Course temp:comparisonCollection) {
+				if(!this.itemsReady.contains(temp)) {
+					
+				}
+			}
+		}
+	}
+	
+	private Collection<Course> divideAllItemsToCourse(Collection<MenuItem> items){
+		Collection<Course> tempCourses = new ArrayList<>();
+		for(MenuItem tempItem : items) {
+			if(tempItem instanceof Course) {
+				Course course = (Course)tempItem;
+				tempCourses.add(course);
+			}else {
+				Meal meal = (Meal)tempItem;
+				meal.getCourses().stream()
+								 .forEach(temp -> tempCourses.add(temp));
+			}
+		}
+		return tempCourses;
+	}
+		
+	private void validateKitchen(Kitchen kitchen) {
+		if(kitchen==null) {
+			throw new IllegalArgumentException("This kitchen does noe exist");
+		}
+	}
+	
+	
+	
+}

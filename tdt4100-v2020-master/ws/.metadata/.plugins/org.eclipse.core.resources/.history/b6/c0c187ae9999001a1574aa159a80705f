@@ -1,0 +1,74 @@
+package EksamenKont2017;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class Kitchen implements KitchenListener{
+	  
+    // for each Table that has requested Courses,
+    // there is a Collection of the Courses that are yet to be made
+    private Map<Table, Collection<Course>> courseQueue = new HashMap<Table, Collection<Course>>();
+    private List<Table> tableListeners = new ArrayList<>();
+    
+    
+    //Tenker at jeg legger til table objektet i mappingen, istedenfor å lagre det i en liste.
+    //Slipper å oprette en liste i tillegg til mappingen. 
+    public void addTable(Table table) {
+    	if(!this.courseQueue.containsKey(table)) {
+    		this.courseQueue.put(table,null);
+    	}
+    }
+    
+    public void removeTable(Table table) {
+    	this.tableListeners.remove(table);
+    }    
+    /**
+     * Enqueues a Course in the production queue, that is part of the provided Table.
+     * @param table
+     * @param course
+     */
+    private void produceCourse(Table table, Course course) {
+        Collection<Course> courses = courseQueue.get(table);
+        
+       // ... what should be done the first time a Table requests a Course? ...
+        
+        courses.add(course);
+        courseQueue.put(table, courses);
+    }
+  
+    /**
+     * Internal methods that must be called when a Course of a Table has been produced.
+     * Notifies registered listeners about the event.
+     * @param table
+     * @param course
+     */
+    private void courseProduced(Table table, Course course) {
+        Collection<Course> courses = courseQueue.get(table);
+        courses.remove(course);
+     //   ... what should be done here, to support observers? ...
+    }
+  
+    /**
+     * Should be called when a MenuItem is added to a Table,
+     * so the corresponding Courses can be produced.
+     * @param table
+     * @param item
+     */
+    public void menuItemAdded(Table table, MenuItem item) {
+    	
+    //    ... handle cases when item is a Course or a Meal ...
+    }
+  
+    //
+     
+    ... fields and methods for supporting observers
+
+	@Override
+	public void courseReady(Table table, Course course) {
+		// TODO Auto-generated method stub
+		
+	} ...
+}

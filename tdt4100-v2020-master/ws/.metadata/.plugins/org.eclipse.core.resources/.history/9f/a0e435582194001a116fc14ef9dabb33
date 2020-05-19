@@ -1,8 +1,0 @@
-package bike;
-
-public interface SykkelAbonnoment {
-	double ingenAbonnoment();
-	double dagsAbonnoment();
-	double mndsAbonnoment();	
-	
-}

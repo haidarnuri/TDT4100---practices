@@ -1,0 +1,36 @@
+package EksamenKont2017;
+
+
+
+/*
+ * Det Course og Meal har til felles er at disse to har tilstander som beskriver
+ * navn og beskrivelse. 
+ */
+public abstract class MenuItem {
+
+	private String name;
+	private String description;
+	
+	public MenuItem(String name, String description) {
+		this.description=description;
+		this.name=name;
+	}
+	
+	
+	public String getDescription() {
+		return this.description;
+	}
+	
+	
+	public String getName() {
+		return this.name;
+	}
+	
+	 @Override
+	    public String toString() {
+	    	return this.name;
+	    }
+	    
+	
+	
+}
