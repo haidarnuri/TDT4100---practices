@@ -1,0 +1,135 @@
+package Eksamen2016;
+
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.stream.Collectors;
+
+
+public class Person implements Iterable<Person> {
+
+	private String name;
+	private Gender gender;
+	private Person mother;
+	private Person father;
+	private Collection<Person> allChildren = new ArrayList<>();
+	
+	
+	
+	public Person(final String name) {
+		validateName(name);
+		this.name=name;
+	}
+	
+	public void setGender(Gender gender) {
+		this.gender=gender;
+	}
+	
+	public void setFather(Person father) {
+		this.father=father;
+	}
+	
+	public void setMother(Person mother) {
+		this.mother=mother;
+	}
+	
+	
+	public Gender getGender() {
+		return this.gender;
+	}
+	
+	public String getName() {
+		return this.name;
+	}
+	
+	public Person getMother() {
+		return this.mother;
+	}
+	
+	public Person getFather() {
+		return this.father;
+	}
+	
+	public Collection<Person> getAllChildren(){
+		return this.allChildren;
+	}
+	
+	/**
+	    * @return the number of children of this Person
+	    */
+	public int getChildCount() {
+		return getAllChildren().size();
+	}
+	
+	/**
+	    * @param child
+	    * @return if this Person has the provided Person as a child
+	    */
+	public boolean hasChild(Person child) {
+	   return this.getAllChildren().contains(child);
+	}
+	
+	public Collection<Person> getChildren(Gender gender) {
+	      Collection<Person> specificGender= getAllChildren().stream()
+	    		  											 .filter(child->child.getGender().equals(gender))
+	    		  											 .collect(Collectors.toList());
+	      if(specificGender.isEmpty()) {
+	    	  return getAllChildren();
+	      }else {
+	    	  return specificGender;
+	      }
+	}
+	
+	 /**
+	    * Adds the provided Person as a child of this Person.
+	    * Also sets the child's father or mother to this Person,
+	    * depending on this Person's gender.
+	    * To ensure consistency, if the provided Person already
+	    * has a parent of that gender,
+	    * it is removed as a child of that parent.
+	    * @param child
+	    */
+	public void addChild(Person child) {
+		if(child.getFather()!=null && getGender().equals(Gender.MALE)) {
+			child.getFather().getAllChildren().remove(child);
+		}else if(child.getMother()!=null && getGender().equals(Gender.FEMALE))
+		
+		
+		if(!getAllChildren().contains(child)) {
+			getAllChildren().add(child);
+			if(getGender().equals(Gender.MALE)) {
+				child.setFather(this);
+			}else if(getGender().equals(Gender.FEMALE)){
+				child.setMother(this);
+			}			
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	@Override
+	public Iterator<Person> iterator() {
+		return getAllChildren().iterator();
+	}
+	
+	private void validateName(String name) {
+		if(name.isEmpty()||name==null) {
+			throw new IllegalArgumentException("This name is not valid");
+		}
+	}
+	
+	
+	
+	
+	
+	
+}
+
+

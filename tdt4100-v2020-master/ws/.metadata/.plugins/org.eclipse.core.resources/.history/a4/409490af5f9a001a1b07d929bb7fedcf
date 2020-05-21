@@ -1,0 +1,45 @@
+package Eksamen2019;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+
+/** * A patient has a set of (health) conditions (of type String) that needs to be treated.
+ * Supports iterating over the patient's conditions.
+ */
+public class Patient implements Iterable<String>{
+	/*
+	 Bestem selv hvilke felt, konstruktører og metoder du trenger for håndtering av (helse)tilstander (conditions).
+    Begrunn valget av løsningen, spesielt hvilke typer du har valgt å bruke.
+    requiresTreatment: returnerer om pasienten trenger behandling.
+    Legg i tillegg inn støtte som lar andre klasser iterere over pasientens tilstander, på enklest mulig måte.
+    VIKTIG: Merk at koden du skriver i oppgave 2b og den oppgitte testkoden i oppgave 2d skal passe til dine valg. 
+	 */
+	//Tenker at alle tilstander samles i en Collection og at andre klasser kan iterere gjennom de tilstandene. 
+	Collection<String> allConditions = new ArrayList<>();
+	
+	public Collection<String> getAllConditions(){
+		return this.allConditions;
+	}
+	
+       // Add fields, constructors, and methods here: // 2a
+        // Support iteration // 2a
+     /**
+    * Indicates if this patient has conditions that needs to be treated.
+    * @return true if this patient has conditions that needs to be treated,
+    * false otherwise.
+    */
+       public boolean requiresTreatment() { // 2a
+      	
+       }
+
+
+
+	@Override
+	public Iterator<String> iterator() {
+		return this.allConditions.iterator();
+	}
+	
+	
+	
+}

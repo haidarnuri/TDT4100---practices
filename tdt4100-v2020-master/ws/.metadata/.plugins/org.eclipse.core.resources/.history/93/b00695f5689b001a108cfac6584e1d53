@@ -1,0 +1,7 @@
+package Eksamen2016;
+
+import java.util.Collection;
+
+public interface Relation {
+	public Collection<Person> getRelativesOf(Person person);
+}

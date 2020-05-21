@@ -1,0 +1,16 @@
+package Eksamen2016;
+
+import java.util.Collection;
+
+public class Parent implements Relation{
+
+	@Override
+	public Collection<Person> getRelativesOf(Person person) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
+	
+	
+}

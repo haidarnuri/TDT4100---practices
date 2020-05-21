@@ -1,0 +1,17 @@
+package Eksamen2019;
+
+public class EmergencyPriorityTreatmentUnit extends AbstractTreatmentUnit{
+
+	@Override
+	public boolean startTreatment(Doctor doctor) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean startTreatment(Patient patient) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+}

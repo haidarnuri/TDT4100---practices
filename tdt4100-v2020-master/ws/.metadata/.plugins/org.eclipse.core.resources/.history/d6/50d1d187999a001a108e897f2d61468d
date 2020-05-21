@@ -1,0 +1,73 @@
+package Eksamen2019;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Comparator;
+
+public class PriorityTreatmentUnit extends TreatmentUnit{
+	
+	
+	@Override
+    public boolean startTreatment(final Doctor doctor) {
+		boolean startTreatment = false;
+	 	   if(noAvailablePatientsOrDoctors()) {
+	 		   return startTreatment;
+	 	   }
+	 	 
+	 	Patient highestPriority = getWaitingPatients().stream()
+	 							.max(Comparator.comparing(patient->patient.getPriority()))
+	 							.get();
+	 	
+	 	//filterer ut leger som ikke har kompetanse til å kurere pasienten. 
+	 	//Antar at en ratio på over 0 er en start for å hjelpe pasienten
+	 	Doctor availableDoctor = getAvailableDoctors().stream()
+	 												 .filter(doc->doc.canTreat(highestPriority)>0)
+	 												 .findFirst().orElse(null);
+		if(availableDoctor==null) {
+			return false;
+		}else {
+			availableDoctor.setPatient(highestPriority);
+			availableDoctor.treat();
+			return true; 
+		}
+		
+ 	 
+		/*
+		boolean startTreatment = false;
+ 	   if(noAvailablePatientsOrDoctors()) {
+ 		   return startTreatment;
+ 	   }
+ 	   //Tenker at når legen har fått tildelt en pasient så stopper jeg prossesen. Nok med en av gangen   
+ 	   
+ 	   for(Patient patient:getWaitingPatients()) {
+ 		  if(doctor.canTreat(patient)>0) {
+ 			  doctor.setPatient(patient);
+ 			  doctor.treat();
+ 			  startTreatment=true;
+ 			  break;
+ 		  }
+        }
+ 	   return startTreatment;
+ 	   */
+ 	}
+	
+	
+	@Override
+	public boolean startTreatment(final Patient patient) {   // 1c
+ 	   boolean startTreatment = false;
+ 	   if(noAvailablePatientsOrDoctors()) {
+ 		   return startTreatment;
+ 	   }
+ 	   for(Doctor doc:getAvailableDoctors()) {
+           if(doc.canTreat(patient)>0) {
+         	doc.setPatient(patient);
+         	doc.treat();
+        	  	startTreatment=true;
+        	  	break;
+           }
+        }
+  	   return startTreatment;   
+    }
+	
+
+}

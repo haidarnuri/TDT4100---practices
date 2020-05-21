@@ -1,0 +1,43 @@
+package Eksamen2019;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+import org.junit.Before;
+import org.junit.Test;
+
+public class TreatmentUnitTest {
+	 
+	 
+	private TreatmentUnit treatmentUnit;
+	 
+	 
+    @Before
+    public void setUp() {
+         treatmentUnit=new TreatmentUnit();
+    }
+
+
+
+
+    @Test
+    public void testAddDoctorsPatient() {
+       final Doctor doctor1 = new Doctor("flu"); // new doctor can treat "flu"
+       final Doctor doctor2 = new Doctor("noseblead","pneumonia"); // new doctor can treat "noseblead" and "pneumonia"
+       treatmentUnit.addDoctor(doctor1);
+       treatmentUnit.addDoctor(doctor2);
+       assertTrue(treatmentUnit.getAvailableDoctors().contains(doctor2)&&treatmentUnit.getAvailableDoctors().contains(doctor1));
+       final Patient patient = new Patient();
+       patient.addCondition("flu"); // patient has conditions "flu" and "noseblead"
+       patient.addCondition("noseblead");   
+       treatmentUnit.addPatient(patient);
+       assertFalse(doctor1.isAvailable() && doctor2.isAvailable());
+       assertTrue(doctor1.isAvailable() || doctor2.isAvailable());
+       
+    }
+
+
+
+	
+}

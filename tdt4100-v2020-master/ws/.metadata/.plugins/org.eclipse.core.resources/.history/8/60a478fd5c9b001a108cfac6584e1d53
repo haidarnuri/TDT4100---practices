@@ -1,0 +1,74 @@
+package Eksamen2016;
+
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+
+public class Family {
+	
+		private Collection<Person> familyMembers = new ArrayList<>();
+		
+		
+		public Family(Person ...familMembers) {
+			this.familyMembers = Arrays.asList(familMembers);
+		}
+		
+		public Family() {}
+	
+		
+		
+	/**
+	    * Adds a Person as a new family member
+	    * @param person the Person to add
+	    */
+	   public void addMember(Person person) {
+	      if(!familyMembers.contains(person)) {
+	    	  this.familyMembers.add(person);
+	      }
+	   }
+	   
+	 
+	   /**
+	    * Finds a member with the given name
+	    * @param name
+	    * @return the Person in this Family with the provided name
+	    */
+	 
+	   public Person findMember(String name) {
+	      Person member =this.familyMembers.stream()
+	      									.filter(m -> m.getName().equals(name))
+	      									.findAny().orElse(null);
+	      return member;
+	   
+	   }
+	 
+	   //
+	 
+	   /**
+	    * Writes the contents of this Family to the OutputStream,
+	    * so it can be reconstructed using load.
+	    * @param out
+	    */
+	   public void save(OutputStream out) ... {
+	      ...
+	   }
+	 
+	   /**
+	    * Helper method that splits a line into a list of tokens,
+	    * either words or quoted names (quotes are removed).
+	    * @param line – the string to tokenize
+	    */
+	   ... List<String> tokenize(String line) {
+	      ... no need to implement this method ...
+	   }
+	 
+	   /**
+	    * Loads contents from the provided InputStream into this Family.
+	    * @param in
+	    */
+	   public void load(InputStream in) ... {
+	      ...
+	   }
+}

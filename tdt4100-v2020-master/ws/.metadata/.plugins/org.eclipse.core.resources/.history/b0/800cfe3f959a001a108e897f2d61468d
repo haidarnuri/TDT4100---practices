@@ -1,0 +1,14 @@
+package Eksamen2019;
+
+import java.util.ArrayList;
+import java.util.Collection;
+
+public class PriorityTreatmentUnit extends TreatmentUnit{
+	
+	private Collection<Patient> priorityPatients = new ArrayList<>();
+	private Collection<Doctor> doctorsInPrority = new ArrayList<>();
+
+	
+	
+
+}

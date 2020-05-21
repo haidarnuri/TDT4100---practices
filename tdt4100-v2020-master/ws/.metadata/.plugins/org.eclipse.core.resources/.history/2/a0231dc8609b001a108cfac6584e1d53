@@ -1,0 +1,26 @@
+package Eksamen2016;
+
+import java.util.ArrayList;
+import java.util.Collection;
+
+public class Sister implements Relation{
+
+	
+	//Går via en av foreldrene til barnet og finner alle barnene. 
+	@Override
+	public Collection<Person> getRelativesOf(Person person) {
+		Collection<Person> sisters = new ArrayList<>();
+		if(person.getFather()!=null) {
+			Collection<Person> sisters = person.getFather().getChildren(Gender.valueOf("female"));
+		}
+		if(person.getMother()!=null) {
+			person.getMother().getAllChildren().stream()
+										       .filter(t->t.getChildren(Gender.FEMALE))
+										       .filter(m -> !sisters.contain(m))
+										       .forEach(sister -> sisters.add(sister));
+		}
+		return sisters;
+	}
+
+	
+}

@@ -1,0 +1,32 @@
+package EksamenKont2019;
+
+public class Bike {
+	private Person renter;
+	private GeoLocation location;
+	
+	
+	
+	public Person getRenter() {
+		return renter;
+	}
+	
+	//No renter = null
+	public void setRenter(Person renter) {
+		this.renter = renter;
+	}
+	
+	
+	public GeoLocation getLocation() {
+		return location;
+	}
+	
+	
+	public void setLocation(GeoLocation location) {
+		if(location==null) {
+			throw new IllegalArgumentException("This location does not exist");
+		}
+		this.location = location;
+	}
+	
+	
+}

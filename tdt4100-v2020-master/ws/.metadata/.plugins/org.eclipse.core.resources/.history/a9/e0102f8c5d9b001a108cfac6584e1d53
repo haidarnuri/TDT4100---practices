@@ -1,0 +1,11 @@
+package Eksamen2016;
+
+public class Sister implements Relation{
+
+	@Override
+	public Person getRelativesOf() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

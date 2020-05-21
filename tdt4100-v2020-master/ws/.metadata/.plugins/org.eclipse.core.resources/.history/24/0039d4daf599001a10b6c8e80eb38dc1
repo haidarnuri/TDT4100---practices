@@ -1,0 +1,185 @@
+package EksamenKont2018;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
+
+public class Dice implements Iterable<Integer>{
+
+	private final int[] valueCounters;
+	
+    public Dice(Iterator<Integer> dieValues) {
+		this.valueCounters=setValueCounter(dieValues);
+    }
+   
+    public Dice(Iterable<Integer> dieValues) {
+		this(dieValues.iterator());
+    }
+
+    public int getDieCount() {
+        int count=0;
+    	for(int i=0;i<this.valueCounters.length;i++) {
+        	count+=this.valueCounters[i];
+        }
+    	return count;
+    }
+  
+    /**
+     * Die values are considered ordered, with the smallest die values
+     * at the lowest index. The value at a specific index
+     * must be computed from the counters in valueCounters.
+     * @param dieNum
+     * @return the value of die number dieNum
+     * @throws an appropriate exception, if dieNum is out of range
+     */
+    //Tenker verdier mellom 1 og lengde +1
+    public int getDieValue(int dieNum) {
+        if(isValid(dieNum)) {
+        	throw new IllegalArgumentException("Value must be between 1 and number of dices");
+        }
+        int counter=0;
+        int temp=0;
+        for(int i=0;i<this.valueCounters.length;i++) {
+        	temp+=this.valueCounters[i];
+        	if(temp>=dieNum) {
+        		counter=i+1;
+        		break;
+        	}
+        }
+        return counter;
+    }
+  
+    /**
+     * @param value
+     * @return the number of dice with the provided value
+     */
+    public int getValueCount(int value) {
+       return this.valueCounters[value-1];
+    }
+    
+    /**
+     * @param dice
+     * @return true if all die values in the Dice argument appear in this Dice
+     */
+    public boolean contains(Dice dice) {
+    	if(diceUnvalid(dice)) {
+    		throw new IllegalArgumentException("This dice object is not valid");
+    	}
+        int count = 0;
+        while(count<6) {
+        	count++;
+        	if(dice.getValueCount(count)>getValueCount(count)) {
+        		return false;
+        	}
+        }
+        return true;
+    }
+    
+    /**
+     * @param dice
+     * @return true if this Dice and the one provided have exactly the same die values
+     */
+    public boolean isSame(Dice dice) {
+        return dice.contains(this) && contains(dice);
+    }
+    
+    /**
+     * @param dice a Dice object
+     * @return a new Dice instance with the all the die values in
+     * this Dice and the Dice argument combined
+     */
+    public Dice add(Dice dice) {
+    	//vet at Collection er iterable
+    	Collection<Integer> iterableDices = new ArrayList<>();
+    	int[] tempValueCounter = new int[6];
+    	for(int i=0;i<6;i++) {
+    		System.out.println("Verdien er "+getValueCount(i+1)+dice.getValueCount(i+1)+" på runde " + i+1);
+    		tempValueCounter[i] = getValueCount(i+1)+dice.getValueCount(i+1);
+    	}
+    	int count=1;
+    	for(int i: tempValueCounter) {
+    		while(i>1) {
+    			iterableDices.add(count);
+    			i--;
+    		}
+    		count++;
+    	}
+    	return new Dice(iterableDices);
+    }
+    
+    
+    
+    @Override
+    public Iterator<Integer> iterator() {
+        return new DiceIterator(this);
+    }
+    //Lager en indre klasse. Ryddigere mtp at bruken kun er til Dice objekter. 
+    public class DiceIterator implements Iterator<Integer> {
+    	private Dice dice;
+    	private int count=0;
+    	
+    	
+    	public DiceIterator(Dice dice) {
+    		this.dice=dice;
+		}
+    	
+		@Override
+		public boolean hasNext() {
+			return count<dice.valueCounters.length;
+		}
+
+		@Override
+		public Integer next() {
+			return dice.valueCounters[count++];
+		}
+    	
+    }
+    
+    
+    @Override
+    public String toString() {
+    	return "first place "+ this.valueCounters[0] + 
+    			"\nsecond place "+ this.valueCounters[1]+
+    			"\nthird place "+ this.valueCounters[2] + 
+    			"\nfourth place "+ this.valueCounters[3]+
+    			"\nfifth place "+ this.valueCounters[4] + 
+    			"\nsixth place "+ this.valueCounters[5];
+    }
+    
+    //All private methods under here
+    private int[] setValueCounter(Iterator<Integer> dieValues) {
+    	int[] tempCounter = new int[6];
+    	while(dieValues.hasNext()) {
+    		int temp = dieValues.next();
+    		if(temp<1 || temp>6) {
+    			throw new IllegalArgumentException("The number must be between 1-6");
+    		}
+    		tempCounter[temp-1]+=1;
+    	}
+		return tempCounter;
+    }
+    
+    private boolean isValid(int dieNum) {
+    	return dieNum<1 || dieNum>getDieCount();
+    }
+    
+    private boolean diceUnvalid(Dice dice) {
+    	return dice==null;
+    }
+    
+    
+    
+    public static void main(String[] args) {
+		Collection<Integer> dieValues = new ArrayList<>();
+		Collections.addAll(dieValues, 1,6,6,6);
+		Collection<Integer> dieValues2 = new ArrayList<>();
+		Collections.addAll(dieValues2, 1,3,4);
+    	Dice dice = new Dice(dieValues);
+    	Dice dice2 = new Dice(dieValues2);
+    	System.out.println(dice.add(dice2));
+    }
+    
+
+}

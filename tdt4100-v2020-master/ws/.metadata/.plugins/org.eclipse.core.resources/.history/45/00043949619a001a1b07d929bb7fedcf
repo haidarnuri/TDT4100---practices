@@ -1,0 +1,74 @@
+package Eksamen2019;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+
+/** * A patient has a set of (health) conditions (of type String) that needs to be treated.
+ * Supports iterating over the patient's conditions.
+ */
+public class Patient implements Iterable<String>{
+	
+	//Tenker at alle tilstander samles i en Collection og at andre klasser kan iterere gjennom de tilstandene. 
+	private Collection<String> allConditions = new ArrayList<>();
+	private final String name;
+	
+	//Initierer pasienten med et navn og tilstand hvis behov. 
+	public Patient(String name) {
+		this.name=name;
+	}
+	
+	public Patient(String name, String condition) {
+		this(name);
+		addCondition(condition);
+	}
+	
+	//Lager denne konstruktøren for enkelthetensskyld til senreer. 
+	public Patient() {
+		this("Pasient");
+	}
+	
+	
+	
+	//Hvis det skjer noe annet med pasienten. 
+	public void addCondition(String condition) {
+		checkIfConditionExistOrIsEmpty(condition);
+		if(!this.allConditions.contains(condition)) {
+			this.allConditions.add(condition);
+		}
+	}
+	
+	//Fjerner fra listen dersom pasienten har blitt kurert
+	public void removeCondition(String condition) {
+		this.allConditions.remove(condition);
+	}
+	
+       // Add fields, constructors, and methods here: // 2a
+        // Support iteration // 2a
+     /**
+    * Indicates if this patient has conditions that needs to be treated.
+    * @return true if this patient has conditions that needs to be treated,
+    * false otherwise.
+    */
+	//Hvis listen over tilstander er tom så trengs ingen behandling, men ellers så trengs det en behandling. 
+       public boolean requiresTreatment() { // 2a
+    	   return !this.allConditions.isEmpty();
+       }
+
+
+
+	@Override
+	public Iterator<String> iterator() {
+		return this.allConditions.iterator();
+	}
+	
+	//Alle private metoder under her
+	private void checkIfConditionExistOrIsEmpty(String condition) {
+		if(condition==null || condition.isEmpty()) {
+			throw new IllegalArgumentException("Use a valid condition");
+		}
+	}
+
+	
+	
+}

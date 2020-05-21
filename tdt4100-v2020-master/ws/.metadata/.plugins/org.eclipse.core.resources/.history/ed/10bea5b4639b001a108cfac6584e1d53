@@ -1,0 +1,36 @@
+package Eksamen2016;
+
+import java.util.ArrayList;
+import java.util.Collection;
+
+public class Relations2{
+	
+	private Relation rel1, rel2;
+	
+	public Relations2(Relation rel1, Relation rel2) {
+		this.rel1=rel1;
+		this.rel2=rel2;
+	}
+	
+	public Collection<Person> getRelativesOf(Person person) {
+		Collection<Person> finalRelatives = new ArrayList<>();
+		Collection<Person> memebersRel1 = this.rel1.getRelativesOf(person);
+		for(Person member:memebersRel1) {
+			if(member!=null) {
+				this.rel2.getRelativesOf(member).stream()
+												.forEach(t ->finalRelatives.add(t));
+			}
+		}
+		return finalRelatives;
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}

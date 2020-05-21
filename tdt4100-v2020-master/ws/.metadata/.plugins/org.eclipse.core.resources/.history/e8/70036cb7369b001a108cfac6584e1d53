@@ -1,0 +1,122 @@
+package Eksamen2016;
+
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+
+public class Person implements Iterable<Person> {
+	 
+		//antar navnet ikke kan endres etter at det er opprettet
+		private String name;
+		private Gender gender;
+		
+		//Bruker boolean felt til å vise om denne personen er en far, mor eller barn til noen. 
+		private boolean isMother;
+		private boolean isFather;
+		private boolean isChild;
+		
+		//Kobler sammen forholdet til foreldre og barn med mappingen
+		private Map<Person, Collection<Person>> connectParentAndChild=new HashMap<>();
+		
+		public Person(final String name) {
+			setName(name);
+		}
+		/**
+		    * @return the number of children of this Person
+		    */
+		public int getChildCount() {
+		      return this.connectParentAndChild.get(this).size();
+		}	
+		
+		   /**
+		    * @param child
+		    * @return if this Person has the provided Person as a child
+		    */
+		   public boolean hasChild(Person child) {
+			   return getAllChildren().contains(child);
+		   }
+		   
+		   /**
+		    * Returns all children of this Person with the provided Gender.
+		    * If gender is null, all children are returned.
+		    * Can be used to get all daughters or sons of a person.
+		    * @param gender
+		    */
+		   public Collection<Person> getChildren(Gender gender) {
+		      Collection<Person> childrenWithSpesificGender = 
+		    		  					  getAllChildren().stream()
+		    		  						              .filter(person->person.getGender().equals(gender))
+		    		  						              .collect(Collectors.toList());
+		      if(childrenWithSpesificGender.isEmpty()) {
+		    	  return getAllChildren();
+		      }else {
+		    	  return childrenWithSpesificGender;
+		      }
+		   }
+		   
+		   
+		
+		public void setGender(Gender gender) {
+			validateGender(gender);
+			this.gender=gender;
+		}
+	
+		public String getName() {
+			return name;
+		}
+		
+		public Gender getGender() {
+			return this.gender;
+		}
+
+		public boolean isMother() {
+			return this.isMother;
+		}
+
+		public boolean isFather() {
+			return this.isFather;
+		}
+	 
+		
+		public boolean isChild() {
+			return this.isChild;
+		}
+	 
+	@Override
+	public Iterator<Person> iterator() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	//Alle private metoder under her. 
+	
+	private void setName(String name) {
+		validateName(name);
+		this.name=name;
+	}
+	
+	private void validateName(String name) {
+		if(name==null || name.isEmpty()) {
+			throw new IllegalArgumentException("This is name does not exist");
+		}
+	}
+	
+	private void validateGender(Gender gender) {
+		if(!gender.equals(Gender.FEMALE) && !gender.equals(Gender.MALE)) {
+			throw new IllegalArgumentException("This gender is not valid");
+		}
+	}
+	
+	private Collection<Person> getAllChildren(){
+		return this.connectParentAndChild.get(this);
+	}
+	
+	
+	
+	
+}
+
+

@@ -1,0 +1,25 @@
+package Eksamen2016;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+
+public class Parent implements Relation{
+
+	@Override
+	public Collection<Person> getRelativesOf(Person person) {
+		Collection<Person> parents  = new ArrayList<>();
+		if(person.getFather()!=null) {
+			Collections.addAll(parents, person.getFather());
+		}
+		if(person.getMother()!=null) {
+			Collections.addAll(parents, person.getMother());
+
+		}
+		return parents;
+	}
+
+	
+	
+	
+}

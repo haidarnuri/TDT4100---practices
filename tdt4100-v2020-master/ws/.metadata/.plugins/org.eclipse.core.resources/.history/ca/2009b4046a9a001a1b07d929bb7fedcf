@@ -1,0 +1,32 @@
+package Eksamen2019;
+
+import org.junit.Before;
+import org.junit.Test;
+
+public class TreatmentUnitTest {
+	 
+	 
+    private TreatmentUnit treatmentUnit;
+
+
+    @Before
+    public void setUp() {
+          ...
+}
+
+
+
+
+    @Test
+    public void testAddDoctorsPatient() {
+       final Doctor doctor1 = new Doctor("flu"); // new doctor can treat "flu"
+       final Doctor doctor2 = new Doctor("noseblead","pneumonia"); // new doctor can treat "noseblead" and "pneumonia"
+       treatmentUnit.addDoctor(doctor1);
+       treatmentUnit.addDoctor(doctor2);
+       Patient haidar = new Patient("Haidar");
+       haidar.addCondition("flu");
+       assertEqual(doctor1,treatmentUnit.getDoctor(doctor->doctor.canTreat()))
+           
+       
+}
+}

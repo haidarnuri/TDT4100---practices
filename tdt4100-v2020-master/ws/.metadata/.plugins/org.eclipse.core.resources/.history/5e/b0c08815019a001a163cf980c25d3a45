@@ -1,0 +1,31 @@
+package EksamenKont2018;
+
+public class DiceScore {
+	
+	private final Dice scoringDice;
+	private final int score;
+	
+	public DiceScore(Dice scoringDice, int score) {
+		validateDice(dice);
+        this.scoringDice=scoringDice;
+        this.score=score;
+    }	
+	
+	
+	public Dice getScoringDice() {
+		return this.scoringDice;
+	}
+	
+	public int getScore() {
+		return this.score;
+	}
+	
+	
+	private void validateDice(Dice dice) {
+		if(dice==null) {
+			throw new IllegalArgumentException("This dice does not exist");
+		}
+	}
+	
+	
+}

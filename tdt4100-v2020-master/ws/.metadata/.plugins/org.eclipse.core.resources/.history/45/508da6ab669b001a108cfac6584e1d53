@@ -1,0 +1,35 @@
+package Eksamen2016;
+
+import java.util.ArrayList;
+import java.util.Collection;
+
+public class Sibling implements Relation{
+	
+	//Det er snakk om søsken. Hvis genderToSeek er jente så søkes det etter søstre. 
+	private Gender genderToSeek;
+	
+	public Sibling(Gender genderToSeek)
+	
+	@Override
+	public Collection<Person> getRelativesOf(Person person) {
+		Gender genderToSeek = Gender.FEMALE;
+		if() {
+			genderToSeek=Gender.MALE;
+		}
+		Collection<Person> sibling = new ArrayList<>();
+		if(person.getFather()!=null) {
+			for(Person child:person.getFather().getChildren(Gender.FEMALE)) {
+				sibling.add(child);
+			}
+		}
+		if(person.getMother()!=null) {
+			for(Person child:person.getMother().getChildren(Gender.FEMALE)) {
+				if(!sisters.contains(child)) {
+					sisters.add(child);
+				}
+			}
+		}
+		return sisters;
+	}
+
+}

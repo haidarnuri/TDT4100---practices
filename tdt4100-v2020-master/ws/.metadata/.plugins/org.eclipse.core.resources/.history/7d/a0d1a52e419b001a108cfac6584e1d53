@@ -1,0 +1,31 @@
+package Eksamen2016;
+
+
+import java.util.Iterator;
+
+
+public class Person implements Iterable<Person> {
+
+	private String name;
+	private Gender gender;
+	private Person mother;
+	private Person father;
+	
+	public Person(String name) {
+		this.name=name;
+	}
+	
+	
+	
+	
+	
+	
+	
+	@Override
+	public Iterator<Person> iterator() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+}
+
+

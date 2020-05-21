@@ -1,0 +1,78 @@
+package Eksamen2016;
+
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+
+
+public class Person implements Iterable<Person> {
+
+	private String name;
+	private Gender gender;
+	private Person mother;
+	private Person father;
+	private Collection<Person> allChildren = new ArrayList<>();
+	
+	
+	
+	public Person(final String name) {
+		validateName(name);
+		this.name=name;
+	}
+	
+	public void setGender(Gender gender) {
+		this.gender=gender;
+	}
+	
+	public String getName() {
+		return this.name;
+	}
+	
+	public Person getMother() {
+		return this.mother;
+	}
+	
+	public Person getFather() {
+		return this.father;
+	}
+	
+	public Collection<Person> getAllChildren(){
+		return this.allChildren;
+	}
+	
+	/**
+	    * @return the number of children of this Person
+	    */
+	   public int getChildCount() {
+	      return getAllChildren().size();
+	   }
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	@Override
+	public Iterator<Person> iterator() {
+		return getAllChildren().iterator();
+	}
+	
+	private void validateName(String name) {
+		if(name.isEmpty()||name==null) {
+			throw new IllegalArgumentException("This name is not valid");
+		}
+	}
+	
+	
+	
+	
+	
+	
+}
+
+

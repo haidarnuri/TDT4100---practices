@@ -1,0 +1,10 @@
+package EksamenKont2019;
+
+import java.util.ArrayList;
+
+public class BikeRental {
+
+	private Collection<GeoLocation> allBikes = new ArrayList<>();
+	private Collection<GeoLocation> allStations = new ArrayList<>();
+
+}

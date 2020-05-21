@@ -1,0 +1,38 @@
+package Eksamen2019;
+
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Before;
+import org.junit.Test;
+
+public class TreatmentUnitTest {
+	 
+	 
+    private TreatmentUnit treatmentUnit;
+    Doctor doctor1= new Doctor("flu"); // new doctor can treat "flu"
+    Doctor doctor2 = new Doctor("noseblead","pneumonia"); // new doctor can treat "noseblead" and "pneumonia"
+	Patient  haidar = new Patient("Haidar");
+
+
+    @Before
+    public void setUp() {
+    	
+        treatmentUnit.addDoctor(doctor1);
+        treatmentUnit.addDoctor(doctor2);
+       
+        haidar.addCondition("flu");
+}
+
+
+
+
+    @Test
+    public void testAddDoctorsPatient() {
+       assertTrue(treatmentUnit.getDoctor(doctor->doctor.canTreat(haidar)==1.0));
+     }
+
+
+
+
+	
+}

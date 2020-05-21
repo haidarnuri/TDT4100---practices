@@ -1,0 +1,10 @@
+package Eksamen2019;
+
+import java.util.ArrayList;
+
+public class PriorityTreatmentUnit extends TreatmentUnit{
+	
+	private Collection<Patient> priorityPatients = new ArrayList<>();
+	
+
+}

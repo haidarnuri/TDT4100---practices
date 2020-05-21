@@ -1,0 +1,38 @@
+package EksamenKont2019;
+
+import java.util.ArrayList;
+import java.util.Collection;
+
+public class BikeRental {
+
+	private Collection<Bike> allBikes = new ArrayList<>();
+	private Collection<GeoLocation> allStations = new ArrayList<>();
+	
+	public void addBike(Bike bike) {
+		if(!this.allBikes.contains(bike)) {
+			this.allBikes.add(bike);
+		}
+	}
+	
+	public void removeBike(Bike bike) {
+		this.allBikes.remove(bike);
+	}
+	
+	public void addStation(GeoLocation location) {
+		if(!this.allStations.contains(location)) {
+			this.allStations.add(location);
+		}
+	}
+	
+	public void removeStation(GeoLocation location) {
+		this.allStations.remove(location);
+	}
+	
+	
+	
+	
+	
+	
+	
+
+}

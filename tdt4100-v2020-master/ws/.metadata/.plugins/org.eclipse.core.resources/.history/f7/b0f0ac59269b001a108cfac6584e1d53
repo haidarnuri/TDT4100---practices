@@ -1,0 +1,99 @@
+package Eksamen2019;
+
+import java.util.Comparator;
+
+public class TreatmentUnit extends AbstractTreatmentUnit implements DoctorAllocator{
+ 
+	 public boolean startTreatment(final Doctor doctor) {   // 1c
+		   boolean startTreatment = false;
+		   if(noAvailableDoctors()) {
+			   return startTreatment;
+		   }
+		   //Tenker at når legen har fått tildelt en pasient så stopper jeg prossesen. Nok med en av gangen   
+		   
+		   for(Patient patient:getWaitingPatients()) {
+			  if(doctor.canTreat(patient)>0) {
+				  doctor.setPatient(patient);
+				  doctor.treat();
+				  startTreatment=true;
+				  break;
+			  }
+	       }
+		   return startTreatment;
+		}
+
+
+	   /**
+	    * Finds an available doctor for the provided patient, and sets that doctor to
+	* treat the patient.
+	    * @param patient the patient for which a treating doctor should be found.
+	    * @return true if a doctor for the provided patient was found, false
+	* otherwise.
+	    */
+	  
+	   public boolean startTreatment(final Patient patient) {   // 1c
+		   boolean startTreatment = false;
+		   if(noAvailableDoctors()) {
+			   return startTreatment;
+		   }
+		   for(Doctor doc:getAvailableDoctors()) {
+	          if(doc.canTreat(patient)>0) {
+	        	doc.setPatient(patient);
+	        	doc.treat();
+	       	  	startTreatment=true;
+	       	  	break;
+	          }
+	       }
+	 	   return startTreatment;   
+	   }
+       
+    private Patient patient1 = new Patient();
+    private Doctor doctor1 = new Doctor();
+	   
+	@Override
+	public Patient allocatePatient(Doctor doctor, TreatmentUnit treatmentUnit) {
+		Patient patientWithHighestPri = getPatientWithHighestPri();
+		if(treatmentUnit.getAvailableDoctors().contains(doc)) {
+			doc.setPatient(patientWithHighestPri);
+		}
+		return null;
+	}
+
+	
+	
+	
+
+	@Override
+	public Doctor allocateDoctor(Patient patient, TreatmentUnit treatmentUnit) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+       
+	
+	
+	private Patient getPatientWithHighestPri(TreatmentUnit treatmentUnit) {
+		return getWaitingPatients().stream()
+									.filter(patient -> treatmentUnit.getWaitingPatients().contains(patient))
+								   .max(Comparator.comparing(patient->patient.getPriority()))
+								   .get();
+	}
+	
+	private Doctor getDoctorWhoCanHelp(Patient highestPriority) {
+		return getAvailableDoctors().stream()
+				 .filter(doc->doc.canTreat(highestPriority)>0)
+				 .findFirst().orElse(null);
+	}
+       
+}
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
