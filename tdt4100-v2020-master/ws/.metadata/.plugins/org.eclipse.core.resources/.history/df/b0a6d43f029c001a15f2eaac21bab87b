@@ -1,0 +1,35 @@
+package EksamenKont2018;
+
+/**
+* Implementation of DiceScorer that gives a specific score
+* when no other DiceScore object applies.
+* Requires that a certain number of dice have been thrown.
+*/
+public class Nothing implements DiceScorer {
+  
+    private final 
+  
+    /**
+    * Initializes this Nothing object with the minimum required number of dice,
+     * the specific score given and the other DiceScorer objects.
+    * @param numDice the min. number of dice required for this rule to apply
+    * @param score the specific score to give
+    * @param diceScorers the (other) rules to check
+    */
+    private int numDice;
+    private int score;
+    
+    
+    public Nothing(int numDice, int score, ??? diceScorers) {
+        ???
+   }
+  
+    /**
+    * Checks that no (other) DiceScore object apply,
+    * in case a specific score is given.
+    */
+    @Override
+    public DiceScore getScore(Dice dice) {
+        ???
+    }
+}

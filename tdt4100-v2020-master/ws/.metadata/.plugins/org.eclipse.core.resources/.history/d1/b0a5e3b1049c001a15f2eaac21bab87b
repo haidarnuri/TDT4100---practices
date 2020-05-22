@@ -1,0 +1,5 @@
+package EksamenKont2018;
+
+public abstract class AbstractScorer {
+
+}

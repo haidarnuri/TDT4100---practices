@@ -1,0 +1,38 @@
+package EksamenKont2019;
+
+public class Person {
+    /**
+     * Withdraws the provided amount from this person's account.
+     * If the transaction couldn't be completed, i.e. no money was actually withdrawn,
+     * one of the indicated exceptions will be thrown.
+     * @param amount the amount to withdraw
+     * @throws IllegalArgumentException
+     * @throws IllegalStateException
+     */
+	private boolean monthlyRent;
+	
+    public void withdraw(double amount) throws IllegalArgumentException, IllegalStateException {
+        //Antar at noen har lagd en metode her. 
+    }
+    
+    //Dette er mndsAbonoment som vedkommende har betalt. 
+    public void monthlyRent() {
+    	//Antar han blir trukket et visst beløp
+    	this.monthlyRent=true;
+    }
+    
+    public boolean isMonthlyRent() {
+    	return this.monthlyRent;
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+}

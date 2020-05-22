@@ -1,0 +1,50 @@
+package EksamenKont2019;
+
+import java.time.LocalDateTime;
+
+import sun.util.resources.LocaleData;
+
+public class Bike {
+	private Person renter;
+	private GeoLocation location;
+	
+	 private LocalDateTime start;
+	    private LocalDateTime returnTime;
+	    private double amount=0;
+	
+	public void setStartTime(LocalDateTime start) {
+		this.start=start;
+	}
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	public Person getRenter() {
+		return renter;
+	}
+	
+	//No renter = null
+	public void setRenter(Person renter) {
+		this.renter = renter;
+	}
+	
+	
+	public GeoLocation getLocation() {
+		return location;
+	}
+	
+	
+	public void setLocation(GeoLocation location) {
+		if(location==null) {
+			throw new IllegalArgumentException("This location does not exist");
+		}
+		this.location = location;
+	}
+	
+	
+	
+	
+}

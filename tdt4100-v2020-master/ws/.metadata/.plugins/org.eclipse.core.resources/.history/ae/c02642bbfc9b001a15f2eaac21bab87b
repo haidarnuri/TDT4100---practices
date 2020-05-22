@@ -1,0 +1,39 @@
+package EksamenKont2019;
+
+import org.junit.Before;
+import org.junit.Test;
+
+import junit.framework.TestCase;
+
+public class BikeRentalTest extends TestCase{
+
+	private Person person1 = new Person("Haidar");
+	
+	private GeoLocation stasjon1 = new GeoLocation(21.1, 25.0);
+	private GeoLocation stasjon2 = new GeoLocation(211.1, 125.0);
+	
+	private Bike bike1 = new Bike();
+	private Bike bike2 = new Bike();
+	
+	private BikeRental osloBySykkel = new BikeRental();
+	
+	@Before
+	public void init() {
+		bike1.setRenter(person1);
+		bike2.setRenter(null);
+		osloBySykkel.addBike(bike1);
+		osloBySykkel.addBike(bike1);
+	}
+	
+	
+	@Test
+	public void testGetUnreturnedBikes() {
+		
+	}
+	
+	
+	
+	
+	
+	
+}

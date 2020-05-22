@@ -1,0 +1,16 @@
+package EksamenKont2018;
+
+public abstract class AbstractScorer {
+
+	private int scoreValue;
+	public AbstractScorer(int score) {
+		this.scoreValue=score;
+	}
+	
+	
+	public int getScoreValue() {
+		return scoreValue;
+	}
+	
+	
+}

@@ -1,0 +1,76 @@
+package EksamenKont2019;
+
+import java.time.LocalDateTime;
+
+public class CalculatePrice {
+		private double calculatePrice=0;
+	
+		
+	public void rentBike(Person person, Bike bike, LocalDateTime now, LocalDateTime returnTime) {
+	        checkIfStartTimeIsAfterReturnTime(now, returnTime);
+	        if(bike.getRenter()!=null) {
+	        	throw new IllegalArgumentException("Bike is not available");
+	        }
+	        bike.setStartTime(now);
+	        bike.setReturnTime(returnTime);
+	        bike.setRenter(person);
+	 }
+	
+	public void addExtensionFee() {
+		this.calculatePrice+=5;
+	}
+	
+	
+		
+	public void extendRental(Person person, Bike bike, LocalDateTime now, LocalDateTime newReturnTime) {
+		    	checkIfStartTimeIsAfterReturnTime(now, newReturnTime);
+		    	checkIfCurentRenterIsRentingBike(person, bike);
+		    	this.calculatePrice+=5;
+		    	if(newReturnTime.isAfter(bike.getReturnTime())) {
+		    		this.calculatePrice+=10;
+		    	}
+		    	priceExtension+=bike.getAmount();
+		    	bike.setAmount(priceExtension);
+		    	bike.setReturnTime(newReturnTime);
+		    }
+	
+	public void returnBike(Person person, Bike bike, LocalDateTime nowTime) {
+        checkIfCurentRenterIsRentingBike(person, bike);  
+        //Tenker at hvis han leverer sykkelen før så endrer jeg returtiden til nåværende tid. 
+        if(bike.getReturnTime().isAfter(nowTime)) {
+        	bike.setReturnTime(nowTime);
+        }
+        double price=0;
+        //Legger pga for hver påbegynte time
+        int hours = calculateHours(bike.getStart(),bike.getReturnTime());
+        price = bike.getAmount()+10*hours;
+        bike.setAmount(price);
+        bike.getRenter().withdraw(bike.getAmount());
+        printReceipt(person, bike);
+        bike.setRenter(null);
+        bike.setAmount(0);
+        bike.setReturnTime(null);
+        bike.setStartTime(null);
+        bike.setExtendedTime(null);
+        
+        
+    }
+	
+	  public int calculateHours(LocalDateTime start, LocalDateTime returnTime) {
+	    	return returnTime.getHour()-start.getHour() + 1;
+	    }
+	    
+	    private void checkIfStartTimeIsAfterReturnTime(LocalDateTime start, LocalDateTime returnTime) {
+	    	if(returnTime.isBefore(start)) {
+	     	   throw new IllegalArgumentException("Current time is after returntime");
+	        }
+	    }
+	    
+	    private void checkIfCurentRenterIsRentingBike(Person person, Bike bike) {
+	    	if(!bike.getRenter().equals(person)) {
+	        	throw new IllegalArgumentException("This is not the current renter to this bike");
+	        }
+	    }
+	
+	
+}

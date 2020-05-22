@@ -1,0 +1,35 @@
+package EksamenKont2018;
+
+import java.util.Collection;
+
+public class SingleValue extends AbstractScorer{
+
+	private final int value;
+	
+	  public SingleValue(int value, int score) {
+	      super(score);  
+		  this.value=value;
+	   }
+	
+	
+	
+	public Collection<Integer> internalScoreCounter() {
+		while(this.diceIterator.hasNext()) {
+			int temp = this.diceIterator.next();
+			if(temp==this.value) {
+				this.scoreDiceValues.add(temp);
+				break;
+			}
+		}
+		if(scoreDiceValues.isEmpty()) {
+			return null;
+		}else {
+			return scoreDiceValues;
+		}
+	}
+	
+	/*
+	 * 
+	 */
+	
+}

@@ -1,0 +1,16 @@
+package EksamenKont2019;
+
+import junit.framework.TestCase;
+
+public class BikeRentalTest extends TestCase{
+
+	private Person person1 = new Person("Haidar");
+	private GeoLocation location1 = new GeoLocation(21.1, 25.0);
+	
+	
+	
+	
+	
+	
+	
+}

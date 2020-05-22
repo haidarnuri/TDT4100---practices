@@ -1,0 +1,38 @@
+package EksamenKont2018;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+
+public abstract class AbstractScorer implements DiceScorer{
+
+	private int scoreValue;
+	protected Collection<Integer> scoreDiceValues;
+	protected Iterator<Integer> diceIterator;
+	
+	
+	public AbstractScorer(int score) {
+		this.scoreValue=score;
+	}
+	
+	
+	public int getScoreValue() {
+		return scoreValue;
+	}
+	
+	@Override
+	public DiceScore getScore(Dice dice) {
+		this.diceIterator = dice.iterator();
+		this.scoreDiceValues = new ArrayList<Integer>();
+		Collection<Integer> result= internalScoreCounter(); 
+		Dice scoringDiceValues = new Dice(result);
+		return new DiceScore(scoringDiceValues, this.scoreValue);
+		
+	}	
+	
+	public abstract Collection<Integer> internalScoreCounter();
+	
+	
+	
+	
+}

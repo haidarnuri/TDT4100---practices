@@ -1,0 +1,65 @@
+package inheritance;
+
+import java.util.Iterator;
+import java.util.function.BinaryOperator;
+
+public class BinaryComputingIterator implements Iterator<Double>{
+
+	
+	private Iterator<Double> iterator1;
+	private Iterator<Double> iterator2;
+	private BinaryOperator<Double> operator;
+	private Double default1=null,default2=null;
+	
+	
+	
+	public BinaryComputingIterator(Iterator<Double> iterator1, Iterator<Double> iterator2, BinaryOperator<Double> operator) {
+		this.iterator1 = iterator1;
+		this.iterator2=iterator2;
+		this.operator=operator;
+	}
+	
+	BinaryComputingIterator(Iterator<Double> iterator1, Iterator<Double> iterator2, Double default1, Double default2, BinaryOperator<Double> operator){
+		this(iterator1, iterator2, operator);
+		this.default1=default1;
+		this.default2=default2;
+	}
+
+	@Override
+	public boolean hasNext() {
+		if(this.iterator1.hasNext() && this.iterator2.hasNext()) {
+			return true;
+		}else if(this.iterator1.hasNext() && this.default2!=null) {
+			return true;
+		}else if(this.iterator2.hasNext() && this.default1!=null) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+
+	@Override
+	public Double next() {
+		double value1=0,value2=0;
+		if(this.iterator1.hasNext() && this.iterator2.hasNext()) {
+			value1= this.iterator1.next();
+			value2 = this.iterator1.next();
+		}else if(this.iterator1.hasNext() && this.default2!=null) {
+			value1= this.iterator1.next();
+			value2 = this.default2;
+		}else{
+			value1= this.default1;
+			value2 = this.iterator2.next();
+		}
+		return this.operator.apply(value1, value2);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}

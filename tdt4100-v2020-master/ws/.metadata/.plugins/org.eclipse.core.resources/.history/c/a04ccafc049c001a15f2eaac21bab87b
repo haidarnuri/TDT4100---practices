@@ -1,0 +1,14 @@
+package EksamenKont2018;
+
+public abstract class AbstractScorer {
+
+	private int score;
+	public AbstractScorer(int score) {
+		this.score=score;
+	}
+	public int getScore() {
+		return score;
+	}
+	
+	
+}

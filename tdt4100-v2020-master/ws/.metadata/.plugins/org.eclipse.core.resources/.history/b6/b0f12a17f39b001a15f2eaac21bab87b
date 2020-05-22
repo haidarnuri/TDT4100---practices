@@ -1,0 +1,69 @@
+package EksamenKont2019;
+
+import java.time.LocalDateTime;
+
+public class CalculatePrice {
+	//Denne klassen lagrer kun verdier for tid og beregninger av pris. 
+		private double calculatePrice=0;
+		private Bike bike;
+		
+		//Slik at man kan gjøre beregninger for flere sykler. 
+		public CalculatePrice(Bike bike) {
+			this.bike=bike;
+		}
+		
+	public void valuesForCalculations(LocalDateTime now, LocalDateTime returnTime) {
+		this.bike.setStartTime(now);
+		this.bike.setReturnTime(returnTime);
+	 }
+			
+	public void extendRentalCalculation(LocalDateTime now, LocalDateTime newReturnTime) {
+				if(!this.bike.getRenter().isMonthlyRent()) {
+					this.calculatePrice+=5;
+					if(newReturnTime.isAfter(this.bike.getReturnTime())) {
+						this.calculatePrice+=10;
+					}
+					this.calculatePrice+=bike.getAmount();
+					bike.setAmount(this.calculatePrice);
+				}
+		    	bike.setReturnTime(newReturnTime);
+		    }
+	
+	public void finalPrice(LocalDateTime nowTime) {
+		if(this.bike.getRenter().isMonthlyRent()) {
+			monthlyRentPrice();
+		}else {
+			//Tenker at hvis han leverer sykkelen før så endrer jeg returtiden til nåværende tid. 
+			if(this.bike.getReturnTime().isAfter(nowTime)) {
+				this.bike.setReturnTime(nowTime);
+			}
+			//Legger pga for hver påbegynte time
+			int hours = calculateHours(this.bike.getStart(),this.bike.getReturnTime());
+			this.calculatePrice = this.bike.getAmount()+10*hours;
+			this.bike.setAmount(this.calculatePrice);
+		}
+	}
+	
+	//Tenker at mndbeløp er på 200 kr. 
+	//Har han betalt mndabonnoment så trenger han ikke å betale for hver gang han leier ny sykkel. 
+	public void monthlyRentPrice() {
+		confirmMonthlyRentPayment(this.bike);
+		this.bike.setAmount(0);
+	}
+	
+	
+	private void confirmMonthlyRentPayment(Bike bike) {
+		if(!bike.getRenter().isMonthlyRent()) {
+			throw new IllegalArgumentException("This person has not payed montlhy fee");
+		}
+	}
+	
+	
+	
+	private int calculateHours(LocalDateTime start, LocalDateTime returnTime) {
+	   	return returnTime.getHour()-start.getHour() + 1;
+	}
+	   
+	
+	
+}
