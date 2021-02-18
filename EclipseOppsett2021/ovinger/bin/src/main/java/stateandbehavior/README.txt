@@ -1,1 +1,0 @@
-Kildekode for øving 1
