@@ -1,5 +1,0 @@
-package Eksamen2016;
-
-public interface Relation {
-	public Collection<Person> getRelativesOf(Person person);
-}

@@ -1,6 +1,0 @@
-package Eksamen2019;
-
-public interface TreatmentUnitInterface {
-	boolean startTreatment(final Doctor doctor);
-	boolean startTreatment(final Patient patient);
-}

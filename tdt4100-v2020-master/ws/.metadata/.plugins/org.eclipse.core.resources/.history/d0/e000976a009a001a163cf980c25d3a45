@@ -1,5 +1,0 @@
-package EksamenKont2018;
-
-public interface DiceScorer {
-
-}

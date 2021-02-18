@@ -1,8 +1,0 @@
-package EksamenKont2016;
-
-import junit.framework.TestCase;
-
-public class testPerson extends TestCase{
-	
-
-}
