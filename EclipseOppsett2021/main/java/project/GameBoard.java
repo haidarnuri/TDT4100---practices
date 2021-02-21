@@ -10,9 +10,9 @@ public class GameBoard {
 	private Figur figur=new Figur();
 
 	
-	//Standard størrelse er 5x5
+	//Standard størrelse er 9x9
 	public GameBoard() {
-		this(5,5);
+		this(9,9);
 	}
 	
 	public GameBoard(int row, int col) {
@@ -40,14 +40,12 @@ public class GameBoard {
 	
 	
 	public void fillBoardWithFigures() {
-		
 		int totNumberOfCells = getGeneratedBeforeBoard().length*getGeneratedBeforeBoard()[0].length;
 		/*
 		 * Tenker at antall miner kan være kvadratrota av antall celler. Tilfeldig antall. Kanskje det blir for mange/få?
 		 */
 		int numberOfMines = (int)Math.sqrt(totNumberOfCells);
 		int numberOfEmpty = totNumberOfCells-numberOfMines;
-		System.out.println("Antall miner er "+numberOfMines);
 		Random random = new Random();
 		while(numberOfMines>0) {
 			int randomRow = random.nextInt(getGeneratedBeforeBoard().length);
@@ -59,7 +57,6 @@ public class GameBoard {
 			}
 		}
 		
-		System.out.println("Antall empty er "+numberOfEmpty);
 
 		while(numberOfEmpty>0) {
 			int randomRow = random.nextInt(getGeneratedBeforeBoard().length);
@@ -101,7 +98,7 @@ public class GameBoard {
 	}
 	
 	public static void main(String[] args) {
-		GameBoard board = new GameBoard(2,4);
+		GameBoard board = new GameBoard();
 		board.fillBoardWithFigures();
 		System.out.println(board);
 	

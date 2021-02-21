@@ -2,6 +2,7 @@ package project;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -25,7 +26,6 @@ public class GameBoardTest{
 		
 		Assertions.assertEquals(10, board2.getDuringGameBoard().length);
 		Assertions.assertEquals(6, board2.getDuringGameBoard()[0].length);
-
 	}
 	
 	@Test
