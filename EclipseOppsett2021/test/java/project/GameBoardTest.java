@@ -46,11 +46,11 @@ public class GameBoardTest{
 	
 	@Test
 	public void testValidLenghtRowAndColoumn_generatedBeforeBoard() { 
-		Assertions.assertEquals(5, board1.getGeneratedBeforeBoard().length);
-		Assertions.assertEquals(5, board1.getGeneratedBeforeBoard()[0].length);
+		Assertions.assertEquals(5, board1.getGeneratedBeforeGameboard().length);
+		Assertions.assertEquals(5, board1.getGeneratedBeforeGameboard()[0].length);
 		
-		Assertions.assertEquals(10, board2.getGeneratedBeforeBoard().length);
-		Assertions.assertEquals(6, board2.getGeneratedBeforeBoard()[0].length);
+		Assertions.assertEquals(10, board2.getGeneratedBeforeGameboard().length);
+		Assertions.assertEquals(6, board2.getGeneratedBeforeGameboard()[0].length);
 
 	}
 

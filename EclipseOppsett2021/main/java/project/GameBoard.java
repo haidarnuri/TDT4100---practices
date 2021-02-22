@@ -3,18 +3,11 @@ package project;
 import java.util.Random;
 
 public class GameBoard {
+	
+	private Cell[][] generatedBeforeGameboard;
+	private Cell[][] duringGameboard;
 
-	
-	private String[][] duringGameBoard;
-	private String[][] generatedBeforeBoard;
-	private Figur figur=new Figur();
 
-	
-	//Standard størrelse er 9x9
-	public GameBoard() {
-		this(9,9);
-	}
-	
 	public GameBoard(int row, int col) {
 		setBoard(row,col);
 	}
@@ -26,21 +19,50 @@ public class GameBoard {
 		if(!checkValidSize(row)) {
 			throw new IllegalArgumentException("Raden må være større enn  3");
 		}
-		this.duringGameBoard = new String[row][col];
-		this.generatedBeforeBoard = new String[row][col];
+		duringGameboard = new Cell[row][col];
+		
+		generatedBeforeGameboard= new Cell[row][col];	
+		for (int i = 0; i < generatedBeforeGameboard.length; i++) {
+			for (int j = 0; j < generatedBeforeGameboard[0].length; j++) {
+				getGeneratedBeforeGameboard()[i][j] = new Cell(); 
+				getGeneratedBeforeGameboard()[i][j].setCellLeftClicked(true);
+				getGeneratedBeforeGameboard()[i][j].setCellRightClicked(true);
+			}
+		}
+		
 	}
 	
-	public String[][] getDuringGameBoard() {
-		return this.duringGameBoard;
+	public Cell[][] getDuringGameboard() {
+		return this.generatedBeforeGameboard;
 	}
 	
-	public String[][] getGeneratedBeforeBoard() {
-		return this.generatedBeforeBoard;
+	
+	public Cell[][] getGeneratedBeforeGameboard() {
+		return this.generatedBeforeGameboard;
 	}
 	
+	public void leftClickOnCell(int row, int col) {
+		getDuringGameboard()[row][col].setCellLeftClicked(true);
+	}
+	
+	public void rightClickOnCell(int row, int col) {
+		getDuringGameboard()[row][col].setCellRightClicked(true);
+	}
+	
+	public void fillCellWithMine(int row, int col) {
+		getDuringGameboard()[row][col].MineFigur();
+	}
+	
+	public void fillCellWithEmpty(int row, int col) {
+		getDuringGameboard()[row][col].EmptyFigur();
+	}
+	
+	public void fillCellWithFlag(int row, int col) {
+		getDuringGameboard()[row][col].FlagFigur();
+	}
 	
 	public void fillBoardWithFigures() {
-		int totNumberOfCells = getGeneratedBeforeBoard().length*getGeneratedBeforeBoard()[0].length;
+		int totNumberOfCells = getGeneratedBeforeGameboard().length*getGeneratedBeforeGameboard()[0].length;
 		/*
 		 * Tenker at antall miner kan være kvadratrota av antall celler. Tilfeldig antall. Kanskje det blir for mange/få?
 		 */
@@ -48,23 +70,18 @@ public class GameBoard {
 		int numberOfEmpty = totNumberOfCells-numberOfMines;
 		Random random = new Random();
 		while(numberOfMines>0) {
-			int randomRow = random.nextInt(getGeneratedBeforeBoard().length);
-			int randomCol = random.nextInt(getGeneratedBeforeBoard()[0].length);
-			if(getGeneratedBeforeBoard()[randomRow][randomCol]==null) {
-				getGeneratedBeforeBoard()[randomRow][randomCol]=figur.MineFigur();
-				getDuringGameBoard()[randomRow][randomCol]=figur.MineFigur();
+			int randomRow = random.nextInt(getGeneratedBeforeGameboard().length);
+			int randomCol = random.nextInt(getGeneratedBeforeGameboard()[0].length);
+			if(getGeneratedBeforeGameboard()[randomRow][randomCol].getFigur()==null) {
+				getGeneratedBeforeGameboard()[randomRow][randomCol].MineFigur();
 				numberOfMines--;
 			}
 		}
-		
-
 		while(numberOfEmpty>0) {
-			int randomRow = random.nextInt(getGeneratedBeforeBoard().length);
-			int randomCol = random.nextInt(getGeneratedBeforeBoard()[0].length);
-			
-			if(getGeneratedBeforeBoard()[randomRow][randomCol]==null) {
-				getGeneratedBeforeBoard()[randomRow][randomCol]=figur.EmptyFigur();
-				getDuringGameBoard()[randomRow][randomCol]=figur.EmptyFigur();
+			int randomRow = random.nextInt(getGeneratedBeforeGameboard().length);
+			int randomCol = random.nextInt(getGeneratedBeforeGameboard()[0].length);		
+			if(getGeneratedBeforeGameboard()[randomRow][randomCol].getFigur()==null) {
+				getGeneratedBeforeGameboard()[randomRow][randomCol].EmptyFigur();
 				numberOfEmpty--;
 			}
 		}
@@ -72,13 +89,12 @@ public class GameBoard {
 	
 	@Override
 	public String toString() {
-		for (int i = 0; i < getGeneratedBeforeBoard().length; i++) {
-			for (int j = 0; j < getGeneratedBeforeBoard()[0].length; j++) {
-				System.out.println(getGeneratedBeforeBoard()[i][j]);
+		for (int i = 0; i < generatedBeforeGameboard.length; i++) {
+			for (int j = 0; j < generatedBeforeGameboard[0].length; j++) {
+				System.out.println(getGeneratedBeforeGameboard()[i][j].getFigur());			
 			}
-			System.out.println("\n");
 		}
-		return "finished";
+		return "";
 	}
 	
 	/*
@@ -89,16 +105,13 @@ public class GameBoard {
 	 * Resten er tomme celler. 
 	 */
 	
-	
-	
-	
 	//Burde man ha minst 3x3?
 	private boolean checkValidSize(int size) {
-		return size>3;
+		return size>2;
 	}
 	
 	public static void main(String[] args) {
-		GameBoard board = new GameBoard();
+		GameBoard board = new GameBoard(3,3);
 		board.fillBoardWithFigures();
 		System.out.println(board);
 	

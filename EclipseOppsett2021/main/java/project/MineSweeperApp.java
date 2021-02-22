@@ -10,7 +10,7 @@ public class MineSweeperApp extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		Parent root = FXMLLoader.load(this.getClass().getResource("MinesweeperGameboard.fxml"));
+		Parent root = FXMLLoader.load(this.getClass().getResource("MinesweeperGameBoardTilepane3x3.fxml"));
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
 		

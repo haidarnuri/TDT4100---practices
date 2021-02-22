@@ -28,8 +28,7 @@ public class ControllerGameboard implements Initializable{
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		   board.fillBoardWithFigures();
-		   fillGridpaneGameBoard();
-		  gridpane.setStyle("-fx-background-color: black;");
+		  // fillGridpaneGameBoard();
 		 
 	}
 	
@@ -37,10 +36,8 @@ public class ControllerGameboard implements Initializable{
 	private void fillGridpaneGameBoard() {
 		        for (int column = 0; column < gridpane.getColumnCount(); column++) {
 		            for (int row = 0 ; row < gridpane.getRowCount(); row++) {
-		                TextField textField = new TextField(board.getGeneratedBeforeBoard()[row][column]);
-		                System.out.println();
-		                textField.setStyle("-fx-pref-width: 66px; -fx-pref-height: 44px;");
-		                //textField.setStyle(";");
+		                TextField textField = new TextField(board.getGeneratedBeforeGameboard()[row][column]);
+		                textField.setStyle("-fx-pref-width: 66px; -fx-pref-height: 44px; -fx-background-color: black;");
 		                GridPane.setConstraints(textField, column, row);
 		                gridpane.getChildren().add(textField);
 		            }
