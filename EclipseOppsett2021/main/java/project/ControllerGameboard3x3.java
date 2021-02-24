@@ -72,25 +72,63 @@ public class ControllerGameboard3x3 implements Initializable, EventHandler<Mouse
 		
 		@Override
 		public void handle(MouseEvent event) {
-			// TODO Auto-generated method stub
-			
-			Image img = new Image(getClass().getResourceAsStream("bomb.png"));
-		    ImageView view = new ImageView(img);
-		    view.setFitHeight(30);
-		    view.setFitWidth(30);
-		      view.setPreserveRatio(true);
+						
+			//Legger til png for bombefigurene. 
+			addBombPNG();
+	       		    
 			for (int i = 0; i < buttonList.length; i++) {
 				for (int j = 0; j < buttonList[0].length; j++) {
 					if(event.getSource()==buttonList[i][j]) {
 						Button buttonClicked = buttonList[i][j];
 						if(board.getDuringGameboard()[i][j].getFigur()=="E") {
+							String numberOfBombs = countNumberOfBombsAroundCell(i, j);
 							buttonClicked.setStyle("-fx-background-color: white;");
+							buttonClicked.setText(numberOfBombs);
 						}else {
 							buttonClicked.setStyle("-fx-background-color: orange;");
-							buttonClicked.setGraphic(view); 
+							buttonClicked.setGraphic(this.view); 
 						}
 					}
 				}
+			}
+		}
+		
+		
+		private ImageView view;
+		private void addBombPNG() {
+			Image img = new Image(getClass().getResourceAsStream("bomb.png"));
+		    this.view = new ImageView(img);
+		    view.setFitHeight(30);
+		    view.setFitWidth(30);
+		    view.setPreserveRatio(true);
+		}
+		
+		private boolean isBombAroundCell;
+		private String countNumberOfBombsAroundCell(int row, int col) {
+			int tempCounter = 0;
+			if(row-1>=0 && col-1>=0 && board.getGeneratedBeforeGameboard()[row-1][col-1].getFigur()=="M") {
+				tempCounter++;
+			}if(col-1>=0 && board.getGeneratedBeforeGameboard()[row][col-1].getFigur()=="M") {
+				tempCounter++;
+			}if(row+1<=board.getGeneratedBeforeGameboard().length-1 && col-1>=0 && board.getGeneratedBeforeGameboard()[row+1][col-1].getFigur()=="M") {
+				tempCounter++;
+			}if(row-1>=0 &&board.getGeneratedBeforeGameboard()[row-1][col].getFigur()=="M") {
+				tempCounter++;
+			}if(row+1<=board.getGeneratedBeforeGameboard().length-1 && board.getGeneratedBeforeGameboard()[row+1][col].getFigur()=="M") {
+				tempCounter++;
+			}if(row-1>=0 && col+1<=board.getGeneratedBeforeGameboard()[0].length-1&&board.getGeneratedBeforeGameboard()[row-1][col+1].getFigur()=="M") {
+				tempCounter++;
+			}if(col+1<=board.getGeneratedBeforeGameboard()[0].length-1&&board.getGeneratedBeforeGameboard()[row][col+1].getFigur()=="M") {
+				tempCounter++;
+			}if(row+1<=board.getGeneratedBeforeGameboard().length-1&&col+1<=board.getGeneratedBeforeGameboard()[0].length-1&&board.getGeneratedBeforeGameboard()[row+1][col+1].getFigur()=="M") {
+				tempCounter++;
+			}
+			if(tempCounter>0) {
+				this.isBombAroundCell = true;
+				return String.valueOf(tempCounter);
+			}else{
+				this.isBombAroundCell=false;
+				return "";
 			}
 		}
 	
