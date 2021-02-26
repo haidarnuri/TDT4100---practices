@@ -1,11 +1,13 @@
 package project;
 
+import java.util.Iterator;
 import java.util.Random;
 
 public class GameBoard {
 	
 	private Cell[][] generatedBeforeGameboard;
 	private Cell[][] duringGameboard;
+	private int numberOfEmptyFieldsOnBoard;
 
 
 	public GameBoard(int row, int col) {
@@ -24,6 +26,7 @@ public class GameBoard {
 		generatedBeforeGameboard= new Cell[row][col];	
 		for (int i = 0; i < generatedBeforeGameboard.length; i++) {
 			for (int j = 0; j < generatedBeforeGameboard[0].length; j++) {
+				getDuringGameboard()[i][j] = new Cell();
 				getGeneratedBeforeGameboard()[i][j] = new Cell(); 
 				getGeneratedBeforeGameboard()[i][j].setCellLeftClicked(true);
 				getGeneratedBeforeGameboard()[i][j].setCellRightClicked(true);
@@ -33,12 +36,20 @@ public class GameBoard {
 	}
 	
 	public Cell[][] getDuringGameboard() {
-		return this.generatedBeforeGameboard;
+		return this.duringGameboard;
 	}
 	
 	
 	public Cell[][] getGeneratedBeforeGameboard() {
 		return this.generatedBeforeGameboard;
+	}
+	
+	public void decreaseNumberOfEmptyFields() {
+		this.numberOfEmptyFieldsOnBoard--;
+	}
+	
+	public boolean noEmptyFieldsLeft() {
+		return numberOfEmptyFieldsOnBoard == 0;
 	}
 	
 	public void leftClickOnCell(int row, int col) {
@@ -66,31 +77,33 @@ public class GameBoard {
 		/*
 		 * Tenker at antall miner kan være kvadratrota av antall celler. Tilfeldig antall. Kanskje det blir for mange/få?
 		 */
-		int numberOfMines = (int)Math.sqrt(totNumberOfCells);
-		int numberOfEmpty = totNumberOfCells-numberOfMines;
+		int numberOfBombs = (int)Math.sqrt(totNumberOfCells);
+		this.numberOfEmptyFieldsOnBoard = numberOfBombs;
+		int tempNumberOfEmpty = totNumberOfCells-numberOfBombs;
+		numberOfEmptyFieldsOnBoard = tempNumberOfEmpty;
 		Random random = new Random();
-		while(numberOfMines>0) {
+		while(numberOfBombs>0) {
 			int randomRow = random.nextInt(getGeneratedBeforeGameboard().length);
 			int randomCol = random.nextInt(getGeneratedBeforeGameboard()[0].length);
-			if(getGeneratedBeforeGameboard()[randomRow][randomCol].getFigur()==null) {
+			if(getGeneratedBeforeGameboard()[randomRow][randomCol].getFigur().isEmpty()) {
 				getGeneratedBeforeGameboard()[randomRow][randomCol].MineFigur();
-				numberOfMines--;
+				numberOfBombs--;
 			}
 		}
-		while(numberOfEmpty>0) {
+		while(tempNumberOfEmpty>0) {
 			int randomRow = random.nextInt(getGeneratedBeforeGameboard().length);
 			int randomCol = random.nextInt(getGeneratedBeforeGameboard()[0].length);		
-			if(getGeneratedBeforeGameboard()[randomRow][randomCol].getFigur()==null) {
+			if(getGeneratedBeforeGameboard()[randomRow][randomCol].getFigur().isEmpty()) {
 				getGeneratedBeforeGameboard()[randomRow][randomCol].EmptyFigur();
-				numberOfEmpty--;
+				tempNumberOfEmpty--;
 			}
 		}
 	}
 	
 	@Override
 	public String toString() {
-		for (int i = 0; i < generatedBeforeGameboard.length; i++) {
-			for (int j = 0; j < generatedBeforeGameboard[0].length; j++) {
+		for (int i = 0; i < getGeneratedBeforeGameboard().length; i++) {
+			for (int j = 0; j < getGeneratedBeforeGameboard()[0].length; j++) {
 				System.out.println(getGeneratedBeforeGameboard()[i][j].getFigur());			
 			}
 		}
@@ -111,9 +124,13 @@ public class GameBoard {
 	}
 	
 	public static void main(String[] args) {
-		GameBoard board = new GameBoard(3,3);
-		board.fillBoardWithFigures();
-		System.out.println(board);
+		GameBoard temp = new GameBoard(3,3);
+		temp.fillBoardWithFigures();
+		for (int i = 0; i < temp.getDuringGameboard().length; i++) {
+			for (int j = 0; j < temp.getDuringGameboard()[0].length; j++) {
+				System.out.println(temp.getDuringGameboard()[i][j].getFigur().isEmpty());			
+			}
+		};
 	
 	}
 		

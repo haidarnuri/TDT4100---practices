@@ -9,7 +9,7 @@ public class Cell {
 	public Cell() {
 		setCellLeftClicked(false);
 		setCellRightClicked(false);
-		figur=null;
+		figur="";
 	}
 	
 	public String getFigur() {
