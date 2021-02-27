@@ -10,14 +10,14 @@
       <Label fx:id="nameLabel" layoutX="270.0" layoutY="27.0" text="Your Name" />
       <Button fx:id="restartButton" layoutX="435.0" layoutY="22.0" mnemonicParsing="false" text="Restart" />
       <Button fx:id="saveButton" layoutX="128.0" layoutY="22.0" mnemonicParsing="false" text="Save game" />
-      <Button fx:id="btn1" layoutY="100.0" mnemonicParsing="false" prefHeight="180.0" prefWidth="180.0" style="-fx-background-color: black;" />
-      <Button fx:id="btn6" layoutX="360.0" layoutY="280.0" mnemonicParsing="false" prefHeight="180.0" prefWidth="180.0" style="-fx-background-color: black;" />
-      <Button fx:id="btn5" layoutX="180.0" layoutY="280.0" mnemonicParsing="false" prefHeight="180.0" prefWidth="180.0" style="-fx-background-color: black;" />
-      <Button fx:id="btn3" layoutX="360.0" layoutY="100.0" mnemonicParsing="false" prefHeight="180.0" prefWidth="180.0" style="-fx-background-color: black;" />
-      <Button fx:id="btn2" layoutX="180.0" layoutY="100.0" mnemonicParsing="false" prefHeight="180.0" prefWidth="180.0" style="-fx-background-color: black;" />
-      <Button fx:id="btn7" layoutY="460.0" mnemonicParsing="false" prefHeight="180.0" prefWidth="180.0" style="-fx-background-color: black;" />
-      <Button fx:id="btn4" layoutY="280.0" mnemonicParsing="false" prefHeight="180.0" prefWidth="180.0" style="-fx-background-color: black;" />
-      <Button fx:id="btn9" layoutX="360.0" layoutY="460.0" mnemonicParsing="false" prefHeight="180.0" prefWidth="180.0" style="-fx-background-color: black;" />
-      <Button fx:id="btn8" layoutX="180.0" layoutY="460.0" mnemonicParsing="false" prefHeight="180.0" prefWidth="180.0" style="-fx-background-color: black;" />
+      <Button fx:id="btn1" layoutY="100.0" mnemonicParsing="false" prefHeight="180.0" prefWidth="180.0" style="-fx-background-color: black; -fx-border-color: grey;" />
+      <Button fx:id="btn6" layoutX="360.0" layoutY="280.0" mnemonicParsing="false" prefHeight="180.0" prefWidth="180.0" style="-fx-background-color: black; -fx-border-color: grey;" />
+      <Button fx:id="btn5" layoutX="180.0" layoutY="280.0" mnemonicParsing="false" prefHeight="180.0" prefWidth="180.0" style="-fx-background-color: black; -fx-border-color: grey;" />
+      <Button fx:id="btn3" layoutX="360.0" layoutY="100.0" mnemonicParsing="false" prefHeight="180.0" prefWidth="180.0" style="-fx-background-color: black; -fx-border-color: grey;" />
+      <Button fx:id="btn2" layoutX="180.0" layoutY="100.0" mnemonicParsing="false" prefHeight="180.0" prefWidth="180.0" style="-fx-background-color: black; -fx-border-color: grey;" />
+      <Button fx:id="btn7" layoutY="460.0" mnemonicParsing="false" prefHeight="180.0" prefWidth="180.0" style="-fx-background-color: black; -fx-border-color: grey;" />
+      <Button fx:id="btn4" layoutY="280.0" mnemonicParsing="false" prefHeight="180.0" prefWidth="180.0" style="-fx-background-color: black; -fx-border-color: grey;" />
+      <Button fx:id="btn9" layoutX="360.0" layoutY="460.0" mnemonicParsing="false" prefHeight="180.0" prefWidth="180.0" style="-fx-background-color: black; -fx-border-color: grey;" />
+      <Button fx:id="btn8" layoutX="180.0" layoutY="460.0" mnemonicParsing="false" prefHeight="180.0" prefWidth="180.0" style="-fx-background-color: black; -fx-border-color: grey;" />
    </children>
 </AnchorPane>

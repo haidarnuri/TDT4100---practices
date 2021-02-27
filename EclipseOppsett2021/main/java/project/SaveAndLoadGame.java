@@ -6,14 +6,19 @@ import java.io.IOException;
 
 public class SaveAndLoadGame {
 	
-	String filename = "src/main/java/project/saveFile.txt";
-	String textToSave = "";
+	private String filename = "src/main/java/project/saveFile.txt";
+	private String textToSave = "";
+	private String textToLoad;
 	
+	public SaveAndLoadGame() {
+		this("");	
+	}
 	
 	public SaveAndLoadGame(String textToSave) {
 		this.textToSave=textToSave;
-		
 	}
+	
+	
 	
 	
 	public void saveFile() {
@@ -21,11 +26,12 @@ public class SaveAndLoadGame {
 	    try {
 	      // Creates a FileWriter
 	      FileWriter file = new FileWriter(filename);
-	     
 	      // read each character from string and write 
           // into FileWriter 
-          for (int i = 0; i < this.textToSave.length(); i++) 
+          for (int i = 0; i < this.textToSave.length(); i++) {
         	  file.write(this.textToSave.charAt(i)); 
+        	  
+          }
           // close the file 
           file.close(); 
 	    }
@@ -41,7 +47,7 @@ public class SaveAndLoadGame {
         try {
         		int i;    
         		while((i = fileReader.read()) != -1) {
-        			System.out.print((char)i);    
+        			
         		}
         	} 
         	finally {
@@ -50,22 +56,10 @@ public class SaveAndLoadGame {
 	}
 		
 	public static void main(String[] args) throws IOException {
-		String boardString = "";
-		GameBoard temp = new GameBoard(3,3);
-		temp.fillBoardWithFigures();
-		for (int i = 0; i < temp.getGeneratedBeforeGameboard().length; i++) {
-			for (int j = 0; j < temp.getGeneratedBeforeGameboard()[0].length; j++) {
-				boardString += temp.getGeneratedBeforeGameboard()[i][j].getFigur();
-			}
-		}
-		System.out.println(boardString);
-		System.out.println(boardString.charAt(0));
-		System.out.println(boardString.charAt(1));
-		System.out.println(boardString.charAt(boardString.length()-1));
-		/*
-		SaveAndLoadGame tempText = new SaveAndLoadGame("TestText");
+		
+		SaveAndLoadGame tempText = new SaveAndLoadGame("00E2+E,01  +M,02E1+E,10  +M,11E3+E,12E2+E,20  +E,21E2+E,22M+M");
 		tempText.saveFile();
-		tempText.loadFile();*/
+		tempText.loadFile();
 	}
 
 }

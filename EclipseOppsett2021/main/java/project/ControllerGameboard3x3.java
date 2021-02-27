@@ -1,5 +1,6 @@
 package project;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.ResourceBundle;
@@ -18,12 +19,12 @@ import javafx.scene.input.MouseEvent;
 public class ControllerGameboard3x3 implements Initializable, EventHandler<MouseEvent>{
 
 	
-	@FXML Button btn1,btn2,btn3,btn4,btn5,btn6,btn7,btn8,btn9,smileyButton,saveButton,restartButton;
-	@FXML Label nameLabel;
-	Button[][] buttonList = new Button[3][3];
-	//HashMap<Button, Coordinates> layoutValuesToListValues = new HashMap<Button, Coordinates>();
-	GameBoard board = new GameBoard(3,3);
-
+	@FXML private Button btn1,btn2,btn3,btn4,btn5,btn6,btn7,btn8,btn9,smileyButton,saveButton,restartButton;
+	@FXML private Label nameLabel;
+	private Button[][] buttonList = new Button[3][3];
+	private GameBoard board = new GameBoard(3,3);
+	private SaveAndLoadGame saveAndLoad;
+	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		addSmileyPNG("duringGameSmiley.png");
@@ -38,40 +39,46 @@ public class ControllerGameboard3x3 implements Initializable, EventHandler<Mouse
 		buttonList[2][1] = btn8;
 		buttonList[2][2] = btn9;
 		iterateButtonListAddEventHandler(this);
-
+		saveButton.setOnMouseClicked(this);
+		restartButton.setOnMouseClicked(this);
 		
 	}
 			
 		@Override
 		public void handle(MouseEvent event) {
-						
+			
+				
+				
 			//Legger til png for bombefigurene. 
-			addBombPNG();
-			for (int i = 0; i < buttonList.length; i++) {
-				for (int j = 0; j < buttonList[0].length; j++) {
-					if(event.getSource()==buttonList[i][j]) {
-						Button buttonClicked = buttonList[i][j];
-						if(board.getGeneratedBeforeGameboard()[i][j].getFigur()=="E") {
-							board.decreaseNumberOfEmptyFields();
-							board.rightClickOnCell(i, j);
-							board.
-							String numberOfBombs = countNumberOfBombsAroundCell(i, j);
-							buttonClicked.setStyle("-fx-background-color: white;");
-							buttonClicked.setText(numberOfBombs);
-							if(board.noEmptyFieldsLeft()) {
-								iterateButtonListAddEventHandler(null);
-								addSmileyPNG("youWonSmiley.png");
+				addBombPNG();
+				for (int i = 0; i < buttonList.length; i++) {
+					for (int j = 0; j < buttonList[0].length; j++) {
+						if(event.getSource()==buttonList[i][j]) {
+							Button buttonClicked = buttonList[i][j];
+							if(board.getGeneratedBeforeGameboard()[i][j].getFigur()=="E") {
+								board.decreaseNumberOfEmptyFields();
+								board.leftClickOnCell(i, j);
+								board.fillCellWithEmpty(i, j);
+								String numberOfBombs = countNumberOfBombsAroundCell(i, j);
+								buttonClicked.setStyle("-fx-background-color: white;");
+								buttonClicked.setText(numberOfBombs);
+								if(board.noEmptyFieldsLeft()) {
+									iterateButtonListAddEventHandler(null);
+									addSmileyPNG("youWonSmiley.png");
+								}
+							}else {
+								board.leftClickOnCell(i, j);
+								board.fillCellWithBomb(i, j);
+								//iterateButtonListAddEventHandler(null);
+								addSmileyPNG("whenLooseSmiley.png");
+								buttonClicked.setStyle("-fx-background-color: orange;");
+								buttonClicked.setGraphic(this.bombView); 
 							}
-						}else {
-							iterateButtonListAddEventHandler(null);
-							addSmileyPNG("whenLooseSmiley.png");
-							buttonClicked.setStyle("-fx-background-color: orange;");
-							buttonClicked.setGraphic(this.bombView); 
 						}
 					}
 				}
 			}
-		}
+		
 		
 		private void iterateButtonListAddEventHandler(EventHandler<MouseEvent> event) {
 			for (int row = 0; row < buttonList.length; row++) {
@@ -103,6 +110,35 @@ public class ControllerGameboard3x3 implements Initializable, EventHandler<Mouse
 
 		}
 		
+		 private void createValidNeighbour(Cell[][] arrayOfCells) {
+			 HashMap<GameBoard, Integer[][]> layoutValuesToListValues = new HashMap<GameBoard, Integer[][]>();
+			 Integer[][] tempVaules;
+			 for (int row = 0; row < arrayOfCells.length; row++) {
+					for (int col = 0; col < arrayOfCells[0].length; col++) {
+						if(row-1>=0 && col-1>=0) {
+							
+						}if(col-1>=0) {
+							
+						}if(row+1<=board.getGeneratedBeforeGameboard().length-1 && col-1>=0) {
+							
+						}if(row-1>=0) {
+							
+						}if(row+1<=board.getGeneratedBeforeGameboard().length-1) {
+							
+						}if(row-1>=0 && col+1<=board.getGeneratedBeforeGameboard()[0].length-1) {
+							
+						}if(col+1<=board.getGeneratedBeforeGameboard()[0].length-1) {
+							
+						}if(row+1<=board.getGeneratedBeforeGameboard().length-1&&col+1<=board.getGeneratedBeforeGameboard()[0].length-1) {
+							
+						}
+					}
+			}
+			 
+			 
+			 
+			 
+		 }
 		
 		private String countNumberOfBombsAroundCell(int row, int col) {
 			int tempCounter = 0;
@@ -123,11 +159,8 @@ public class ControllerGameboard3x3 implements Initializable, EventHandler<Mouse
 			}if(row+1<=board.getGeneratedBeforeGameboard().length-1&&col+1<=board.getGeneratedBeforeGameboard()[0].length-1&&board.getGeneratedBeforeGameboard()[row+1][col+1].getFigur()=="M") {
 				tempCounter++;
 			}
-			if(tempCounter>0) {
-				return String.valueOf(tempCounter);
-			}else{
-				return "";
-			}
+			
+			return String.valueOf(tempCounter);
 		}
 	
 	

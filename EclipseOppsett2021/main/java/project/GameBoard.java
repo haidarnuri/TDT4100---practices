@@ -22,8 +22,8 @@ public class GameBoard {
 			throw new IllegalArgumentException("Raden må være større enn  3");
 		}
 		duringGameboard = new Cell[row][col];
-		
 		generatedBeforeGameboard= new Cell[row][col];	
+		
 		for (int i = 0; i < generatedBeforeGameboard.length; i++) {
 			for (int j = 0; j < generatedBeforeGameboard[0].length; j++) {
 				getDuringGameboard()[i][j] = new Cell();
@@ -60,7 +60,7 @@ public class GameBoard {
 		getDuringGameboard()[row][col].setCellRightClicked(true);
 	}
 	
-	public void fillCellWithMine(int row, int col) {
+	public void fillCellWithBomb(int row, int col) {
 		getDuringGameboard()[row][col].MineFigur();
 	}
 	
@@ -74,9 +74,7 @@ public class GameBoard {
 	
 	public void fillBoardWithFigures() {
 		int totNumberOfCells = getGeneratedBeforeGameboard().length*getGeneratedBeforeGameboard()[0].length;
-		/*
-		 * Tenker at antall miner kan være kvadratrota av antall celler. Tilfeldig antall. Kanskje det blir for mange/få?
-		 */
+		
 		int numberOfBombs = (int)Math.sqrt(totNumberOfCells);
 		this.numberOfEmptyFieldsOnBoard = numberOfBombs;
 		int tempNumberOfEmpty = totNumberOfCells-numberOfBombs;
@@ -126,11 +124,9 @@ public class GameBoard {
 	public static void main(String[] args) {
 		GameBoard temp = new GameBoard(3,3);
 		temp.fillBoardWithFigures();
-		for (int i = 0; i < temp.getDuringGameboard().length; i++) {
-			for (int j = 0; j < temp.getDuringGameboard()[0].length; j++) {
-				System.out.println(temp.getDuringGameboard()[i][j].getFigur().isEmpty());			
-			}
-		};
+		temp.leftClickOnCell(0, 0);
+		temp.fillCellWithEmpty(0, 0);
+		
 	
 	}
 		
