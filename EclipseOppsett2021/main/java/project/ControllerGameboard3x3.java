@@ -1,20 +1,14 @@
 package project;
 
-import java.io.IOException;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Iterator;
+
 import java.util.ResourceBundle;
 
-import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
 public class ControllerGameboard3x3 implements Initializable, EventHandler<MouseEvent>{
@@ -73,6 +67,7 @@ public class ControllerGameboard3x3 implements Initializable, EventHandler<Mouse
 						int rowValue = neighbourCells[i];
 						int colValue = neighbourCells[++i];
 						buttonList[rowValue][colValue].setStyle("-fx-background-color: white;");
+						buttonList[rowValue][colValue].setText(scouter.countNumberOfBombsAroundCell(rowValue, colValue));
 					}
 				}
 				if(board.noEmptyFieldsLeft()) {

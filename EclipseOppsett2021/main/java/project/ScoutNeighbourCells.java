@@ -16,16 +16,9 @@ public class ScoutNeighbourCells {
 			1,1
 	};
 	
-	
-	
 	public ScoutNeighbourCells(GameBoard board) {
 		this.board=board;
-		
 	}
-	
-	
-	
-	
 	
 	public int[] findNeighbourCells(int row, int col) {
 		int arraySize = 0;
@@ -57,7 +50,6 @@ public class ScoutNeighbourCells {
 		}
 		
 		return neighbourCells;
-	
 	}
 	
 	public String countNumberOfBombsAroundCell(int row, int col) {
