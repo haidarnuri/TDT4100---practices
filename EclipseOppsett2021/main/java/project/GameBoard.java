@@ -32,7 +32,7 @@ public class GameBoard {
 				getGeneratedBeforeGameboard()[i][j].setCellRightClicked(true);
 			}
 		}
-		
+		fillBoardWithFigures();
 	}
 	
 	public Cell[][] getDuringGameboard() {
@@ -74,8 +74,8 @@ public class GameBoard {
 	
 	public void fillBoardWithFigures() {
 		int totNumberOfCells = getGeneratedBeforeGameboard().length*getGeneratedBeforeGameboard()[0].length;
-		
-		int numberOfBombs = (int)Math.sqrt(totNumberOfCells);
+		int numberOfBombs=1;
+		//int numberOfBombs = (int)Math.sqrt(totNumberOfCells);
 		this.numberOfEmptyFieldsOnBoard = numberOfBombs;
 		int tempNumberOfEmpty = totNumberOfCells-numberOfBombs;
 		numberOfEmptyFieldsOnBoard = tempNumberOfEmpty;
@@ -102,19 +102,13 @@ public class GameBoard {
 	public String toString() {
 		for (int i = 0; i < getGeneratedBeforeGameboard().length; i++) {
 			for (int j = 0; j < getGeneratedBeforeGameboard()[0].length; j++) {
+				
 				System.out.println(getGeneratedBeforeGameboard()[i][j].getFigur());			
 			}
 		}
 		return "";
 	}
 	
-	/*
-	 * Må lage en array der jeg tilfeldig setter inn ulike figurer. 
-	 * Antall figurer er samme som arealet av spillbrettet. 
-	 * Antall miner er kvadratrot av antall celler
-	 * Minene skal plasseres random i arrayen
-	 * Resten er tomme celler. 
-	 */
 	
 	//Burde man ha minst 3x3?
 	private boolean checkValidSize(int size) {
@@ -122,12 +116,8 @@ public class GameBoard {
 	}
 	
 	public static void main(String[] args) {
-		GameBoard temp = new GameBoard(3,3);
-		temp.fillBoardWithFigures();
-		temp.leftClickOnCell(0, 0);
-		temp.fillCellWithEmpty(0, 0);
-		
-	
+		GameBoard board = new GameBoard(3, 3);
+		System.out.println(board.toString());
 	}
 		
 	
