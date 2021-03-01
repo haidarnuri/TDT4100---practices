@@ -3,7 +3,7 @@ package project;
 
 public class ScoutNeighbourCells {
 
-	private int[] neighbourCells ;
+	private int[] neighbourCells;
 	private GameBoard board;
 	private int[] cellAround = {
 			-1,-1,

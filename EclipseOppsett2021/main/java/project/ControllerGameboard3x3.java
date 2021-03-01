@@ -9,6 +9,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
 public class ControllerGameboard3x3 implements Initializable, EventHandler<MouseEvent>{
@@ -19,11 +21,10 @@ public class ControllerGameboard3x3 implements Initializable, EventHandler<Mouse
 	private Button[][] buttonList = new Button[3][3];
 	private GameBoard board;
 	private ScoutNeighbourCells scouter;
-	private addPNGImages addingImage = new addPNGImages();
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		smileyButton.setGraphic(addingImage.addSmileyPNG("duringGameSmiley.png"));
+		smileyButton.setGraphic(addPNGImage("duringGameSmiley.png"));
 		board = new GameBoard(3,3);
 		scouter = new ScoutNeighbourCells(board);
 		buttonList[0][0] = btn1;
@@ -36,7 +37,6 @@ public class ControllerGameboard3x3 implements Initializable, EventHandler<Mouse
 		buttonList[2][1] = btn8;
 		buttonList[2][2] = btn9;
 		iterateButtonListAddEventHandler(this);
-		
 	}
 			
 		@Override
@@ -72,15 +72,15 @@ public class ControllerGameboard3x3 implements Initializable, EventHandler<Mouse
 				}
 				if(board.noEmptyFieldsLeft()) {
 					//iterateButtonListAddEventHandler(null);
-					smileyButton.setGraphic(addingImage.addSmileyPNG("youWonSmiley.png"));
+					smileyButton.setGraphic(addPNGImage("youWonSmiley.png"));
 				}
 			}else {
 				board.leftClickOnCell(row, col);
 				board.fillCellWithBomb(row, col);
 				//iterateButtonListAddEventHandler(null);
-				smileyButton.setGraphic(addingImage.addSmileyPNG("whenLooseSmiley.png"));
+				smileyButton.setGraphic(addPNGImage("whenLooseSmiley.png"));
 				buttonClicked.setStyle("-fx-background-color: orange;");
-				buttonClicked.setGraphic(addingImage.addBombPNG("bomb.png")); 
+				buttonClicked.setGraphic(addPNGImage("bomb.png")); 
 			}
 		}
 		
@@ -90,6 +90,16 @@ public class ControllerGameboard3x3 implements Initializable, EventHandler<Mouse
 					buttonList[row][col].setOnMouseClicked(event);
 				}
 			}
+		}
+		
+		public ImageView addPNGImage(String imagePath) {
+			ImageView view;
+			Image img = new Image(getClass().getResourceAsStream(imagePath));
+			view = new ImageView(img);
+			view.setFitHeight(30);
+			view.setFitWidth(30);
+			view.setPreserveRatio(true);
+		    return view;
 		}
 		
 		
