@@ -1,19 +1,20 @@
 package project;
 
 import javafx.application.Application;
+
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+
+
 
 public class MinesweeperApp extends Application{
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		
-		Parent root = FXMLLoader.load(this.getClass().getResource("IntroWindow.fxml"));
+		Parent root = FXMLLoader.load(this.getClass().getResource("introWindow.fxml"));
 		Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.show();

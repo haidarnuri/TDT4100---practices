@@ -12,6 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 
 public class ControllerGameboard3x3 implements Initializable, EventHandler<MouseEvent>{
 
@@ -21,6 +22,8 @@ public class ControllerGameboard3x3 implements Initializable, EventHandler<Mouse
 	private Button[][] buttonList = new Button[3][3];
 	private GameBoard board;
 	private ScoutNeighbourCells scouter;
+	@FXML AnchorPane brett;
+	
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {

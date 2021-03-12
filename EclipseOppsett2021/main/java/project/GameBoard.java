@@ -14,6 +14,14 @@ public class GameBoard {
 		setBoard(row,col);
 	}
 	
+	
+	/**
+	 * Her har vi en metode som lar oss hente et objekt med en vits.
+	 * 
+	 * @param jokeIndex Et tall fra og med 0 og til <code>getJokesCount()</code>
+	 * @return Hvis identifikatoren finnes s� returneres et vitse-objekt, hvis ikke returneres <code>null</code>
+	 */
+	
 	private void setBoard(int row, int col) {
 		if(!checkValidSize(col)) {
 			throw new IllegalArgumentException("Kolonnen må være større enn 3");
@@ -74,8 +82,8 @@ public class GameBoard {
 	
 	public void fillBoardWithFigures() {
 		int totNumberOfCells = getGeneratedBeforeGameboard().length*getGeneratedBeforeGameboard()[0].length;
-		int numberOfBombs=1;
-		//int numberOfBombs = (int)Math.sqrt(totNumberOfCells);
+		//int numberOfBombs=1;
+		int numberOfBombs = (int)Math.sqrt(totNumberOfCells);
 		this.numberOfEmptyFieldsOnBoard = numberOfBombs;
 		int tempNumberOfEmpty = totNumberOfCells-numberOfBombs;
 		numberOfEmptyFieldsOnBoard = tempNumberOfEmpty;
