@@ -10,14 +10,14 @@ import org.junit.jupiter.api.Test;
 
 public class GameBoardTest{
 	
-	GameBoard board1, board2, inValidBoard;
+	GameBoardArray board1, board2, inValidBoard;
 	
 	
 	
 	@BeforeEach
 	public void setup() {
-		board1 = new GameBoard();
-		board2 = new GameBoard(10,6);
+		board1 = new GameBoardArray();
+		board2 = new GameBoardArray(10,6);
 	}
 	@Test
 	public void testValidLenghtRowAndColoumn_duringGameBoard() { 
@@ -31,13 +31,13 @@ public class GameBoardTest{
 	@Test
 	public void testInvalidLenghtRowAndColoumn_duringGameBoard() { 
 		try{
-	        inValidBoard = new GameBoard(2,4);
+	        inValidBoard = new GameBoardArray(2,4);
 	        fail("Den burde ikke akseptere radstørrelser som er under 3");
 		} catch(Exception e) {
 	    } 
 		
 		try{
-	        inValidBoard = new GameBoard(4,3);
+	        inValidBoard = new GameBoardArray(4,3);
 	        fail("Den burde ikke akseptere kolonnestørrelser som er under 3");
 		} catch(Exception e) {
 	    } 

@@ -4,7 +4,7 @@ package project;
 public class ScoutNeighbourCells {
 
 	private int[] neighbourCells;
-	private GameBoard board;
+	private GameBoardArray board;
 	private int[] cellAround = {
 			-1,-1,
 			-1,0,
@@ -16,7 +16,7 @@ public class ScoutNeighbourCells {
 			1,1
 	};
 	
-	public ScoutNeighbourCells(GameBoard board) {
+	public ScoutNeighbourCells(GameBoardArray board) {
 		this.board=board;
 	}
 	
@@ -81,7 +81,7 @@ public class ScoutNeighbourCells {
 	
 	
 	public static void main(String[] args) {
-		GameBoard board = new GameBoard(3, 3);
+		GameBoardArray board = new GameBoardArray(3, 3);
 		board.fillBoardWithFigures();
 		System.out.println(board);
 		ScoutNeighbourCells scouter = new ScoutNeighbourCells(board);

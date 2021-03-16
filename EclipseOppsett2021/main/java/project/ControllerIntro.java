@@ -37,7 +37,7 @@ public class ControllerIntro implements Initializable, EventHandler<MouseEvent>{
 				FXMLLoader loader = new FXMLLoader();
 		        GridPane root = loader.load(getClass().getResource("generalGameboard.fxml").openStream());
 		        ControllerGameboard userController = (ControllerGameboard)loader.getController();
-		        userController.passOnParamter(name);
+		        userController.passOnParamter(name, 10);
 		        Scene scene = new Scene(root);
 		        primaryStage.setScene(scene);
 		        primaryStage.show();

@@ -20,7 +20,7 @@ public class ControllerGameboard3x3 implements Initializable, EventHandler<Mouse
 	@FXML private Button btn1,btn2,btn3,btn4,btn5,btn6,btn7,btn8,btn9,smileyButton,saveButton,restartButton;
 	@FXML private Label nameLabel;
 	private Button[][] buttonList = new Button[3][3];
-	private GameBoard board;
+	private GameBoardArray board;
 	private ScoutNeighbourCells scouter;
 	@FXML AnchorPane brett;
 	
@@ -28,7 +28,7 @@ public class ControllerGameboard3x3 implements Initializable, EventHandler<Mouse
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		smileyButton.setGraphic(addPNGImage("duringGameSmiley.png"));
-		board = new GameBoard(3,3);
+		board = new GameBoardArray(3,3);
 		scouter = new ScoutNeighbourCells(board);
 		buttonList[0][0] = btn1;
 		buttonList[0][1] = btn2;
@@ -80,7 +80,6 @@ public class ControllerGameboard3x3 implements Initializable, EventHandler<Mouse
 			}else {
 				board.leftClickOnCell(row, col);
 				board.fillCellWithBomb(row, col);
-				//iterateButtonListAddEventHandler(null);
 				smileyButton.setGraphic(addPNGImage("whenLooseSmiley.png"));
 				buttonClicked.setStyle("-fx-background-color: orange;");
 				buttonClicked.setGraphic(addPNGImage("bomb.png")); 

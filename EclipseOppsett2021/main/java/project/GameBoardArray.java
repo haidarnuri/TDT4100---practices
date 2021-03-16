@@ -3,14 +3,14 @@ package project;
 import java.util.Iterator;
 import java.util.Random;
 
-public class GameBoard {
+public class GameBoardArray {
 	
 	private Cell[][] generatedBeforeGameboard;
 	private Cell[][] duringGameboard;
 	private int numberOfEmptyFieldsOnBoard;
 
 
-	public GameBoard(int row, int col) {
+	public GameBoardArray(int row, int col) {
 		setBoard(row,col);
 	}
 	
@@ -124,7 +124,7 @@ public class GameBoard {
 	}
 	
 	public static void main(String[] args) {
-		GameBoard board = new GameBoard(3, 3);
+		GameBoardArray board = new GameBoardArray(3, 3);
 		System.out.println(board.toString());
 	}
 		
