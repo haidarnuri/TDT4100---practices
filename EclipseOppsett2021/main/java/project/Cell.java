@@ -14,7 +14,7 @@ public class Cell {
 		figur="";
 	}
 	
-	public void setBoardPos(int boardPos) {
+	private void setBoardPos(int boardPos) {
 		if(boardPos<0) {
 			throw new IllegalArgumentException("posisjonen kan ikke være en negative verdi");
 		}

@@ -21,28 +21,22 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 
-public class ControllerGameboard implements Initializable, EventHandler<MouseEvent>{
+public class ControllerGameboard implements EventHandler<MouseEvent>{
 
 	@FXML private GridPane visualGameboard;
 	private HashMap<Integer, Button> integerButtonIdMap = new HashMap<>();
 	@FXML private Label yourName;
-	private int buttonSize;
 	private GameboardList board;
 	
-	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
-		board = new GameboardList(9);
-		createChildrenOnBoard();	
-	}
 	
-	public void passOnParamter(String name, int buttonsSize) {
+	public void passOnParameter(String name, int boardSize) {
 		yourName.setText(name);
-		this.buttonSize = buttonsSize;
+		board = new GameboardList(boardSize*boardSize);
+		createChildrenOnBoard(boardSize);
 	}
 
-	private void createChildrenOnBoard() {
+	private void createChildrenOnBoard(int boardSize) {
 		int buttonIdCounter=0;
-		int boardSize = 3; //Lager 3x3 brett
 		int boardSizePixel = 540; 
 		int buttonSize = boardSizePixel/boardSize;
 		for (int i = 0; i < boardSize; i++) {
@@ -97,9 +91,6 @@ public class ControllerGameboard implements Initializable, EventHandler<MouseEve
 		view.setPreserveRatio(true);
 	    return view;
 	}
-	
-	
-	
 	
 
 }
