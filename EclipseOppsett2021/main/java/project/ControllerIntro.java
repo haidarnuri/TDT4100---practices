@@ -34,7 +34,11 @@ public class ControllerIntro implements Initializable, EventHandler<MouseEvent>{
 	@FXML TextField inputNameField;
 	@FXML RadioButton smallBoard,mediumBoard,largeBoard;
 	private ToggleGroup group = new ToggleGroup();
-
+	private boolean smallboardSelected = false;
+	private boolean mediumboardSelected = false;
+	private boolean largeboardSelected = false;
+	private boolean toogleSelected = false;
+	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		newGame.setOnMouseClicked(this);
@@ -50,7 +54,19 @@ public class ControllerIntro implements Initializable, EventHandler<MouseEvent>{
 				FXMLLoader loader = new FXMLLoader();
 		        GridPane root = loader.load(getClass().getResource("generalGameboard.fxml").openStream());
 		        ControllerGameboard userController = (ControllerGameboard)loader.getController();
-		        userController.passOnParameter(name, 3);
+		        if(toogleSelected) {
+		        	if(smallboardSelected) {
+		        		userController.passOnParameter(name, 3);
+			        }
+		        	if(mediumboardSelected) {
+		        		 userController.passOnParameter(name, 6);
+			        }
+		        	if(largeboardSelected) {
+		        		 userController.passOnParameter(name, 9);
+			        }
+		        }else {
+		        	throw new IllegalArgumentException("Du må velge en størrelse på brettet");
+		        }
 		        Scene scene = new Scene(root);
 		        primaryStage.setScene(scene);
 		        primaryStage.show();
@@ -71,15 +87,24 @@ public class ControllerIntro implements Initializable, EventHandler<MouseEvent>{
             { 
                 RadioButton tempRadioButton = (RadioButton)group.getSelectedToggle(); 
                 if (tempRadioButton != null) { 
-                    System.out.println(tempRadioButton.getText() + " selected"); 
+                	toogleSelected=true;
+                   if(tempRadioButton.getId().equals("smallBoard")) {
+                	   smallboardSelected = true;
+                	   mediumboardSelected = false;
+                	   largeboardSelected = false;
+                   }
+                   if(tempRadioButton.getId().equals("mediumBoard")) {
+                	   smallboardSelected = false;
+                	   mediumboardSelected = true;
+                	   largeboardSelected = false;
+                   }
+                   if(tempRadioButton.getId().equals("largeBoard")) {
+                	   smallboardSelected = false;
+                	   mediumboardSelected = false;
+                	   largeboardSelected = true;
+                   }
                 } 
             } 
         }); 
 	}
-	
-
-	
-	
-	
-
 }
