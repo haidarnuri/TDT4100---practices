@@ -78,7 +78,11 @@ public class GameboardList {
 		return numberOfEmptyFieldsOnBoard == 0;
 	}
 	 
-	
+	/*
+	 * bryter dette med inkapslingsprinsippet??
+	 * Burde skrive new List<Cell> ...... 
+	 * Ifølge øvingsforelesning 9
+	 */
 	public List<Cell> getduringGameboard() {
 		return this.duringGameboard;
 	}

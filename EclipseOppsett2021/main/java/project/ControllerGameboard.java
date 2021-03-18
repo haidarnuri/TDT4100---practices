@@ -64,8 +64,8 @@ public class ControllerGameboard implements EventHandler<MouseEvent>{
 				board.decreaseNumberOfEmptyFields();
 				board.leftClickOnCell(boardPos);
 				board.fillCellWithEmpty(boardPos);
-				//String numberOfBombs = scouter.countNumberOfBombsAroundCell(row, col);
 				buttonClicked.setStyle("-fx-background-color: white;");
+				buttonClicked.setText(String.valueOf(mineCounter( boardPos)));
 			}else {
 				board.leftClickOnCell(boardPos);
 				board.fillCellWithBomb(boardPos);
@@ -76,10 +76,96 @@ public class ControllerGameboard implements EventHandler<MouseEvent>{
 	
 	@Override
 	public void handle(MouseEvent event) {
-		integerButtonIdMap.keySet().stream()
-		.filter(key ->event.getSource()==integerButtonIdMap.get(key))
-		.forEach(key -> buttonAction(integerButtonIdMap.get(key), key));
+		integerButtonIdMap.keySet()
+						  .stream()
+						  .filter(key ->event.getSource()==integerButtonIdMap.get(key))
+						  .forEach(key -> buttonAction(integerButtonIdMap.get(key), key));
+		
 	}
+	
+	private int mineCounter(int boardPos) {
+		int size = (int)Math.sqrt(board.getGeneratedBeforeGameboard().size());
+		int bombCounter = 0;
+		int colPos = boardPos%size;
+		int rowPos = (int)(boardPos/size);
+		if(rowPos==0) {
+			if(board.getGeneratedBeforeGameboard().get(boardPos+size).getFigur() =="M") {
+				bombCounter++;
+			}
+			if(colPos!=0) {
+				if(board.getGeneratedBeforeGameboard().get(boardPos+size-1).getFigur() =="M") {
+					bombCounter++;
+				}
+				if(board.getGeneratedBeforeGameboard().get(boardPos-1).getFigur() =="M") {
+					bombCounter++;
+				}
+			}
+			if(colPos!=size-1) {
+				if(board.getGeneratedBeforeGameboard().get(boardPos+size+1).getFigur() =="M") {
+					bombCounter++;
+				}
+				if(board.getGeneratedBeforeGameboard().get(boardPos+1).getFigur() =="M") {
+					bombCounter++;
+				}
+			}	
+		}else if(rowPos==size-1) {
+
+			if(board.getGeneratedBeforeGameboard().get(boardPos-size).getFigur() =="M") {
+				bombCounter++;
+			}
+			if(colPos!=0) {
+				if(board.getGeneratedBeforeGameboard().get(boardPos-size-1).getFigur() =="M") {
+					bombCounter++;
+				}
+				if(board.getGeneratedBeforeGameboard().get(boardPos-1).getFigur() =="M") {
+					bombCounter++;
+				}
+			}
+			if(colPos!=size-1) {
+				if(board.getGeneratedBeforeGameboard().get(boardPos-size+1).getFigur() =="M") {
+					bombCounter++;
+				}
+				if(board.getGeneratedBeforeGameboard().get(boardPos+1).getFigur() =="M") {
+					bombCounter++;
+				}
+			}	
+		}else {
+
+			if(board.getGeneratedBeforeGameboard().get(boardPos-size).getFigur() =="M") {
+				bombCounter++;
+			}
+			if(board.getGeneratedBeforeGameboard().get(boardPos+size).getFigur() =="M") {
+				bombCounter++;
+			}
+			if(colPos!=0) {
+				if(board.getGeneratedBeforeGameboard().get(boardPos-size-1).getFigur() =="M") {
+					bombCounter++;
+				}
+				if(board.getGeneratedBeforeGameboard().get(boardPos-1).getFigur() =="M") {
+					bombCounter++;
+				}
+				if(board.getGeneratedBeforeGameboard().get(boardPos+size-1).getFigur() =="M") {
+					bombCounter++;
+				}
+			}
+			if(colPos!=size-1) {
+				if(board.getGeneratedBeforeGameboard().get(boardPos-size+1).getFigur() =="M") {
+					bombCounter++;
+				}
+				if(board.getGeneratedBeforeGameboard().get(boardPos+size+1).getFigur() =="M") {
+					bombCounter++;
+				}
+				if(board.getGeneratedBeforeGameboard().get(boardPos+1).getFigur() =="M") {
+					bombCounter++;
+				}
+			}	
+		}
+		return bombCounter;
+	}
+	
+	
+	
+	
 	
 	
 	private ImageView addPNGImage(String imagePath) {
