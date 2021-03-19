@@ -1,19 +1,12 @@
 package project;
 
-import java.net.URL;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.ResourceBundle;
-
-import com.google.common.collect.Multiset.Entry;
 
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -60,13 +53,19 @@ public class ControllerGameboard implements EventHandler<MouseEvent>{
 	
 	  private void buttonAction(Button button, int boardPos) {
 			Button buttonClicked = button;
-			if(board.getGeneratedBeforeGameboard().get(boardPos).getFigur()=="E") {
-				board.decreaseNumberOfEmptyFields();
+			if(board.getGeneratedBeforeGameboard().get(boardPos).getFigur()=="E" 
+			&& !board.getduringGameboard().get(boardPos).isCellLeftClicked()) {
 				board.leftClickOnCell(boardPos);
+				board.decreaseNumberOfEmptyFields();
 				board.fillCellWithEmpty(boardPos);
 				buttonClicked.setStyle("-fx-background-color: white;");
-				buttonClicked.setText(String.valueOf(mineCounter( boardPos)));
-			}else {
+				String numberOfBombs = board.mineCounter( boardPos);
+				buttonClicked.setText(numberOfBombs);
+				if(numberOfBombs.isEmpty()) {
+					openCellsAround(boardPos);
+				}
+			}if(board.getGeneratedBeforeGameboard().get(boardPos).getFigur()=="M" 
+			&& !board.getduringGameboard().get(boardPos).isCellLeftClicked()) {
 				board.leftClickOnCell(boardPos);
 				board.fillCellWithBomb(boardPos);
 				buttonClicked.setStyle("-fx-background-color: orange;");
@@ -74,6 +73,60 @@ public class ControllerGameboard implements EventHandler<MouseEvent>{
 			}
 		}
 	
+	  
+	  
+	  public void openCellsAround(int boardPos) {
+			int size = (int)Math.sqrt(board.getGeneratedBeforeGameboard().size());
+			int colPos = boardPos%size;
+			int rowPos = (int)(boardPos/size);
+			List<Integer> posCellAround = new ArrayList<>();
+			if(rowPos==0) {
+				posCellAround.add(boardPos+size);
+				if(colPos!=0) {
+					posCellAround.add(boardPos+size-1);
+					posCellAround.add(boardPos-1);
+				}
+				if(colPos!=size-1) {
+					posCellAround.add(boardPos+size+1);
+					posCellAround.add(boardPos+1);
+				}	
+			}
+			else if(rowPos==size-1) {
+				posCellAround.add(boardPos-size);
+				if(colPos!=0) {
+					posCellAround.add(boardPos-size-1);
+					posCellAround.add(boardPos-1);
+				}
+				if(colPos!=size-1) {
+					posCellAround.add(boardPos-size+1);
+					posCellAround.add(boardPos+1);
+				}	
+			}else {
+				posCellAround.add(boardPos-size);
+				posCellAround.add(boardPos+size);
+				if(colPos!=0) {
+					posCellAround.add(boardPos-size-1);
+					posCellAround.add(boardPos-1);
+					posCellAround.add(boardPos+size-1);
+				}
+				if(colPos!=size-1) {
+					posCellAround.add(boardPos-size+1);
+					posCellAround.add(boardPos+size+1);
+					posCellAround.add(boardPos+1);
+				}	
+			}
+			for(Integer temp: posCellAround) {
+				Button tempButton = integerButtonIdMap.get(temp);
+				board.leftClickOnCell(temp);
+				board.decreaseNumberOfEmptyFields();
+				board.fillCellWithEmpty(temp);
+				tempButton.setStyle("-fx-background-color: white;");
+				String numberOfBombs = board.mineCounter( temp);
+				tempButton.setText(numberOfBombs);
+			}
+			
+		}
+	  
 	@Override
 	public void handle(MouseEvent event) {
 		integerButtonIdMap.keySet()
@@ -82,91 +135,6 @@ public class ControllerGameboard implements EventHandler<MouseEvent>{
 						  .forEach(key -> buttonAction(integerButtonIdMap.get(key), key));
 		
 	}
-	
-	private int mineCounter(int boardPos) {
-		int size = (int)Math.sqrt(board.getGeneratedBeforeGameboard().size());
-		int bombCounter = 0;
-		int colPos = boardPos%size;
-		int rowPos = (int)(boardPos/size);
-		if(rowPos==0) {
-			if(board.getGeneratedBeforeGameboard().get(boardPos+size).getFigur() =="M") {
-				bombCounter++;
-			}
-			if(colPos!=0) {
-				if(board.getGeneratedBeforeGameboard().get(boardPos+size-1).getFigur() =="M") {
-					bombCounter++;
-				}
-				if(board.getGeneratedBeforeGameboard().get(boardPos-1).getFigur() =="M") {
-					bombCounter++;
-				}
-			}
-			if(colPos!=size-1) {
-				if(board.getGeneratedBeforeGameboard().get(boardPos+size+1).getFigur() =="M") {
-					bombCounter++;
-				}
-				if(board.getGeneratedBeforeGameboard().get(boardPos+1).getFigur() =="M") {
-					bombCounter++;
-				}
-			}	
-		}else if(rowPos==size-1) {
-
-			if(board.getGeneratedBeforeGameboard().get(boardPos-size).getFigur() =="M") {
-				bombCounter++;
-			}
-			if(colPos!=0) {
-				if(board.getGeneratedBeforeGameboard().get(boardPos-size-1).getFigur() =="M") {
-					bombCounter++;
-				}
-				if(board.getGeneratedBeforeGameboard().get(boardPos-1).getFigur() =="M") {
-					bombCounter++;
-				}
-			}
-			if(colPos!=size-1) {
-				if(board.getGeneratedBeforeGameboard().get(boardPos-size+1).getFigur() =="M") {
-					bombCounter++;
-				}
-				if(board.getGeneratedBeforeGameboard().get(boardPos+1).getFigur() =="M") {
-					bombCounter++;
-				}
-			}	
-		}else {
-
-			if(board.getGeneratedBeforeGameboard().get(boardPos-size).getFigur() =="M") {
-				bombCounter++;
-			}
-			if(board.getGeneratedBeforeGameboard().get(boardPos+size).getFigur() =="M") {
-				bombCounter++;
-			}
-			if(colPos!=0) {
-				if(board.getGeneratedBeforeGameboard().get(boardPos-size-1).getFigur() =="M") {
-					bombCounter++;
-				}
-				if(board.getGeneratedBeforeGameboard().get(boardPos-1).getFigur() =="M") {
-					bombCounter++;
-				}
-				if(board.getGeneratedBeforeGameboard().get(boardPos+size-1).getFigur() =="M") {
-					bombCounter++;
-				}
-			}
-			if(colPos!=size-1) {
-				if(board.getGeneratedBeforeGameboard().get(boardPos-size+1).getFigur() =="M") {
-					bombCounter++;
-				}
-				if(board.getGeneratedBeforeGameboard().get(boardPos+size+1).getFigur() =="M") {
-					bombCounter++;
-				}
-				if(board.getGeneratedBeforeGameboard().get(boardPos+1).getFigur() =="M") {
-					bombCounter++;
-				}
-			}	
-		}
-		return bombCounter;
-	}
-	
-	
-	
-	
-	
 	
 	private ImageView addPNGImage(String imagePath) {
 		ImageView view;

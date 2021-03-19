@@ -45,7 +45,7 @@ public class GameboardList {
 			duringGameboard.add(tempCell);
 			tempSize--;
 		}	
-		showBoardFigurs();
+		
 	}
 	
 	
@@ -96,6 +96,7 @@ public class GameboardList {
 		getduringGameboard().get(boardPos).setCellLeftClicked(true);
 	}
 	
+	
 	public void fillCellWithBomb(int boardPos) {
 		getduringGameboard().get(boardPos).MineFigur();
 	}
@@ -115,6 +116,94 @@ public class GameboardList {
 	private boolean checkValidSize(int value) {
 		return value>=9;
 	}
+	
+	public String mineCounter(int boardPos) {
+		int size = (int)Math.sqrt(getGeneratedBeforeGameboard().size());
+		int numberOfMines = 0;
+		int colPos = boardPos%size;
+		int rowPos = (int)(boardPos/size);
+		if(rowPos==0) {
+			if(getGeneratedBeforeGameboard().get(boardPos+size).getFigur() =="M") {
+				numberOfMines++;
+			}
+			if(colPos!=0) {
+				if(getGeneratedBeforeGameboard().get(boardPos+size-1).getFigur() =="M") {
+					numberOfMines++;
+				}
+				if(getGeneratedBeforeGameboard().get(boardPos-1).getFigur() =="M") {
+					numberOfMines++;
+				}
+			}
+			if(colPos!=size-1) {
+				if(getGeneratedBeforeGameboard().get(boardPos+size+1).getFigur() =="M") {
+					numberOfMines++;
+				}
+				if(getGeneratedBeforeGameboard().get(boardPos+1).getFigur() =="M") {
+					numberOfMines++;
+				}
+			}	
+		}else if(rowPos==size-1) {
+
+			if(getGeneratedBeforeGameboard().get(boardPos-size).getFigur() =="M") {
+				numberOfMines++;
+			}
+			if(colPos!=0) {
+				if(getGeneratedBeforeGameboard().get(boardPos-size-1).getFigur() =="M") {
+					numberOfMines++;
+				}
+				if(getGeneratedBeforeGameboard().get(boardPos-1).getFigur() =="M") {
+					numberOfMines++;
+				}
+			}
+			if(colPos!=size-1) {
+				if(getGeneratedBeforeGameboard().get(boardPos-size+1).getFigur() =="M") {
+					numberOfMines++;
+				}
+				if(getGeneratedBeforeGameboard().get(boardPos+1).getFigur() =="M") {
+					numberOfMines++;
+				}
+			}	
+		}else {
+
+			if(getGeneratedBeforeGameboard().get(boardPos-size).getFigur() =="M") {
+				numberOfMines++;
+			}
+			if(getGeneratedBeforeGameboard().get(boardPos+size).getFigur() =="M") {
+				numberOfMines++;
+			}
+			if(colPos!=0) {
+				if(getGeneratedBeforeGameboard().get(boardPos-size-1).getFigur() =="M") {
+					numberOfMines++;
+				}
+				if(getGeneratedBeforeGameboard().get(boardPos-1).getFigur() =="M") {
+					numberOfMines++;
+				}
+				if(getGeneratedBeforeGameboard().get(boardPos+size-1).getFigur() =="M") {
+					numberOfMines++;
+				}
+			}
+			if(colPos!=size-1) {
+				if(getGeneratedBeforeGameboard().get(boardPos-size+1).getFigur() =="M") {
+					numberOfMines++;
+				}
+				if(getGeneratedBeforeGameboard().get(boardPos+size+1).getFigur() =="M") {
+					numberOfMines++;
+				}
+				if(getGeneratedBeforeGameboard().get(boardPos+1).getFigur() =="M") {
+					numberOfMines++;
+				}
+			}	
+		}
+		if(numberOfMines == 0) {
+			return "";
+		}else {
+			return String.valueOf( numberOfMines);
+		}
+		
+	}
+	
+	
+	
 	
 	
 	
