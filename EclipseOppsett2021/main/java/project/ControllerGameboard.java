@@ -1,29 +1,37 @@
 package project;
 
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 
-public class ControllerGameboard implements EventHandler<MouseEvent>{
+public class ControllerGameboard implements Initializable,EventHandler<MouseEvent>{
 
-	@FXML private GridPane visualGameboard;
-	private HashMap<Integer, Button> integerButtonIdMap = new HashMap<>();
+	@FXML private Pane visualGameboard;
 	@FXML private Label yourName;
+	@FXML Button smileyButton, loadButton, saveButton;
 	private GameboardList board;
+	private HashMap<Integer, Button> integerButtonIdMap = new HashMap<>();
 	
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		smileyButton.setGraphic(addPNGImage("duringGameSmiley.png"));
+	}
 	
 	public void passOnParameter(String name, int boardSize) {
-		yourName.setText(name);
+		yourName.setText("Heisann "+name);
 		board = new GameboardList(boardSize*boardSize);
 		createChildrenOnBoard(boardSize);
 	}
@@ -40,7 +48,6 @@ public class ControllerGameboard implements EventHandler<MouseEvent>{
 				button.setPrefHeight(buttonSize);
 				button.setPrefWidth(buttonSize);
 				button.setStyle("-fx-border-color:black");
-				//button.setText(String.valueOf(this.buttonSize));
 				button.setId("btn"+buttonIdCounter);
 				button.setOnMouseClicked(this);
 				integerButtonIdMap.put(buttonIdCounter, button);
@@ -53,23 +60,28 @@ public class ControllerGameboard implements EventHandler<MouseEvent>{
 	
 	  private void buttonAction(Button button, int boardPos) {
 			Button buttonClicked = button;
-			if(board.getGeneratedBeforeGameboard().get(boardPos).getFigur()=="E" 
-			&& !board.getduringGameboard().get(boardPos).isCellLeftClicked()) {
-				board.leftClickOnCell(boardPos);
-				board.decreaseNumberOfEmptyFields();
-				board.fillCellWithEmpty(boardPos);
-				buttonClicked.setStyle("-fx-background-color: white;");
-				String numberOfBombs = board.mineCounter( boardPos);
-				buttonClicked.setText(numberOfBombs);
-				if(numberOfBombs.isEmpty()) {
-					openCellsAround(boardPos);
+			if(!board.getduringGameboard().get(boardPos).isCellLeftClicked()) {
+				if(board.getGeneratedBeforeGameboard().get(boardPos).getFigur()=="E") {
+					board.leftClickOnCell(boardPos);
+					board.decreaseNumberOfEmptyFields();
+					board.fillCellWithEmpty(boardPos);
+					buttonClicked.setStyle("-fx-background-color: white;");
+					String numberOfBombs = board.mineCounter( boardPos);
+					buttonClicked.setText(numberOfBombs);
+					if(board.noEmptyFieldsLeft()) {
+						smileyButton.setGraphic(addPNGImage("youWonSmiley.png"));
+					}
+					
+					if(numberOfBombs.isEmpty()) {
+						openCellsAround(boardPos);
+					}
+				}if(board.getGeneratedBeforeGameboard().get(boardPos).getFigur()=="M") {
+					board.leftClickOnCell(boardPos);
+					board.fillCellWithBomb(boardPos);
+					buttonClicked.setStyle("-fx-background-color: orange;");
+					buttonClicked.setGraphic(addPNGImage("bomb.png")); 
+					smileyButton.setGraphic(addPNGImage("whenLooseSmiley.png"));
 				}
-			}if(board.getGeneratedBeforeGameboard().get(boardPos).getFigur()=="M" 
-			&& !board.getduringGameboard().get(boardPos).isCellLeftClicked()) {
-				board.leftClickOnCell(boardPos);
-				board.fillCellWithBomb(boardPos);
-				buttonClicked.setStyle("-fx-background-color: orange;");
-				buttonClicked.setGraphic(addPNGImage("bomb.png")); 
 			}
 		}
 	
@@ -145,6 +157,8 @@ public class ControllerGameboard implements EventHandler<MouseEvent>{
 		view.setPreserveRatio(true);
 	    return view;
 	}
+
+	
 	
 
 }

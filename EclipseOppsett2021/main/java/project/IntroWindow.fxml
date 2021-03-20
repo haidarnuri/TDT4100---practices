@@ -14,5 +14,6 @@
       <RadioButton fx:id="smallBoard" layoutX="35.0" layoutY="271.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="151.0" text="Small board(3x3)" />
       <RadioButton fx:id="mediumBoard" layoutX="35.0" layoutY="328.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="151.0" text="Medium board(6x6)" />
       <RadioButton fx:id="largeBoard" layoutX="35.0" layoutY="382.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="151.0" text="Large board(9x9)" />
+      <Label fx:id="errorField" layoutX="31.0" layoutY="434.0" prefHeight="17.0" prefWidth="151.0" />
    </children>
 </Pane>

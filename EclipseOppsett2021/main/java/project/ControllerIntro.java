@@ -1,6 +1,7 @@
 package project;
 
 import java.io.IOException;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -24,14 +25,17 @@ import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class ControllerIntro implements Initializable, EventHandler<MouseEvent>{
 	
 	@FXML Button newGame;
 	@FXML TextField inputNameField;
+	@FXML Label errorField;
 	@FXML RadioButton smallBoard,mediumBoard,largeBoard;
 	private ToggleGroup group = new ToggleGroup();
 	private boolean smallboardSelected = false;
@@ -52,7 +56,7 @@ public class ControllerIntro implements Initializable, EventHandler<MouseEvent>{
 			try {
 				Stage primaryStage = new Stage();
 				FXMLLoader loader = new FXMLLoader();
-		        GridPane root = loader.load(getClass().getResource("generalGameboard.fxml").openStream());
+		        Pane root = loader.load(getClass().getResource("generalGameboard.fxml").openStream());
 		        ControllerGameboard userController = (ControllerGameboard)loader.getController();
 		        if(toogleSelected) {
 		        	if(smallboardSelected) {
@@ -64,12 +68,13 @@ public class ControllerIntro implements Initializable, EventHandler<MouseEvent>{
 		        	if(largeboardSelected) {
 		        		 userController.passOnParameter(name, 9);
 			        }
+		        	Scene scene = new Scene(root);
+			        primaryStage.setScene(scene);
+			        primaryStage.show();
 		        }else {
-		        	throw new IllegalArgumentException("Du må velge en størrelse på brettet");
+		        	errorField.setText("Du må velge størrelse først");
+		        	errorField.setTextFill(Color.color(1, 0, 0));
 		        }
-		        Scene scene = new Scene(root);
-		        primaryStage.setScene(scene);
-		        primaryStage.show();
 		    } catch (IOException e) {
 
 		    }
