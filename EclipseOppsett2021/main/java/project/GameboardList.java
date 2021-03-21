@@ -25,7 +25,7 @@ public class GameboardList {
 	
 	private void createBoard(int boardSize) {
 		if(!checkValidSize(boardSize)) {
-			throw new IllegalArgumentException("Brettet må bestå av minst 9 knapper");
+			throw new IllegalArgumentException("Brettet må har enten 9, 36 eller 81 knapper");
 		}
 		
 		//Her initieres alle plassene i beforeGameboard
@@ -111,10 +111,12 @@ public class GameboardList {
 	
 	
 	/*
-	 * 3x3 brett tilsvarer 9 knapper. 
+	 * 3x3 brett tilsvarer 9 knapper.
+	 * 6x6 brett tilsvarer 36 knapper.
+	 * 9x9 brett tilsvarer 81 knapper.
 	 */
-	private boolean checkValidSize(int value) {
-		return value>=9;
+	private boolean checkValidSize(int numberOfButtons) {
+		return numberOfButtons==9 || numberOfButtons==36 || numberOfButtons==81;
 	}
 	
 	public String mineCounter(int boardPos) {

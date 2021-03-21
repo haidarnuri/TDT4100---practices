@@ -54,11 +54,7 @@ public class Cell {
 		if(isCellLeftClicked())
 			figur = "E";
 	}	
-	
-	public void SmileyFigur() {
-		figur =  ":)";
-	}
-	
+
 	public void FlagFigur() {
 		if(isCellRightClicked())
 			figur= "F";

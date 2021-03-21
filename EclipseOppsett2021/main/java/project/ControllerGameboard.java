@@ -1,6 +1,7 @@
 package project;
 
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,6 +11,8 @@ import java.util.ResourceBundle;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -24,15 +27,21 @@ public class ControllerGameboard implements Initializable,EventHandler<MouseEven
 	@FXML Button smileyButton, loadButton, saveButton;
 	private GameboardList board;
 	private HashMap<Integer, Button> integerButtonIdMap = new HashMap<>();
+	private int boardSize;
+	private ReadAndWriteFile saveAndLoad;
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		saveButton.setOnMouseClicked(this);
+		loadButton.setOnMouseClicked(this);
 		smileyButton.setGraphic(addPNGImage("duringGameSmiley.png"));
 	}
 	
 	public void passOnParameter(String name, int boardSize) {
+		this.boardSize = boardSize;
 		yourName.setText("Heisann "+name);
 		board = new GameboardList(boardSize*boardSize);
+		saveAndLoad=new SaveAndLoadGame(board);
 		createChildrenOnBoard(boardSize);
 	}
 
@@ -60,6 +69,7 @@ public class ControllerGameboard implements Initializable,EventHandler<MouseEven
 	
 	  private void buttonAction(Button button, int boardPos) {
 			Button buttonClicked = button;
+			Alert alert = new Alert(AlertType.INFORMATION);
 			if(!board.getduringGameboard().get(boardPos).isCellLeftClicked()) {
 				if(board.getGeneratedBeforeGameboard().get(boardPos).getFigur()=="E") {
 					board.leftClickOnCell(boardPos);
@@ -69,9 +79,13 @@ public class ControllerGameboard implements Initializable,EventHandler<MouseEven
 					String numberOfBombs = board.mineCounter( boardPos);
 					buttonClicked.setText(numberOfBombs);
 					if(board.noEmptyFieldsLeft()) {
+						alert.setContentText("You won");
+						alert.show();
 						smileyButton.setGraphic(addPNGImage("youWonSmiley.png"));
+						integerButtonIdMap.keySet()
+						  .stream()
+						  .forEach(key -> integerButtonIdMap.get(key).setOnMouseClicked(null));
 					}
-					
 					if(numberOfBombs.isEmpty()) {
 						openCellsAround(boardPos);
 					}
@@ -81,9 +95,15 @@ public class ControllerGameboard implements Initializable,EventHandler<MouseEven
 					buttonClicked.setStyle("-fx-background-color: orange;");
 					buttonClicked.setGraphic(addPNGImage("bomb.png")); 
 					smileyButton.setGraphic(addPNGImage("whenLooseSmiley.png"));
+					alert.setContentText("You lost");
+					alert.show();
+					integerButtonIdMap.keySet()
+									  .stream()
+									  .forEach(key -> integerButtonIdMap.get(key).setOnMouseClicked(null));
+					}
 				}
 			}
-		}
+		
 	
 	  
 	  
@@ -141,12 +161,38 @@ public class ControllerGameboard implements Initializable,EventHandler<MouseEven
 	  
 	@Override
 	public void handle(MouseEvent event) {
-		integerButtonIdMap.keySet()
-						  .stream()
-						  .filter(key ->event.getSource()==integerButtonIdMap.get(key))
-						  .forEach(key -> buttonAction(integerButtonIdMap.get(key), key));
-		
+		if(event.getSource()==saveButton) {
+			saveAndLoad.saveFile();
+		}else if(event.getSource()==loadButton) {
+			List<Character> loadedList = null;
+			try {
+				loadedList = saveAndLoad.loadFile();
+				recreateBoard(loadedList);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}else {
+			integerButtonIdMap
+			  .keySet()
+			  .stream()
+			  .filter(key ->event.getSource()==integerButtonIdMap.get(key))
+			  .forEach(key -> buttonAction(integerButtonIdMap.get(key), key));
+		}
 	}
+	
+	private void recreateBoard(List<Character> loadedList) {
+		for(int i=loadedList.size()-1;i>0;i--) {
+			if(i%3==2) {
+				//Figurer fra during gameboard
+			}else if(i%3==1) {
+				//Figurer fra before gameboard
+			}else {
+				//posisjon/id på brettet
+			}
+		}
+	}
+	
+	
 	
 	private ImageView addPNGImage(String imagePath) {
 		ImageView view;
