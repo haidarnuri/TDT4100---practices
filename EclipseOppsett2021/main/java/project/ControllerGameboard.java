@@ -108,46 +108,8 @@ public class ControllerGameboard implements Initializable,EventHandler<MouseEven
 	  
 	  
 	  public void openCellsAround(int boardPos) {
-			int size = (int)Math.sqrt(board.getGeneratedBeforeGameboard().size());
-			int colPos = boardPos%size;
-			int rowPos = (int)(boardPos/size);
-			List<Integer> posCellAround = new ArrayList<>();
-			if(rowPos==0) {
-				posCellAround.add(boardPos+size);
-				if(colPos!=0) {
-					posCellAround.add(boardPos+size-1);
-					posCellAround.add(boardPos-1);
-				}
-				if(colPos!=size-1) {
-					posCellAround.add(boardPos+size+1);
-					posCellAround.add(boardPos+1);
-				}	
-			}
-			else if(rowPos==size-1) {
-				posCellAround.add(boardPos-size);
-				if(colPos!=0) {
-					posCellAround.add(boardPos-size-1);
-					posCellAround.add(boardPos-1);
-				}
-				if(colPos!=size-1) {
-					posCellAround.add(boardPos-size+1);
-					posCellAround.add(boardPos+1);
-				}	
-			}else {
-				posCellAround.add(boardPos-size);
-				posCellAround.add(boardPos+size);
-				if(colPos!=0) {
-					posCellAround.add(boardPos-size-1);
-					posCellAround.add(boardPos-1);
-					posCellAround.add(boardPos+size-1);
-				}
-				if(colPos!=size-1) {
-					posCellAround.add(boardPos-size+1);
-					posCellAround.add(boardPos+size+1);
-					posCellAround.add(boardPos+1);
-				}	
-			}
-			for(Integer temp: posCellAround) {
+		  List<Integer> posCellsAround = board.scoutsCellsAround(boardPos);
+			for(Integer temp: posCellsAround) {
 				Button tempButton = integerButtonIdMap.get(temp);
 				board.leftClickOnCell(temp);
 				board.decreaseNumberOfEmptyFields();
@@ -156,7 +118,6 @@ public class ControllerGameboard implements Initializable,EventHandler<MouseEven
 				String numberOfBombs = board.mineCounter( temp);
 				tempButton.setText(numberOfBombs);
 			}
-			
 		}
 	  
 	@Override
@@ -182,12 +143,12 @@ public class ControllerGameboard implements Initializable,EventHandler<MouseEven
 	
 	private void recreateBoard(List<Character> loadedList) {
 		for(int i=loadedList.size()-1;i>0;i--) {
-			if(i%3==2) {
-				//Figurer fra during gameboard
-			}else if(i%3==1) {
-				//Figurer fra before gameboard
-			}else {
+			if(i%3==0) {
 				//posisjon/id på brettet
+			}else if(i%3==2) {
+				//Figurer fra during gameboard
+			}else {
+				//Figurer fra before gameboard
 			}
 		}
 	}

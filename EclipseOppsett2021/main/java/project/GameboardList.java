@@ -84,11 +84,11 @@ public class GameboardList {
 	 * Ifølge øvingsforelesning 9
 	 */
 	public List<Cell> getduringGameboard() {
-		return this.duringGameboard;
+		return new ArrayList<>(duringGameboard);
 	}
 	
 	public List<Cell> getGeneratedBeforeGameboard() {
-		return this.generateBeforeGameboard;
+		return new ArrayList<>(generateBeforeGameboard);
 	}
 	
 
@@ -204,6 +204,48 @@ public class GameboardList {
 		
 	}
 	
+	public List<Integer> scoutsCellsAround(int boardPos){
+		List<Integer> posCellAround = new ArrayList<>();
+		int size = (int)Math.sqrt(getGeneratedBeforeGameboard().size());
+		int colPos = boardPos%size;
+		int rowPos = (int)(boardPos/size);
+		if(rowPos==0) {
+			posCellAround.add(boardPos+size);
+			if(colPos!=0) {
+				posCellAround.add(boardPos+size-1);
+				posCellAround.add(boardPos-1);
+			}
+			if(colPos!=size-1) {
+				posCellAround.add(boardPos+size+1);
+				posCellAround.add(boardPos+1);
+			}	
+		}
+		else if(rowPos==size-1) {
+			posCellAround.add(boardPos-size);
+			if(colPos!=0) {
+				posCellAround.add(boardPos-size-1);
+				posCellAround.add(boardPos-1);
+			}
+			if(colPos!=size-1) {
+				posCellAround.add(boardPos-size+1);
+				posCellAround.add(boardPos+1);
+			}	
+		}else {
+			posCellAround.add(boardPos-size);
+			posCellAround.add(boardPos+size);
+			if(colPos!=0) {
+				posCellAround.add(boardPos-size-1);
+				posCellAround.add(boardPos-1);
+				posCellAround.add(boardPos+size-1);
+			}
+			if(colPos!=size-1) {
+				posCellAround.add(boardPos-size+1);
+				posCellAround.add(boardPos+size+1);
+				posCellAround.add(boardPos+1);
+			}	
+		}
+		return posCellAround;
+	}
 	
 	
 	
