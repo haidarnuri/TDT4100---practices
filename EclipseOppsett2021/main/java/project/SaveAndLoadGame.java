@@ -20,8 +20,8 @@ public class SaveAndLoadGame implements ReadAndWriteFile{
           for (int i = 0; i < board.getGeneratedBeforeGameboard().size()-1; i++) {
         	  String boardPos = String.valueOf(i);
         	  file.write(boardPos);
-        	  String letterFromBeforeBoard =board.getGeneratedBeforeGameboard().get(i).getFigur();
-        	  file.write(letterFromBeforeBoard); 
+        	//  String letterFromBeforeBoard =board.getGeneratedBeforeGameboard().get(i).getFigur();
+        	 // file.write(letterFromBeforeBoard); 
         	  String letterFromDuringBoard = board.getduringGameboard().get(i).getFigur();
         	  if(letterFromDuringBoard.isEmpty()) {
             	  file.write(" "); 
@@ -61,8 +61,8 @@ public class SaveAndLoadGame implements ReadAndWriteFile{
 		*/
 		ReadAndWriteFile tempText = new SaveAndLoadGame(board1);
 		tempText.saveFile();
-		tempText.loadFile();
-		  
+		List<Character> temp = tempText.loadFile();
+		temp.stream().forEach(t ->System.out.println(t));		  
 		
 	}
 

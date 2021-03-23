@@ -42,10 +42,10 @@ public class ControllerGameboard implements Initializable,EventHandler<MouseEven
 		yourName.setText("Heisann "+name);
 		board = new GameboardList(boardSize*boardSize);
 		saveAndLoad=new SaveAndLoadGame(board);
-		createChildrenOnBoard(boardSize);
+		createButtonsOnBoard();
 	}
 
-	private void createChildrenOnBoard(int boardSize) {
+	private void createButtonsOnBoard() {
 		int buttonIdCounter=0;
 		int boardSizePixel = 540; 
 		int buttonSize = boardSizePixel/boardSize;
@@ -142,15 +142,46 @@ public class ControllerGameboard implements Initializable,EventHandler<MouseEven
 	}
 	
 	private void recreateBoard(List<Character> loadedList) {
+		int boardPos = 0;
+		board.getduringGameboard().stream().forEach(cell -> cell.setCellLeftClicked(false));
+		integerButtonIdMap.values().stream().forEach(btn ->btn.setStyle("-fx-background-color: none;"));
+		integerButtonIdMap.values().stream().forEach(btn ->btn.setStyle("-fx-border-color:black"));
+		integerButtonIdMap.values().stream().forEach(btn ->btn.setText(""));
+
+		/*
 		for(int i=loadedList.size()-1;i>0;i--) {
-			if(i%3==0) {
+			if(i%2==0) {
+				boardPos = i;
 				//posisjon/id på brettet
-			}else if(i%3==2) {
-				//Figurer fra during gameboard
-			}else {
-				//Figurer fra before gameboard
+			}else{//Figurer fra during gameboard
+				//Restarter først brettet.
+				board.getduringGameboard().stream().forEach(cell -> cell.setCellLeftClicked(false));
+				integerButtonIdMap.values().stream().forEach(btn ->btn.setStyle("-fx-background-color: white;"));
+				//buttonAction(integerButtonIdMap.get(boardPos),boardPos);
 			}
-		}
+			*/
+			/*
+			 * if(!board.getduringGameboard().get(boardPos).isCellLeftClicked()) {
+				if(board.getGeneratedBeforeGameboard().get(boardPos).getFigur()=="E") {
+					board.leftClickOnCell(boardPos);
+					board.decreaseNumberOfEmptyFields();
+					board.fillCellWithEmpty(boardPos);
+					buttonClicked.setStyle("-fx-background-color: white;");
+					String numberOfBombs = board.mineCounter( boardPos);
+					buttonClicked.setText(numberOfBombs);
+					if(board.noEmptyFieldsLeft()) {
+						alert.setContentText("You won");
+						alert.show();
+						smileyButton.setGraphic(addPNGImage("youWonSmiley.png"));
+						integerButtonIdMap.keySet()
+						  .stream()
+						  .forEach(key -> integerButtonIdMap.get(key).setOnMouseClicked(null));
+					}
+					if(numberOfBombs.isEmpty()) {
+						openCellsAround(boardPos);
+					}
+			 */
+		
 	}
 	
 	
