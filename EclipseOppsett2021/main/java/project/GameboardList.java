@@ -1,15 +1,9 @@
 package project;
 
 import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Random;
-
-import org.junit.experimental.theories.PotentialAssignment.CouldNotGenerateValueException;
-
-import com.google.common.collect.Lists;
-import com.google.common.primitives.Ints;
-
-import javafx.scene.control.Button;
 
 public class GameboardList {
 	
@@ -27,8 +21,6 @@ public class GameboardList {
 		if(!checkValidSize(boardSize)) {
 			throw new IllegalArgumentException("Brettet må har enten 9, 36 eller 81 knapper");
 		}
-		
-		//Her initieres alle plassene i beforeGameboard
 		int tempSize = boardSize;
 		while(tempSize>=0) {
 			Cell tempCell = new Cell(boardSize-tempSize);
@@ -69,7 +61,11 @@ public class GameboardList {
 			}
 		}
 	}
-	 
+	
+	public void setNumberOfEmptyFields(int number) {
+		numberOfEmptyFieldsOnBoard=number;
+	}
+	
 	public void decreaseNumberOfEmptyFields() {
 		this.numberOfEmptyFieldsOnBoard--;
 	}

@@ -143,44 +143,39 @@ public class ControllerGameboard implements Initializable,EventHandler<MouseEven
 	
 	private void recreateBoard(List<Character> loadedList) {
 		int boardPos = 0;
+		
+		//koden under gjør at man kan trykke på samme knappene etter å ha trykket på loadfil. 
 		board.getduringGameboard().stream().forEach(cell -> cell.setCellLeftClicked(false));
-		integerButtonIdMap.values().stream().forEach(btn ->btn.setStyle("-fx-background-color: none;"));
+		
+		//De tre kodelinjene under endrer stilen til ALLE knappene tilbake til opprinnelig stil. 
+		integerButtonIdMap.values().stream().forEach(btn ->btn.setStyle("-fx-background-color: grey;"));
 		integerButtonIdMap.values().stream().forEach(btn ->btn.setStyle("-fx-border-color:black"));
 		integerButtonIdMap.values().stream().forEach(btn ->btn.setText(""));
-
+		
+		//Denne aktiverer alle knappene igjen. 
+		integerButtonIdMap.keySet()
+		  .stream()
+		  .forEach(key -> integerButtonIdMap.get(key).setOnMouseClicked(this));
+		
+		//Denne fjerner alle bildene på knappene. Slik at bombebildene blir borte, dersom man kommer borti det. 
+		integerButtonIdMap.keySet()
+		  .stream()
+		  .forEach(key -> integerButtonIdMap.get(key).setGraphic(null));
+		
 		/*
-		for(int i=loadedList.size()-1;i>0;i--) {
-			if(i%2==0) {
-				boardPos = i;
-				//posisjon/id på brettet
-			}else{//Figurer fra during gameboard
-				//Restarter først brettet.
-				board.getduringGameboard().stream().forEach(cell -> cell.setCellLeftClicked(false));
-				integerButtonIdMap.values().stream().forEach(btn ->btn.setStyle("-fx-background-color: white;"));
-				//buttonAction(integerButtonIdMap.get(boardPos),boardPos);
-			}
-			*/
-			/*
-			 * if(!board.getduringGameboard().get(boardPos).isCellLeftClicked()) {
-				if(board.getGeneratedBeforeGameboard().get(boardPos).getFigur()=="E") {
-					board.leftClickOnCell(boardPos);
-					board.decreaseNumberOfEmptyFields();
-					board.fillCellWithEmpty(boardPos);
-					buttonClicked.setStyle("-fx-background-color: white;");
-					String numberOfBombs = board.mineCounter( boardPos);
-					buttonClicked.setText(numberOfBombs);
-					if(board.noEmptyFieldsLeft()) {
-						alert.setContentText("You won");
-						alert.show();
-						smileyButton.setGraphic(addPNGImage("youWonSmiley.png"));
-						integerButtonIdMap.keySet()
-						  .stream()
-						  .forEach(key -> integerButtonIdMap.get(key).setOnMouseClicked(null));
-					}
-					if(numberOfBombs.isEmpty()) {
-						openCellsAround(boardPos);
-					}
-			 */
+		 * Må finne en måte sånn at antall celler bli redusert til alle celler som er åpne. 
+		 * Under så restarter jeg bare antallet når brettet begynner på nytt. 
+		 * NB! det er forskjell på boardsize her og i GameboardList-klassen
+		 * Hvorfor er board.getGeneratedBeforeGameboard().size()=10?? Burde være 9?
+		 */
+		System.out.println(boardSize);
+		System.out.println(board.getGeneratedBeforeGameboard().size());
+		System.out.println(boardSize-board.getGeneratedBeforeGameboard().size());
+		//board.setNumberOfEmptyFields(boardSize-board.getGeneratedBeforeGameboard().size());
+		
+		
+		
+	
 		
 	}
 	
