@@ -142,6 +142,25 @@ public class ControllerGameboard implements Initializable,EventHandler<MouseEven
 	}
 	
 	private void recreateBoard(List<Character> loadedList) {
+		//koden under gjør at man kan trykke på samme knappene etter å ha trykket på loadfil. 
+				board.getduringGameboard().stream().forEach(cell -> cell.setCellLeftClicked(false));
+				
+		//De tre kodelinjene under endrer stilen til ALLE knappene tilbake til opprinnelig stil. 
+		integerButtonIdMap.values().stream().forEach(btn ->btn.setStyle("-fx-background-color: grey;"));
+		integerButtonIdMap.values().stream().forEach(btn ->btn.setStyle("-fx-border-color:black"));
+		integerButtonIdMap.values().stream().forEach(btn ->btn.setText(""));
+		int counter=0;
+		for(Character c:loadedList) {
+			System.out.println(counter);
+			counter++;
+		}
+			
+		//Denne aktiverer alle knappene igjen. 
+				integerButtonIdMap.keySet()
+				  .stream()
+				  .forEach(key -> integerButtonIdMap.get(key).setOnMouseClicked(this));
+				
+		/*
 		int boardPos = 0;
 		
 		//koden under gjør at man kan trykke på samme knappene etter å ha trykket på loadfil. 
@@ -168,10 +187,7 @@ public class ControllerGameboard implements Initializable,EventHandler<MouseEven
 		 * NB! det er forskjell på boardsize her og i GameboardList-klassen
 		 * Hvorfor er board.getGeneratedBeforeGameboard().size()=10?? Burde være 9?
 		 */
-		System.out.println(boardSize);
-		System.out.println(board.getGeneratedBeforeGameboard().size());
-		System.out.println(boardSize-board.getGeneratedBeforeGameboard().size());
-		//board.setNumberOfEmptyFields(boardSize-board.getGeneratedBeforeGameboard().size());
+		
 		
 		
 		

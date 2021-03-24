@@ -17,18 +17,15 @@ public class SaveAndLoadGame implements ReadAndWriteFile{
 	public void saveFile() {
 	    try {
 	      FileWriter file = new FileWriter(filename);
-          for (int i = 0; i < board.getGeneratedBeforeGameboard().size()-1; i++) {
-        	  String boardPos = String.valueOf(i);
-        	  file.write(boardPos);
-        	//  String letterFromBeforeBoard =board.getGeneratedBeforeGameboard().get(i).getFigur();
-        	 // file.write(letterFromBeforeBoard); 
-        	  String letterFromDuringBoard = board.getduringGameboard().get(i).getFigur();
+	      for(Cell s:board.getduringGameboard()) {
+	    	  String letterFromDuringBoard = s.getFigur();
+        	  System.out.println("letter is "+ s);
         	  if(letterFromDuringBoard.isEmpty()) {
             	  file.write(" "); 
         	  }else{
         		  file.write(letterFromDuringBoard); 
-        	  }
-          }
+        	  } 
+	      }
           // close the file 
           file.close(); 
 	    }

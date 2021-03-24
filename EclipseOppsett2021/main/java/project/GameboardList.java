@@ -22,17 +22,16 @@ public class GameboardList {
 			throw new IllegalArgumentException("Brettet må har enten 9, 36 eller 81 knapper");
 		}
 		int tempSize = boardSize;
-		while(tempSize>=0) {
+		while(tempSize>0) {
 			Cell tempCell = new Cell(boardSize-tempSize);
 			tempCell.setCellLeftClicked(true);
 			generateBeforeGameboard.add(tempCell);
 			tempSize--;
 		}	
 		fillBoardWithFigures( boardSize);
-		
 		//Her initieres alle plassene i duringGameboard
 		tempSize = boardSize;
-		while(tempSize>=0) {
+		while(tempSize>0) {
 			Cell tempCell = new Cell(boardSize-tempSize);
 			duringGameboard.add(tempCell);
 			tempSize--;
@@ -42,24 +41,26 @@ public class GameboardList {
 	
 	
 	public void fillBoardWithFigures(int boardSize) {
-		int numberOfBombs = (int)Math.sqrt(boardSize);
-		int numberOfEmpty = boardSize-numberOfBombs;
+		int numberOfMines = (int)Math.sqrt(boardSize);
+		int numberOfEmpty = boardSize-numberOfMines;
 		numberOfEmptyFieldsOnBoard= numberOfEmpty;
 		Random random = new Random();
-		while(numberOfBombs>0) {
+		/*
+		 * Fyller random celler med miner.
+		 */
+		while(numberOfMines>0) {
 			int randomBoardPos = random.nextInt(getGeneratedBeforeGameboard().size()-1);
 			if(getGeneratedBeforeGameboard().get(randomBoardPos).getFigur().isEmpty()) {
 				getGeneratedBeforeGameboard().get(randomBoardPos).MineFigur();
-				numberOfBombs--;
+				numberOfMines--;
 			}
 		}
-		while(numberOfEmpty>0) {
-			int randomBoardPos = random.nextInt(getGeneratedBeforeGameboard().size()-1);
-			if(getGeneratedBeforeGameboard().get(randomBoardPos).getFigur().isEmpty()) {
-				getGeneratedBeforeGameboard().get(randomBoardPos).EmptyFigur();
-				numberOfEmpty--;
-			}
-		}
+		/*
+		 * Fyller resterende celler med tomrom. Altså ikke-miner
+		 */
+		getGeneratedBeforeGameboard().stream()
+									 .filter(cell->cell.getFigur().isEmpty())
+									 .forEach(cell->cell.EmptyFigur());
 	}
 	
 	public void setNumberOfEmptyFields(int number) {
@@ -75,9 +76,8 @@ public class GameboardList {
 	}
 	 
 	/*
-	 * bryter dette med inkapslingsprinsippet??
-	 * Burde skrive new List<Cell> ...... 
-	 * Ifølge øvingsforelesning 9
+	 * To gettere henter to lister.
+	 * skriver new ArratList... for å bevare innkapslingsprinsippet.
 	 */
 	public List<Cell> getduringGameboard() {
 		return new ArrayList<>(duringGameboard);
@@ -249,6 +249,7 @@ public class GameboardList {
 	
 	public static void main(String[] args) {
 		GameboardList game = new GameboardList(9);
+		
 		
 	}
 
