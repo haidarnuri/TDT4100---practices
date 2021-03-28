@@ -10,7 +10,8 @@ public class GameboardList {
 	
 	private List<Cell> generateBeforeGameboard = new ArrayList<>();
 	private List<Cell> duringGameboard = new ArrayList<>();
-	private int numberOfEmptyFieldsOnBoard;
+	private int numberOfEmptyFieldsOnBoard=0;
+	private int numberOfMines=0;
 
 	
 	public GameboardList(int boardSize) {
@@ -41,18 +42,18 @@ public class GameboardList {
 	
 	
 	public void fillBoardWithFigures(int boardSize) {
-		int numberOfMines = (int)Math.sqrt(boardSize);
-		int numberOfEmpty = boardSize-numberOfMines;
-		numberOfEmptyFieldsOnBoard= numberOfEmpty;
+		setNumberOfMines(boardSize);
+		setNumberOfEmpty(boardSize);
 		Random random = new Random();
 		/*
 		 * Fyller random celler med miner.
 		 */
-		while(numberOfMines>0) {
+		int counterMines=getNumberOfMines();
+		while(counterMines>0) {
 			int randomBoardPos = random.nextInt(getGeneratedBeforeGameboard().size()-1);
 			if(getGeneratedBeforeGameboard().get(randomBoardPos).getFigur().isEmpty()) {
-				getGeneratedBeforeGameboard().get(randomBoardPos).MineFigur();
-				numberOfMines--;
+				getGeneratedBeforeGameboard().get(randomBoardPos).mineFigur();
+				counterMines--;
 			}
 		}
 		/*
@@ -60,12 +61,26 @@ public class GameboardList {
 		 */
 		getGeneratedBeforeGameboard().stream()
 									 .filter(cell->cell.getFigur().isEmpty())
-									 .forEach(cell->cell.EmptyFigur());
+									 .forEach(cell->cell.emptyFigur());
 	}
 	
-	public void setNumberOfEmptyFields(int number) {
-		numberOfEmptyFieldsOnBoard=number;
+	private void setNumberOfMines(int boardsize) {
+		numberOfMines=(int)Math.sqrt(boardsize);
 	}
+	
+	public int getNumberOfMines() {
+		return numberOfMines;
+	}
+	
+	public void setNumberOfEmpty(int value) {
+		numberOfEmptyFieldsOnBoard=value-getNumberOfMines();
+	}
+	
+	
+	public int getNumberOfEmpty() {
+		return numberOfEmptyFieldsOnBoard;
+	}
+	
 	
 	public void decreaseNumberOfEmptyFields() {
 		this.numberOfEmptyFieldsOnBoard--;
@@ -94,11 +109,11 @@ public class GameboardList {
 	
 	
 	public void fillCellWithBomb(int boardPos) {
-		getduringGameboard().get(boardPos).MineFigur();
+		getduringGameboard().get(boardPos).mineFigur();
 	}
 	
 	public void fillCellWithEmpty(int boardPos) {
-		getduringGameboard().get(boardPos).EmptyFigur();
+		getduringGameboard().get(boardPos).emptyFigur();
 	}
 	
 	private void showBoardFigurs() {

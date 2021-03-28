@@ -4,6 +4,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class SaveAndLoadGame implements ReadAndWriteFile{
@@ -19,9 +20,8 @@ public class SaveAndLoadGame implements ReadAndWriteFile{
 	      FileWriter file = new FileWriter(filename);
 	      for(Cell s:board.getduringGameboard()) {
 	    	  String letterFromDuringBoard = s.getFigur();
-        	  System.out.println("letter is "+ s);
-        	  if(letterFromDuringBoard.isEmpty()) {
-            	  file.write(" "); 
+           	  if(letterFromDuringBoard.isEmpty()) {
+            	  file.write("."); 
         	  }else{
         		  file.write(letterFromDuringBoard); 
         	  } 
@@ -50,7 +50,7 @@ public class SaveAndLoadGame implements ReadAndWriteFile{
 	}
 		
 	public static void main(String[] args) throws IOException {
-		GameboardList board1= new GameboardList(9);
+		GameboardList board1= new GameboardList(36);
 		/*
 		board1.leftClickOnCell(0);
 		 board1.decreaseNumberOfEmptyFields();
@@ -59,7 +59,11 @@ public class SaveAndLoadGame implements ReadAndWriteFile{
 		ReadAndWriteFile tempText = new SaveAndLoadGame(board1);
 		tempText.saveFile();
 		List<Character> temp = tempText.loadFile();
-		temp.stream().forEach(t ->System.out.println(t));		  
+		/*
+		for (int i = 0; i < board1.getduringGameboard().size()-1; i++) {
+			System.out.println("pos "+i+" figur "+board1.getduringGameboard().get(i));
+			
+		} */ 
 		
 	}
 

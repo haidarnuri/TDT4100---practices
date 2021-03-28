@@ -42,6 +42,7 @@ public class ControllerGameboard implements Initializable,EventHandler<MouseEven
 		yourName.setText("Heisann "+name);
 		board = new GameboardList(boardSize*boardSize);
 		saveAndLoad=new SaveAndLoadGame(board);
+		saveAndLoad.saveFile();
 		createButtonsOnBoard();
 	}
 
@@ -123,6 +124,11 @@ public class ControllerGameboard implements Initializable,EventHandler<MouseEven
 	@Override
 	public void handle(MouseEvent event) {
 		if(event.getSource()==saveButton) {
+			for (int i = 0; i < board.getduringGameboard().size(); i++) {
+				if(integerButtonIdMap.get(i).getStyle()!="-fx-background-color: white;") {
+					board.getduringGameboard().get(i).clearCell();
+				}
+			}
 			saveAndLoad.saveFile();
 		}else if(event.getSource()==loadButton) {
 			List<Character> loadedList = null;
@@ -143,55 +149,51 @@ public class ControllerGameboard implements Initializable,EventHandler<MouseEven
 	
 	private void recreateBoard(List<Character> loadedList) {
 		//koden under gjør at man kan trykke på samme knappene etter å ha trykket på loadfil. 
-				board.getduringGameboard().stream().forEach(cell -> cell.setCellLeftClicked(false));
-				
-		//De tre kodelinjene under endrer stilen til ALLE knappene tilbake til opprinnelig stil. 
-		integerButtonIdMap.values().stream().forEach(btn ->btn.setStyle("-fx-background-color: grey;"));
-		integerButtonIdMap.values().stream().forEach(btn ->btn.setStyle("-fx-border-color:black"));
-		integerButtonIdMap.values().stream().forEach(btn ->btn.setText(""));
-		int counter=0;
-		for(Character c:loadedList) {
-			System.out.println(counter);
-			counter++;
+		board.getduringGameboard().stream()
+								  .forEach(cell -> cell.setCellLeftClicked(false));
+		
+		//fjerner png bilder på cellen. Tar bort minebildene
+		integerButtonIdMap
+		  .keySet()
+		  .stream()
+		  .forEach(key -> integerButtonIdMap.get(key).setGraphic(null));
+		
+		
+		
+		
+		/*
+		 * Tre ting her: 
+		 * 1) Itererer gjennom board objektet. 
+		 * 2) Iterer gjennom loadedList.
+		 * 3) Restarter brettet til tilstanden som stemmer med det som er lagret i savefile.txt
+		 * 
+		 */
+		
+		int recountEmptyCellsLeft=0;
+		for(int i=0;i<loadedList.size();i++) {
+			if(loadedList.get(i)=='E') {
+				board.leftClickOnCell(i);
+				board.decreaseNumberOfEmptyFields();
+				board.fillCellWithEmpty(i);
+				integerButtonIdMap.get(i).setStyle("-fx-background-color: white;");
+				String numberOfBombs = board.mineCounter( i);
+				integerButtonIdMap.get(i).setText(numberOfBombs);
+				recountEmptyCellsLeft++;
+			}else {
+				integerButtonIdMap.get(i).setStyle("-fx-background-color: grey;");
+				integerButtonIdMap.get(i).setStyle("-fx-border-color:black;");
+				integerButtonIdMap.get(i).setText("");
+			}
 		}
-			
+		
+		//setter numberOfEmtpy-tellinga til riktig verdi. 
+		board.setNumberOfEmpty(boardSize*boardSize-recountEmptyCellsLeft);
+		
 		//Denne aktiverer alle knappene igjen. 
 				integerButtonIdMap.keySet()
 				  .stream()
 				  .forEach(key -> integerButtonIdMap.get(key).setOnMouseClicked(this));
-				
-		/*
-		int boardPos = 0;
-		
-		//koden under gjør at man kan trykke på samme knappene etter å ha trykket på loadfil. 
-		board.getduringGameboard().stream().forEach(cell -> cell.setCellLeftClicked(false));
-		
-		//De tre kodelinjene under endrer stilen til ALLE knappene tilbake til opprinnelig stil. 
-		integerButtonIdMap.values().stream().forEach(btn ->btn.setStyle("-fx-background-color: grey;"));
-		integerButtonIdMap.values().stream().forEach(btn ->btn.setStyle("-fx-border-color:black"));
-		integerButtonIdMap.values().stream().forEach(btn ->btn.setText(""));
-		
-		//Denne aktiverer alle knappene igjen. 
-		integerButtonIdMap.keySet()
-		  .stream()
-		  .forEach(key -> integerButtonIdMap.get(key).setOnMouseClicked(this));
-		
-		//Denne fjerner alle bildene på knappene. Slik at bombebildene blir borte, dersom man kommer borti det. 
-		integerButtonIdMap.keySet()
-		  .stream()
-		  .forEach(key -> integerButtonIdMap.get(key).setGraphic(null));
-		
-		/*
-		 * Må finne en måte sånn at antall celler bli redusert til alle celler som er åpne. 
-		 * Under så restarter jeg bare antallet når brettet begynner på nytt. 
-		 * NB! det er forskjell på boardsize her og i GameboardList-klassen
-		 * Hvorfor er board.getGeneratedBeforeGameboard().size()=10?? Burde være 9?
-		 */
-		
-		
-		
-		
-	
+
 		
 	}
 	

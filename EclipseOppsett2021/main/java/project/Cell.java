@@ -44,26 +44,19 @@ public class Cell {
 	public void setCellRightClicked(boolean cellRightClicked) {
 		this.cellRightClicked = cellRightClicked;
 	}
-
-	public void MineFigur() {
+	
+	public void clearCell() {
+			figur = "";
+	}
+	
+	public void mineFigur() {
 		if(isCellLeftClicked())
 			figur = "M";
 	}
 	
-	public void EmptyFigur() {
+	public void emptyFigur() {
 		if(isCellLeftClicked())
 			figur = "E";
 	}	
-
-	public void FlagFigur() {
-		if(isCellRightClicked())
-			figur= "F";
-	}
-	
-	
-	public static void main(String[] args) {
-		
-
-	}
 
 }
