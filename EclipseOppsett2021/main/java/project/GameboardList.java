@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import javafx.scene.control.Button;
+
 public class GameboardList {
 	
 	
@@ -258,7 +260,7 @@ public class GameboardList {
 		return posCellAround;
 	}
 	
-	
+
 	
 	
 	

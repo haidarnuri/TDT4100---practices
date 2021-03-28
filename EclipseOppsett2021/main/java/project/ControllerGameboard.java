@@ -20,6 +20,15 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 
+/*
+ * Dette er kontrollerklassen til "generalGamboar.fxml".
+ * Inndelingen er slik at 
+ * 1) Først ser du en liste med feltene som brukes i klassen. 
+ * 2) Så ser du en oversikt over alle public metodene
+ * 3) Så ser du en oversikt over alle private metoder og hjelpemetoder. 
+ */
+
+
 public class ControllerGameboard implements Initializable,EventHandler<MouseEvent>{
 
 	@FXML private Pane visualGameboard;
@@ -30,11 +39,13 @@ public class ControllerGameboard implements Initializable,EventHandler<MouseEven
 	private int boardSize;
 	private ReadAndWriteFile saveAndLoad;
 	
+	
+	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		saveButton.setOnMouseClicked(this);
 		loadButton.setOnMouseClicked(this);
-		smileyButton.setGraphic(addPNGImage("duringGameSmiley.png"));
+		addPNGImageToButton(smileyButton, "duringGameSmiley.png");
 	}
 	
 	public void passOnParameter(String name, int boardSize) {
@@ -45,81 +56,8 @@ public class ControllerGameboard implements Initializable,EventHandler<MouseEven
 		saveAndLoad.saveFile();
 		createButtonsOnBoard();
 	}
-
-	private void createButtonsOnBoard() {
-		int buttonIdCounter=0;
-		int boardSizePixel = 540; 
-		int buttonSize = boardSizePixel/boardSize;
-		for (int i = 0; i < boardSize; i++) {
-			for (int j = 0; j < boardSize; j++) {
-				Button button = new Button();
-				button.setTranslateX(j*buttonSize);
-				button.setTranslateY(i*buttonSize+100);
-				button.setPrefHeight(buttonSize);
-				button.setPrefWidth(buttonSize);
-				button.setStyle("-fx-border-color:black");
-				button.setId("btn"+buttonIdCounter);
-				button.setOnMouseClicked(this);
-				integerButtonIdMap.put(buttonIdCounter, button);
-				buttonIdCounter++;
-				visualGameboard.getChildren().add(button);
-			}			
-		}
-	}
 	
 	
-	  private void buttonAction(Button button, int boardPos) {
-			Button buttonClicked = button;
-			Alert alert = new Alert(AlertType.INFORMATION);
-			if(!board.getduringGameboard().get(boardPos).isCellLeftClicked()) {
-				if(board.getGeneratedBeforeGameboard().get(boardPos).getFigur()=="E") {
-					board.leftClickOnCell(boardPos);
-					board.decreaseNumberOfEmptyFields();
-					board.fillCellWithEmpty(boardPos);
-					buttonClicked.setStyle("-fx-background-color: white;");
-					String numberOfBombs = board.mineCounter( boardPos);
-					buttonClicked.setText(numberOfBombs);
-					if(board.noEmptyFieldsLeft()) {
-						alert.setContentText("You won");
-						alert.show();
-						smileyButton.setGraphic(addPNGImage("youWonSmiley.png"));
-						integerButtonIdMap.keySet()
-						  .stream()
-						  .forEach(key -> integerButtonIdMap.get(key).setOnMouseClicked(null));
-					}
-					if(numberOfBombs.isEmpty()) {
-						openCellsAround(boardPos);
-					}
-				}if(board.getGeneratedBeforeGameboard().get(boardPos).getFigur()=="M") {
-					board.leftClickOnCell(boardPos);
-					board.fillCellWithBomb(boardPos);
-					buttonClicked.setStyle("-fx-background-color: orange;");
-					buttonClicked.setGraphic(addPNGImage("bomb.png")); 
-					smileyButton.setGraphic(addPNGImage("whenLooseSmiley.png"));
-					alert.setContentText("You lost");
-					alert.show();
-					integerButtonIdMap.keySet()
-									  .stream()
-									  .forEach(key -> integerButtonIdMap.get(key).setOnMouseClicked(null));
-					}
-				}
-			}
-		
-	
-	  
-	  
-	  public void openCellsAround(int boardPos) {
-		  List<Integer> posCellsAround = board.scoutsCellsAround(boardPos);
-			for(Integer temp: posCellsAround) {
-				Button tempButton = integerButtonIdMap.get(temp);
-				board.leftClickOnCell(temp);
-				board.decreaseNumberOfEmptyFields();
-				board.fillCellWithEmpty(temp);
-				tempButton.setStyle("-fx-background-color: white;");
-				String numberOfBombs = board.mineCounter( temp);
-				tempButton.setText(numberOfBombs);
-			}
-		}
 	  
 	@Override
 	public void handle(MouseEvent event) {
@@ -147,19 +85,86 @@ public class ControllerGameboard implements Initializable,EventHandler<MouseEven
 		}
 	}
 	
+	/*
+	 * Alle private metoder under her. 
+	 */
+	
+	private void createButtonsOnBoard() {
+		int buttonIdCounter=0;
+		int boardSizePixel = 540; 
+		int buttonSize = boardSizePixel/boardSize;
+		for (int i = 0; i < boardSize; i++) {
+			for (int j = 0; j < boardSize; j++) {
+				Button button = new Button();
+				button.setTranslateX(j*buttonSize);
+				button.setTranslateY(i*buttonSize+100);
+				button.setPrefHeight(buttonSize);
+				button.setPrefWidth(buttonSize);
+				button.setStyle("-fx-border-color:black");
+				button.setId("btn"+buttonIdCounter);
+				button.setOnMouseClicked(this);
+				integerButtonIdMap.put(buttonIdCounter, button);
+				buttonIdCounter++;
+				visualGameboard.getChildren().add(button);
+			}			
+		}
+	}
+	
+	private void openCellsAround(int boardPos) {
+		  List<Integer> posCellsAround = board.scoutsCellsAround(boardPos);
+			for(Integer temp: posCellsAround) {
+				Button tempButton = integerButtonIdMap.get(temp);
+				board.leftClickOnCell(temp);
+				board.decreaseNumberOfEmptyFields();
+				board.fillCellWithEmpty(temp);
+				tempButton.setStyle("-fx-background-color: white;");
+				String numberOfBombs = board.mineCounter( temp);
+				tempButton.setText(numberOfBombs);
+		}
+	}
+	
+	  private void buttonAction(Button button, int boardPos) {
+			Button buttonClicked = button;
+			if(!board.getduringGameboard().get(boardPos).isCellLeftClicked()) {
+				if(board.getGeneratedBeforeGameboard().get(boardPos).getFigur()=="E") {
+					board.leftClickOnCell(boardPos);
+					board.decreaseNumberOfEmptyFields();
+					board.fillCellWithEmpty(boardPos);
+					buttonClicked.setStyle("-fx-background-color: white;");
+					String numberOfBombs = board.mineCounter( boardPos);
+					buttonClicked.setText(numberOfBombs);
+					if(board.noEmptyFieldsLeft()) {
+						sendAlertMessage("you Won!");
+						addPNGImageToButton(smileyButton,"youWonSmiley.png");
+						setOnMouseClickAllButtons(null);
+					}
+					if(numberOfBombs.isEmpty()) {
+						openCellsAround(boardPos);
+					}
+				}if(board.getGeneratedBeforeGameboard().get(boardPos).getFigur()=="M") {
+					board.leftClickOnCell(boardPos);
+					board.fillCellWithBomb(boardPos);
+					buttonClicked.setStyle("-fx-background-color: orange;");
+					addPNGImageToButton(buttonClicked,"bomb.png");
+					addPNGImageToButton(smileyButton,"whenLooseSmiley.png");
+					sendAlertMessage("you Lost!");
+					setOnMouseClickAllButtons(null);
+					}
+				}
+			}
+	
+	 
+
+	
+	
 	private void recreateBoard(List<Character> loadedList) {
 		//koden under gjør at man kan trykke på samme knappene etter å ha trykket på loadfil. 
 		board.getduringGameboard().stream()
 								  .forEach(cell -> cell.setCellLeftClicked(false));
 		
 		//fjerner png bilder på cellen. Tar bort minebildene
-		integerButtonIdMap
-		  .keySet()
-		  .stream()
-		  .forEach(key -> integerButtonIdMap.get(key).setGraphic(null));
-		
-		
-		
+		setOnMouseClickAllButtons(null);
+	
 		
 		/*
 		 * Tre ting her: 
@@ -190,24 +195,50 @@ public class ControllerGameboard implements Initializable,EventHandler<MouseEven
 		board.setNumberOfEmpty(boardSize*boardSize-recountEmptyCellsLeft);
 		
 		//Denne aktiverer alle knappene igjen. 
-				integerButtonIdMap.keySet()
-				  .stream()
-				  .forEach(key -> integerButtonIdMap.get(key).setOnMouseClicked(this));
+		setOnMouseClickAllButtons(this);
 
 		
 	}
 	
+	/*
+	 * Itererer gjennom alle knapper og legger til en event. 
+	 * 
+	 */
+	private void setOnMouseClickAllButtons(EventHandler<MouseEvent> event) {
+		integerButtonIdMap.keySet()
+		  .stream()
+		  .forEach(key -> integerButtonIdMap.get(key).setOnMouseClicked(event));
+	}
 	
-	
-	private ImageView addPNGImage(String imagePath) {
+	/**
+	 * Denne metoden legger til bilde på en knapp
+	 * 
+	 * @param button knapp
+	 * @param imagePath navn på PNG bilde
+	 * 
+	 */
+	private void addPNGImageToButton(Button button, String imagePath) {
 		ImageView view;
 		Image img = new Image(getClass().getResourceAsStream(imagePath));
 		view = new ImageView(img);
 		view.setFitHeight(30);
 		view.setFitWidth(30);
 		view.setPreserveRatio(true);
-	    return view;
+		button.setGraphic(view);
 	}
+	
+	/**
+	 * Denne metoden sender ulike beskjeder til bruker
+	 * 
+	 * @param messageToUser beskjed som skal sendes 
+	 * 
+	 * 
+	 */
+	 private void sendAlertMessage(String messageToUser) {
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setContentText(messageToUser);
+			alert.show();
+	  }
 
 	
 	
