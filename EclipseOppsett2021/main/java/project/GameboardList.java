@@ -110,7 +110,7 @@ public class GameboardList {
 	}
 	
 	
-	public void fillCellWithBomb(int boardPos) {
+	public void fillCellWithMine(int boardPos) {
 		getduringGameboard().get(boardPos).mineFigur();
 	}
 	
@@ -217,6 +217,26 @@ public class GameboardList {
 		
 	}
 	
+	public void actionOnEmptyCell(int boardPos) {
+		leftClickOnCell(boardPos);
+		decreaseNumberOfEmptyFields();
+		fillCellWithEmpty(boardPos);
+	}
+	
+	public void actionOnMineCell(int boardPos) {
+		leftClickOnCell(boardPos);
+		fillCellWithMine(boardPos);
+	}
+	
+	//koden under gjør at man kan trykke på samme knappene etter å ha trykket på loadfil. 
+	public void deactivateLeftClickOnAllCells() {
+		getduringGameboard().stream()
+						    .forEach(cell -> cell.setCellLeftClicked(false));
+	}
+	
+	
+			
+	
 	public List<Integer> scoutsCellsAround(int boardPos){
 		List<Integer> posCellAround = new ArrayList<>();
 		int size = (int)Math.sqrt(getGeneratedBeforeGameboard().size());
@@ -259,6 +279,7 @@ public class GameboardList {
 		}
 		return posCellAround;
 	}
+	
 	
 
 	

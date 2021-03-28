@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.function.Consumer;
 
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -40,7 +41,10 @@ public class ControllerGameboard implements Initializable,EventHandler<MouseEven
 	private ReadAndWriteFile saveAndLoad;
 	
 	
-	
+	/*
+	 * Denne metoden aktiverer save og loadknappen. 
+	 * I tillegg legger den til smiley i knappen øverst. 
+	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		saveButton.setOnMouseClicked(this);
@@ -48,6 +52,18 @@ public class ControllerGameboard implements Initializable,EventHandler<MouseEven
 		addPNGImageToButton(smileyButton, "duringGameSmiley.png");
 	}
 	
+	
+	/**
+	 * Denne metoden gjør følgende:  
+	 * 1) tar imot parametere fra introController. 
+	 * 2) Initierer et board objekt. 
+	 * 3) Initierer et saveAndLoad objekt. 
+	 * 4) Lager spillbrettet ved å kalle på createButtonsOnBoard-metoden
+	 * 
+	 * @param name selvvalgt brukernavn
+	 * @param boardSize størrelse på en rad
+	 * 
+	 */
 	public void passOnParameter(String name, int boardSize) {
 		this.boardSize = boardSize;
 		yourName.setText("Heisann "+name);
@@ -58,7 +74,12 @@ public class ControllerGameboard implements Initializable,EventHandler<MouseEven
 	}
 	
 	
-	  
+	/**
+	 * Viser hva som skjer når ulike knapper på brettet blir trykket på. 
+	 * 
+	 * @param event et mouseeventobjekt. 
+	 * 
+	 */
 	@Override
 	public void handle(MouseEvent event) {
 		if(event.getSource()==saveButton) {
@@ -89,6 +110,10 @@ public class ControllerGameboard implements Initializable,EventHandler<MouseEven
 	 * Alle private metoder under her. 
 	 */
 	
+	/**
+	 * Denne metoden lager knappene på brettet. 
+	 * Blir kalt av passOnParameter()-metoden
+	 */
 	private void createButtonsOnBoard() {
 		int buttonIdCounter=0;
 		int boardSizePixel = 540; 
@@ -110,76 +135,89 @@ public class ControllerGameboard implements Initializable,EventHandler<MouseEven
 		}
 	}
 	
+	/**
+	 * Åpner celler rundt en gitt celle. 
+	 * Brukes til å åpne nabocellene til en celle som har 0 miner rundt seg. 
+	 * 
+	 * @param boardPos posisjon til knapp. 
+	 */
+	
 	private void openCellsAround(int boardPos) {
 		  List<Integer> posCellsAround = board.scoutsCellsAround(boardPos);
 			for(Integer temp: posCellsAround) {
 				Button tempButton = integerButtonIdMap.get(temp);
-				board.leftClickOnCell(temp);
-				board.decreaseNumberOfEmptyFields();
-				board.fillCellWithEmpty(temp);
+				board.actionOnEmptyCell(temp);
 				tempButton.setStyle("-fx-background-color: white;");
 				String numberOfBombs = board.mineCounter( temp);
 				tempButton.setText(numberOfBombs);
 		}
 	}
 	
-	  private void buttonAction(Button button, int boardPos) {
+	/**
+	 *  Denne metoden utfører handlinger som kan gjøres med knappene på brettet 
+	 * @param button knapp som blir trykket på
+	 * @param boardPos posisjon til button
+	 */
+	private void buttonAction(Button button, int boardPos) {
 			Button buttonClicked = button;
 			if(!board.getduringGameboard().get(boardPos).isCellLeftClicked()) {
 				if(board.getGeneratedBeforeGameboard().get(boardPos).getFigur()=="E") {
-					board.leftClickOnCell(boardPos);
-					board.decreaseNumberOfEmptyFields();
-					board.fillCellWithEmpty(boardPos);
+					board.actionOnEmptyCell(boardPos);
 					buttonClicked.setStyle("-fx-background-color: white;");
 					String numberOfBombs = board.mineCounter( boardPos);
 					buttonClicked.setText(numberOfBombs);
 					if(board.noEmptyFieldsLeft()) {
 						sendAlertMessage("you Won!");
 						addPNGImageToButton(smileyButton,"youWonSmiley.png");
-						setOnMouseClickAllButtons(null);
+						addActionToAllButtons(key -> integerButtonIdMap.get(key)
+																						   .setOnMouseClicked(null));
 					}
 					if(numberOfBombs.isEmpty()) {
 						openCellsAround(boardPos);
 					}
 				}if(board.getGeneratedBeforeGameboard().get(boardPos).getFigur()=="M") {
+					board.actionOnMineCell(boardPos);
+					/*
 					board.leftClickOnCell(boardPos);
-					board.fillCellWithBomb(boardPos);
+					board.fillCellWithBomb(boardPos);*/
 					buttonClicked.setStyle("-fx-background-color: orange;");
 					addPNGImageToButton(buttonClicked,"bomb.png");
 					addPNGImageToButton(smileyButton,"whenLooseSmiley.png");
 					sendAlertMessage("you Lost!");
-					setOnMouseClickAllButtons(null);
+					addActionToAllButtons(key -> integerButtonIdMap.get(key)
+																				       .setOnMouseClicked(null));
 					}
 				}
 			}
 	
 	 
 
-	
+	/**
+	 * Endrer brettet til hvordan det så ut sist saveAndLoad.savefile() ble kjørt. 
+	 * @param loadedList liste med bokstaver/tegn som hentes fra saveFile.txt
+	 */
 	
 	private void recreateBoard(List<Character> loadedList) {
 		//koden under gjør at man kan trykke på samme knappene etter å ha trykket på loadfil. 
-		board.getduringGameboard().stream()
-								  .forEach(cell -> cell.setCellLeftClicked(false));
+		board.deactivateLeftClickOnAllCells();
 		
 		//fjerner png bilder på cellen. Tar bort minebildene
-		setOnMouseClickAllButtons(null);
+		addActionToAllButtons(key -> addPNGImageToButton(integerButtonIdMap.get(key),null));
+
+		/*
+		 * Endre smileyknappen til gladsmiley.
+		 * Trengs dersom man har trykket på mine før man trykker på load igjen. 
+		 */
+		addPNGImageToButton(smileyButton,"duringGameSmiley.png");
 	
 		
 		/*
-		 * Tre ting her: 
-		 * 1) Itererer gjennom board objektet. 
-		 * 2) Iterer gjennom loadedList.
-		 * 3) Restarter brettet til tilstanden som stemmer med det som er lagret i savefile.txt
-		 * 
+		 * Iterer gjennom loadedList.
 		 */
-		
 		int recountEmptyCellsLeft=0;
 		for(int i=0;i<loadedList.size();i++) {
 			if(loadedList.get(i)=='E') {
-				board.leftClickOnCell(i);
-				board.decreaseNumberOfEmptyFields();
-				board.fillCellWithEmpty(i);
+				board.actionOnEmptyCell(i);
 				integerButtonIdMap.get(i).setStyle("-fx-background-color: white;");
 				String numberOfBombs = board.mineCounter( i);
 				integerButtonIdMap.get(i).setText(numberOfBombs);
@@ -194,21 +232,25 @@ public class ControllerGameboard implements Initializable,EventHandler<MouseEven
 		//setter numberOfEmtpy-tellinga til riktig verdi. 
 		board.setNumberOfEmpty(boardSize*boardSize-recountEmptyCellsLeft);
 		
-		//Denne aktiverer alle knappene igjen. 
-		setOnMouseClickAllButtons(this);
-
-		
+		/*
+		 * Denne aktiverer alle knappene igjen. 
+		 * Trengs hvis man ønsker å loade etter å trykket på en mine
+		 */
+		addActionToAllButtons(key -> integerButtonIdMap.get(key).setOnMouseClicked(this));
 	}
 	
-	/*
-	 * Itererer gjennom alle knapper og legger til en event. 
+	/**
+	 * Itererer gjennom alle knapper og utfører en handling. 
+	 * 
+	 * @param action handling som skal utføres på alle knappene
 	 * 
 	 */
-	private void setOnMouseClickAllButtons(EventHandler<MouseEvent> event) {
+	private void addActionToAllButtons(Consumer<? super Integer> action) {
 		integerButtonIdMap.keySet()
 		  .stream()
-		  .forEach(key -> integerButtonIdMap.get(key).setOnMouseClicked(event));
+		  .forEach(action);
 	}
+	
 	
 	/**
 	 * Denne metoden legger til bilde på en knapp
@@ -218,21 +260,24 @@ public class ControllerGameboard implements Initializable,EventHandler<MouseEven
 	 * 
 	 */
 	private void addPNGImageToButton(Button button, String imagePath) {
-		ImageView view;
-		Image img = new Image(getClass().getResourceAsStream(imagePath));
-		view = new ImageView(img);
-		view.setFitHeight(30);
-		view.setFitWidth(30);
-		view.setPreserveRatio(true);
-		button.setGraphic(view);
+		if(imagePath==null) {
+			button.setGraphic(null);
+		}else {
+			ImageView view;
+			Image img = new Image(getClass().getResourceAsStream(imagePath));
+			view = new ImageView(img);
+			view.setFitHeight(30);
+			view.setFitWidth(30);
+			view.setPreserveRatio(true);
+			button.setGraphic(view);
+		}
+		
 	}
 	
 	/**
 	 * Denne metoden sender ulike beskjeder til bruker
 	 * 
 	 * @param messageToUser beskjed som skal sendes 
-	 * 
-	 * 
 	 */
 	 private void sendAlertMessage(String messageToUser) {
 			Alert alert = new Alert(AlertType.INFORMATION);
