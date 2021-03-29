@@ -31,6 +31,12 @@ import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+/**
+ * Dette er kontrollerklassen til introWindow.fxml
+ * Public metoder øverst og private metoder nederst. 
+ * 
+ * @author haidarn
+ */
 public class ControllerIntro implements Initializable, EventHandler<MouseEvent>{
 	
 	@FXML Button newGame;
@@ -43,12 +49,17 @@ public class ControllerIntro implements Initializable, EventHandler<MouseEvent>{
 	private boolean largeboardSelected = false;
 	private boolean toogleSelected = false;
 	
+	/**
+	 * newGameknappen og radioknappene blir intiert. 
+	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		newGame.setOnMouseClicked(this);
 		handleToogle();
 	}
-	
+	/**
+	 * Denne metoden viser det som skjer når newGameknappen blir trykket på
+	 */
 	@Override
 	public void handle(MouseEvent event) {
 		String name = inputNameField.getText(); 
@@ -58,6 +69,10 @@ public class ControllerIntro implements Initializable, EventHandler<MouseEvent>{
 				FXMLLoader loader = new FXMLLoader();
 		        Pane root = loader.load(getClass().getResource("generalGameboard.fxml").openStream());
 		        ControllerGameboard userController = (ControllerGameboard)loader.getController();
+		        /*
+		         * Disse tre if setningene viser hvilke parameter som bli videresendt til gameController. 
+		         * Dette basert på hvilke radioknapp brukeren har trykket på. 
+		         */
 		        if(toogleSelected) {
 		        	if(smallboardSelected) {
 		        		userController.passOnParameter(name, 3);
@@ -71,6 +86,9 @@ public class ControllerIntro implements Initializable, EventHandler<MouseEvent>{
 		        	Scene scene = new Scene(root);
 			        primaryStage.setScene(scene);
 			        primaryStage.show();
+			        /*
+			         * else setningen blir kjørt dersom brukeren har glemt å velge en brettstørrelse. 
+			         */
 		        }else {
 		        	errorField.setText("Du må velge størrelse først");
 		        	errorField.setTextFill(Color.color(1, 0, 0));
@@ -81,7 +99,9 @@ public class ControllerIntro implements Initializable, EventHandler<MouseEvent>{
           }
 		}
 	
-	
+	/*
+	 * Dette er logikken bak de ulike radioknappene på intromenyen. 
+	 */
 	private void handleToogle() {
 		smallBoard.setToggleGroup(group);
 		mediumBoard.setToggleGroup(group);
