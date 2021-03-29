@@ -12,7 +12,7 @@ import javafx.scene.control.Button;
  * 
  * @author haidarn
  */
-public class GameboardList {
+public class Gameboard {
 	/**
 	 * Public metoder øverst og private metoder nederst. 
 	 */
@@ -30,7 +30,7 @@ public class GameboardList {
 	 * Konstruktør i denne klassen. 
 	 * @param boardSize antall celler i spillet. 
 	 */
-	public GameboardList(int boardSize) {
+	public Gameboard(int boardSize) {
 		createBoard( boardSize);
 	}
 	
@@ -130,7 +130,7 @@ public class GameboardList {
 	 * @param boardPos posisjon på spillbrettet
 	 */
 	public void leftClickOnCell(int boardPos) {
-		getduringGameboard().get(boardPos).setCellLeftClicked(true);
+		getduringGameboard().get(boardPos).setCellClicked(true);
 	}
 	
 	/**
@@ -278,7 +278,7 @@ public class GameboardList {
 	 */
 	public void deactivateLeftClickOnAllCells() {
 		getduringGameboard().stream()
-						    .forEach(cell -> cell.setCellLeftClicked(false));
+						    .forEach(cell -> cell.setCellClicked(false));
 	}
 	
 	/**
@@ -344,8 +344,8 @@ public class GameboardList {
 		}
 		int tempSize = boardSize;
 		while(tempSize>0) {
-			Cell tempCell = new Cell(boardSize-tempSize);
-			tempCell.setCellLeftClicked(true);
+			Cell tempCell = new Cell();
+			tempCell.setCellClicked(true);
 			generateBeforeGameboard.add(tempCell);
 			tempSize--;
 		}	
@@ -354,7 +354,7 @@ public class GameboardList {
 		//Her initieres alle plassene i duringGameboard
 		tempSize = boardSize;
 		while(tempSize>0) {
-			Cell tempCell = new Cell(boardSize-tempSize);
+			Cell tempCell = new Cell();
 			duringGameboard.add(tempCell);
 			tempSize--;
 		}	

@@ -14,6 +14,8 @@ import java.util.List;
  *
  */
 public interface ReadAndWriteFile {
+	
 	void saveFile();
+	
 	List<Character> loadFile() throws IOException;
 }

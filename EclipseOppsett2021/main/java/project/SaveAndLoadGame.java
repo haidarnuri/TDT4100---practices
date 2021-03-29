@@ -7,21 +7,39 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ * Denne klassen lagrer og loader tilstander i spillet. 
+ * Implimenterer ReadAndWriteFile-grensesnittet. 
+ * 
+ * @author haidarn
+ */
+
 public class SaveAndLoadGame implements ReadAndWriteFile{
 	private String filename = "src/main/java/project/saveFile.txt";
-	private GameboardList board;
+	private Gameboard board;
 	
-	public SaveAndLoadGame(GameboardList board) {
+	/**
+	 * Konstruktør.
+	 * @param board spillbrettobjekt som skal lagres og loades fra. 
+	 */
+	public SaveAndLoadGame(Gameboard board) {
 		this.board=board;
 	}
-		
+	
+	/*
+	 * Lagrer tilstanden til board objektet ved å skrive inn symbolene til saveFile.txt 
+	 */
 	public void saveFile() {
 	    try {
 	      FileWriter file = new FileWriter(filename);
 	      for(Cell s:board.getduringGameboard()) {
 	    	  String letterFromDuringBoard = s.getFigur();
+	    	  /*
+	    	   * Hvis cellen er tom så lagres mellomrom i fila. 
+	    	   * Hvis cellen innholder E så lagres bokstaven E i saveFile.txt
+	    	   */
            	  if(letterFromDuringBoard.isEmpty()) {
-            	  file.write("."); 
+            	  file.write(" "); 
         	  }else{
         		  file.write(letterFromDuringBoard); 
         	  } 
@@ -34,6 +52,10 @@ public class SaveAndLoadGame implements ReadAndWriteFile{
 	    }
 	}
 	
+	/**
+	 * Metoden henter symboler fra saveFile.txt fila. 
+	 * @return liste med symboler som er hentet fra saveFile.txt fila. 
+	 */
 	public List<Character> loadFile() throws IOException {
 		List<Character> savedValues = new ArrayList<>();
         FileReader fileReader = new FileReader(filename);
@@ -47,24 +69,6 @@ public class SaveAndLoadGame implements ReadAndWriteFile{
         		fileReader.close();
         	}
 		return savedValues;
-	}
-		
-	public static void main(String[] args) throws IOException {
-		GameboardList board1= new GameboardList(36);
-		/*
-		board1.leftClickOnCell(0);
-		 board1.decreaseNumberOfEmptyFields();
-		 board1.fillCellWithEmpty(0);
-		*/
-		ReadAndWriteFile tempText = new SaveAndLoadGame(board1);
-		tempText.saveFile();
-		List<Character> temp = tempText.loadFile();
-		/*
-		for (int i = 0; i < board1.getduringGameboard().size()-1; i++) {
-			System.out.println("pos "+i+" figur "+board1.getduringGameboard().get(i));
-			
-		} */ 
-		
 	}
 
 }

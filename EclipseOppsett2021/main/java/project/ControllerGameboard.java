@@ -35,7 +35,7 @@ public class ControllerGameboard implements Initializable,EventHandler<MouseEven
 	@FXML private Pane visualGameboard;
 	@FXML private Label yourName;
 	@FXML Button smileyButton, loadButton, saveButton;
-	private GameboardList board;
+	private Gameboard board;
 	private HashMap<Integer, Button> integerButtonIdMap = new HashMap<>();
 	private int boardSize;
 	private ReadAndWriteFile saveAndLoad;
@@ -67,7 +67,7 @@ public class ControllerGameboard implements Initializable,EventHandler<MouseEven
 	public void passOnParameter(String name, int boardSize) {
 		this.boardSize = boardSize;
 		yourName.setText("Heisann "+name);
-		board = new GameboardList(boardSize*boardSize);
+		board = new Gameboard(boardSize*boardSize);
 		saveAndLoad=new SaveAndLoadGame(board);
 		saveAndLoad.saveFile();
 		createButtonsOnBoard();
@@ -160,7 +160,7 @@ public class ControllerGameboard implements Initializable,EventHandler<MouseEven
 	 */
 	private void buttonAction(Button button, int boardPos) {
 			Button buttonClicked = button;
-			if(!board.getduringGameboard().get(boardPos).isCellLeftClicked()) {
+			if(!board.getduringGameboard().get(boardPos).isCellClicked()) {
 				if(board.getGeneratedBeforeGameboard().get(boardPos).getFigur()=="E") {
 					board.actionOnEmptyCell(boardPos);
 					buttonClicked.setStyle("-fx-background-color: white;");
@@ -177,9 +177,6 @@ public class ControllerGameboard implements Initializable,EventHandler<MouseEven
 					}
 				}if(board.getGeneratedBeforeGameboard().get(boardPos).getFigur()=="M") {
 					board.actionOnMineCell(boardPos);
-					/*
-					board.leftClickOnCell(boardPos);
-					board.fillCellWithBomb(boardPos);*/
 					buttonClicked.setStyle("-fx-background-color: orange;");
 					addPNGImageToButton(buttonClicked,"bomb.png");
 					addPNGImageToButton(smileyButton,"whenLooseSmiley.png");
