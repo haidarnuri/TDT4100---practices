@@ -34,40 +34,8 @@ public class Gameboard {
 		createBoard( boardSize);
 	}
 	
-	/**
-	 * Denne metoden fyller ge
-	 * @param boardSize
-	 */
-	public void fillBoardWithFigures(int boardSize) {
-		setNumberOfMines(boardSize);
-		setNumberOfEmpty(boardSize);
-		Random random = new Random();
-		/*
-		 * Fyller random celler med miner.
-		 */
-		int counterMines=getNumberOfMines();
-		while(counterMines>0) {
-			int randomBoardPos = random.nextInt(getGeneratedBeforeGameboard().size()-1);
-			if(getGeneratedBeforeGameboard().get(randomBoardPos).getFigur().isEmpty()) {
-				getGeneratedBeforeGameboard().get(randomBoardPos).mineFigur();
-				counterMines--;
-			}
-		}
-		/*
-		 * Fyller resterende celler med tomrom. Altså ikke-miner
-		 */
-		getGeneratedBeforeGameboard().stream()
-									 .filter(cell->cell.getFigur().isEmpty())
-									 .forEach(cell->cell.emptyFigur());
-	}
 	
-	/**
-	 * 
-	 * @param boardsize Antall celler på brettet. 
-	 */
-	private void setNumberOfMines(int boardsize) {
-		numberOfMines=(int)Math.sqrt(boardsize);
-	}
+	
 	
 	/**
 	 * 
@@ -334,6 +302,7 @@ public class Gameboard {
 	 */
 	
 	
+	
 	/**
 	 * Legger inn figurer i generateBeforeGameboard-lista og initierer duringGameboard-lista. 
 	 * @param boardSize Antall celler på brettet. 
@@ -359,6 +328,42 @@ public class Gameboard {
 			tempSize--;
 		}	
 		
+	}
+	
+	/**
+	 * Denne metoden fyller ge
+	 * @param boardSize
+	 */
+	private void fillBoardWithFigures(int boardSize) {
+		setNumberOfMines(boardSize);
+		setNumberOfEmpty(boardSize);
+		Random random = new Random();
+		/*
+		 * Fyller random celler med miner.
+		 */
+		int counterMines=getNumberOfMines();
+		while(counterMines>0) {
+			int randomBoardPos = random.nextInt(getGeneratedBeforeGameboard().size()-1);
+			if(getGeneratedBeforeGameboard().get(randomBoardPos).getFigur().isEmpty()) {
+				getGeneratedBeforeGameboard().get(randomBoardPos).mineFigur();
+				counterMines--;
+			}
+		}
+		/*
+		 * Fyller resterende celler med tomrom. Altså ikke-miner
+		 */
+		getGeneratedBeforeGameboard().stream()
+									 .filter(cell->cell.getFigur().isEmpty())
+									 .forEach(cell->cell.emptyFigur());
+	}
+	
+	
+	/**
+	 * 
+	 * @param boardsize Antall celler på brettet. 
+	 */
+	private void setNumberOfMines(int boardsize) {
+		numberOfMines=(int)Math.sqrt(boardsize);
 	}
 	
 	/**
