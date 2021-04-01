@@ -108,6 +108,7 @@ public class Gameboard {
 	 * Legger til minefigur til en spesifikk posisjon på brettet. 
 	 * @param boardPos posisjon på spillbrettet
 	 */
+	
 	public void fillCellWithMine(int boardPos) {
 		validPosition(boardPos);
 		getduringGameboard().get(boardPos).mineFigur();

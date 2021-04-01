@@ -6,9 +6,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -32,12 +33,12 @@ public class GameboardTest{
 	 */
 		
 	@Test
-	public void testInvalidBoardSize() {
+	public void testInvalidBoardSize_ExpectingException() {
 		/*
 		 * Genrerer først et tilfeldig ugyldig tall mellom 0 og 1000. 
 		 */
 		int randInt = rand.nextInt(1000);
-		while(randInt==9 && randInt==36 && randInt==81) {
+		while(randInt==9 || randInt==36 || randInt==81) {
 			randInt = rand.nextInt(1000);
 		}
 		try{
@@ -52,7 +53,7 @@ public class GameboardTest{
 	 * tester at antall miner fra starten stemmer. 
 	 */
 	@Test
-	public void testGetNumberOfMines_allBoardObjects() {
+	public void testGetNumberOfMines_allBoardObjects_ExpectingSpecificValue() {
 		//Tester for brett 1
 		int correctNumberOfMinesBoard1 = (int)Math.sqrt(9);
 		assertEquals(correctNumberOfMinesBoard1, board1.getNumberOfMines());
@@ -72,7 +73,7 @@ public class GameboardTest{
 	 * tester at antall tomme felt fra starten stemmer. 
 	 */
 	@Test
-	public void testGetNumberOfEmpty_allBoardObjects() {
+	public void testGetNumberOfEmpty_allBoardObjects_ExpectingSpecificValue() {
 		//Tester for brett 1
 		int correctNumberOfEmptyBoard1 = 9 - (int)Math.sqrt(9);
 		assertEquals(correctNumberOfEmptyBoard1, board1.getNumberOfEmpty());
@@ -92,7 +93,7 @@ public class GameboardTest{
 	 * tester at antalle tomme felt stemmer når man bruker setNumberEmpty metoden. 
 	 */
 	@Test
-	public void testSetNumberOfEmpty_allBoardObjects() {
+	public void testSetNumberOfEmpty_allBoardObjects_ExpectingSpecificValue() {
 		//Tester for brett 1
 		board1.setNumberOfEmpty(8);
 		int newCorrectNumberOfEmptyBoard1 = 8 - board1.getNumberOfMines();
@@ -115,7 +116,7 @@ public class GameboardTest{
 	 * tester at antall tomme felt synker med en når decreaseNumberOfEmptyFields metoden blir kalt
 	 */
 	@Test
-	public void testDecreaseNumberOfEmptyFields_allBoardObjects() {
+	public void testDecreaseNumberOfEmptyFields_allBoardObjects_ExpectingSpecificValue() {
 		//Tester for brett 1
 		int expectedNumberOfEmptyBoard1 = board1.getNumberOfEmpty()-1;
 		board1.decreaseNumberOfEmptyFields();
@@ -272,14 +273,141 @@ public class GameboardTest{
 	
 	/*
 	 * testFillCellWithMine_allBoardObjects_ExpectingSpecificValue
-	 * ##########
+	 * Legger inn en spesfikk posisjon på brettet. 
+	 * Figuren i den posisjon skal da være en mine merket med "M". 
 	 */
+	
 	@Test
 	public void testFillCellWithMine_allBoardObjects_ExpectingSpecificValue() {
-		/*
-		 * Må lage test
-		 */
+		//Tester for brett 1
+		String mineFigur = "M";
+		int boardPosBoard1 = rand.nextInt(9);
+		board1.leftClickOnCell(boardPosBoard1);
+		board1.fillCellWithMine(boardPosBoard1);
+		assertTrue(board1.getduringGameboard().get(boardPosBoard1).getFigur().equals(mineFigur));
+	
+		//Tester for brett 2
+		int boardPosBoard2 = rand.nextInt(36);
+		board2.leftClickOnCell(boardPosBoard2);
+		board2.fillCellWithMine(boardPosBoard2);
+		assertTrue(board2.getduringGameboard().get(boardPosBoard2).getFigur().equals(mineFigur));
+			
+		//Tester for brett 3
+		int boardPosBoard3 = rand.nextInt(81);
+		board3.leftClickOnCell(boardPosBoard3);
+		board3.fillCellWithMine(boardPosBoard3);
+		assertTrue(board3.getduringGameboard().get(boardPosBoard3).getFigur().equals(mineFigur));
 	}
+	
+	/*
+	 * testFillCellWithEmpty_allBoardObjects_ExpectingException
+	 * Denne metoden legger inn en ugyldig verdig som parameter i fillCellWithEmpty.
+	 * Ugyldig verdig til si under 0 eller større enn størrelse på brettet minus en. 
+	 */
+	@Test
+	public void testFillCellWithEmpty_allBoardObjects_ExpectingException() {
+		//Tester for brett 1
+		int invalidPosBoard1 = -10;
+		assertThrows(IllegalArgumentException.class, ()->{
+			board1.fillCellWithEmpty(invalidPosBoard1);
+		});
+				
+		//Tester for brett 2
+		int invalidPosBoard2 = 36;
+		assertThrows(IllegalArgumentException.class, ()->{
+			board2.fillCellWithEmpty(invalidPosBoard2);
+		});
+				
+		//Tester for brett 3
+		int invalidPosBoard3 = 100;
+		assertThrows(IllegalArgumentException.class, ()->{
+			board3.fillCellWithEmpty(invalidPosBoard3);
+		});
+		
+	}
+	
+	/*
+	 * testFillCellWithMine_allBoardObjects_ExpectingSpecificValue
+	 * Legger inn en spesfikk posisjon på brettet. 
+	 * Figuren i den posisjon skal da være en mine merket med "M". 
+	 */
+	
+	@Test
+	public void testFillCellWithEmpty_allBoardObjects_ExpectingSpecificValue() {
+		//Tester for brett 1
+		String mineFigur = "E";
+		int boardPosBoard1 = rand.nextInt(9);
+		board1.leftClickOnCell(boardPosBoard1);
+		board1.fillCellWithEmpty(boardPosBoard1);
+		assertTrue(board1.getduringGameboard().get(boardPosBoard1).getFigur().equals(mineFigur));
+	
+		//Tester for brett 2
+		int boardPosBoard2 = rand.nextInt(36);
+		board2.leftClickOnCell(boardPosBoard2);
+		board2.fillCellWithEmpty(boardPosBoard2);
+		assertTrue(board2.getduringGameboard().get(boardPosBoard2).getFigur().equals(mineFigur));
+			
+		//Tester for brett 3
+		int boardPosBoard3 = rand.nextInt(81);
+		board3.leftClickOnCell(boardPosBoard3);
+		board3.fillCellWithEmpty(boardPosBoard3);
+		assertTrue(board3.getduringGameboard().get(boardPosBoard3).getFigur().equals(mineFigur));
+	}
+	
+	/*
+	 * Hvordan tester jeg denne?? 
+	 */
+	/*
+	@Test
+	public void testMineCounter_allBoardObjects_USIKKERHER() {
+		
+	}*/
+	
+	
+	/*
+	 * testDeactivateLeftClickOnAllCells_allBoardObjects_ExpectingTrue
+	 * Aktiverer alle cellene. Deretter kaller jeg metoden deactivateLeftClickOnAllCells().
+	 * Da skal IKKE cellene være klikket på. 
+	 * Tester med kun et board da testen her er litt lengre. 
+	 */
+	@Test
+	public void testDeactivateLeftClickOnAllCells_oneBoardObject_ExpectingTrue() {
+		//Første linjene prøven jeg å vise at alle cellen er satt til isClicked. 
+		board3.getduringGameboard().stream()
+								   .forEach(cell ->cell.setCellClicked(true));
+		List<Cell> listOfActivatedCells = board3.getduringGameboard().stream()
+																	 .filter(cell -> !cell.isCellClicked())
+																	 .collect(Collectors.toList());
+		assertTrue(listOfActivatedCells.isEmpty());
+		
+		//Videre skal jeg vise at alle cellene blir deaktivert ved å kalle på deactivateLeftClickOnAllCells(). 
+		
+		board3.deactivateLeftClickOnAllCells();
+		List<Cell> listOfDeactivatedCells = board3.getduringGameboard().stream()
+				 								  .filter(cell -> !cell.isCellClicked())
+				 								  .collect(Collectors.toList());
+		/*
+		 * Sjekker at alle cellene er deaktivert +  at det er like mange celler som opprinnelig liste. 
+		 */
+		boolean allButtonsDeactivated = true;
+		boolean equalAmountOfCells = board3.getduringGameboard().size()==listOfDeactivatedCells.size();
+		for(Cell tempCell : listOfDeactivatedCells) {
+			if(tempCell.isCellClicked()) {
+				allButtonsDeactivated=false;
+			}
+			
+		}
+		assertTrue(allButtonsDeactivated && equalAmountOfCells);
+	}
+	
+	/*
+	 * Hvordan tester jeg denne?? 
+	 */
+	/*
+	@Test
+	public void testScoutsCellsAround_allBoardObjects_USIKKERHER() {
+		
+	}*/
 	
 	
 	
