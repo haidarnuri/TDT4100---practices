@@ -25,12 +25,14 @@ public class Gameboard {
 	
 	private int numberOfEmptyFieldsOnBoard=0;
 	private int numberOfMines=0;
+	private int boardSize=0;
 
 	/**
 	 * Konstruktør i denne klassen. 
 	 * @param boardSize antall celler i spillet. 
 	 */
 	public Gameboard(int boardSize) {
+		this.boardSize=boardSize;
 		createBoard( boardSize);
 	}
 	
@@ -98,6 +100,7 @@ public class Gameboard {
 	 * @param boardPos posisjon på spillbrettet
 	 */
 	public void leftClickOnCell(int boardPos) {
+		validPosition(boardPos);
 		getduringGameboard().get(boardPos).setCellClicked(true);
 	}
 	
@@ -106,6 +109,7 @@ public class Gameboard {
 	 * @param boardPos posisjon på spillbrettet
 	 */
 	public void fillCellWithMine(int boardPos) {
+		validPosition(boardPos);
 		getduringGameboard().get(boardPos).mineFigur();
 	}
 	
@@ -115,6 +119,7 @@ public class Gameboard {
 	 * @param boardPos posisjon på spillbrettet
 	 */
 	public void fillCellWithEmpty(int boardPos) {
+		validPosition(boardPos);
 		getduringGameboard().get(boardPos).emptyFigur();
 	}
 		
@@ -124,6 +129,7 @@ public class Gameboard {
 	 * @return antall miner rundt en spesfikk cell. 
 	 */
 	public String mineCounter(int boardPos) {
+		validPosition(boardPos);
 		int size = (int)Math.sqrt(getGeneratedBeforeGameboard().size());
 		int numberOfMines = 0;
 		/*
@@ -222,20 +228,22 @@ public class Gameboard {
 	}
 	
 	/**
-	 * En rekke med metoder som er mye brukt, som blir samlet under et objekt. 
+	 * En rekke med metoder som er mye brukt, som blir samlet under i actionOnEmptyCell().  
 	 * @param boardPos spesifikk posisjon på brettet. 
 	 */
 	public void actionOnEmptyCell(int boardPos) {
+		validPosition(boardPos);
 		leftClickOnCell(boardPos);
 		decreaseNumberOfEmptyFields();
 		fillCellWithEmpty(boardPos);
 	}
 	
 	/**
-	 * En rekke med metoder som er mye brukt, som blir samlet under et objekt. 
+	 * En rekke med metoder som er mye brukt, som blir samlet under i actionOnMineCell(). 
 	 * @param boardPos spesifikk posisjon på brettet. 
 	 */
 	public void actionOnMineCell(int boardPos) {
+		validPosition(boardPos);
 		leftClickOnCell(boardPos);
 		fillCellWithMine(boardPos);
 	}
@@ -255,6 +263,7 @@ public class Gameboard {
 	 * @return en liste med celler rundt en spesifikk posisjon på brettet.
 	 */
 	public List<Integer> scoutsCellsAround(int boardPos){
+		validPosition(boardPos);
 		List<Integer> posCellAround = new ArrayList<>();
 		int size = (int)Math.sqrt(getGeneratedBeforeGameboard().size());
 		int colPos = boardPos%size;
@@ -301,14 +310,12 @@ public class Gameboard {
 	 * Under her kommer private metoder og hjelpemetoder. 
 	 */
 	
-	
-	
 	/**
 	 * Legger inn figurer i generateBeforeGameboard-lista og initierer duringGameboard-lista. 
 	 * @param boardSize Antall celler på brettet. 
 	 */
 	private void createBoard(int boardSize) {
-		if(!checkValidSize(boardSize)) {
+		if(!validSize(boardSize)) {
 			throw new IllegalArgumentException("Brettet må har enten 9, 36 eller 81 knapper");
 		}
 		int tempSize = boardSize;
@@ -335,6 +342,7 @@ public class Gameboard {
 	 * @param boardSize
 	 */
 	private void fillBoardWithFigures(int boardSize) {
+		
 		setNumberOfMines(boardSize);
 		setNumberOfEmpty(boardSize);
 		Random random = new Random();
@@ -371,8 +379,22 @@ public class Gameboard {
 	 * @param numberOfButtons antall celler
 	 * @return sjekker om brettet har riktig størrelse. 
 	 */
-	private boolean checkValidSize(int numberOfButtons) {
+	private boolean validSize(int numberOfButtons) {
 		return numberOfButtons==9 || numberOfButtons==36 || numberOfButtons==81;
 	}
+	
+	/**
+	 * 
+	 * @param boardPos posisjon på brettet
+	 * sjekker om posisjon er innenfor verdiene på brettet. Altså over 0 og mindre enn størrelsen på brettet minus 1. 
+	 */
+	private void validPosition(int boardPos) {
+		 if(boardPos<0 || boardPos>boardSize-1) {
+			 throw new IllegalArgumentException("Posisjonen må være over null eller mindre enn størrelsen på brettet minus 1");
+		 }
+	}
+	
+	
+	
 	
 }
