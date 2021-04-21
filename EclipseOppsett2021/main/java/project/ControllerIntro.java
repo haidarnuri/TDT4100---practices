@@ -39,24 +39,20 @@ import javafx.stage.Stage;
  */
 public class ControllerIntro implements Initializable, EventHandler<MouseEvent>{
 	
-	@FXML Button newGame;
-	@FXML TextField inputNameField;
-	@FXML Label errorField;
-	@FXML RadioButton smallBoard,mediumBoard,largeBoard;
-	private ToggleGroup group = new ToggleGroup();
-	private boolean smallboardSelected = false;
-	private boolean mediumboardSelected = false;
-	private boolean largeboardSelected = false;
-	private boolean toogleSelected = false;
-	
+	@FXML private Button newGame;
+	@FXML private TextField inputNameField;
+	@FXML private Label errorField;
+	@FXML private RadioButton smallBoard,mediumBoard,largeBoard;
+	private ToggleClass toogle;
 	/**
 	 * newGameknappen og radioknappene blir intiert. 
 	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		newGame.setOnMouseClicked(this);
-		handleToogle();
+		toogle = new ToggleClass(smallBoard,mediumBoard,largeBoard);
 	}
+	
 	/**
 	 * Denne metoden viser det som skjer når newGameknappen blir trykket på
 	 */
@@ -69,20 +65,9 @@ public class ControllerIntro implements Initializable, EventHandler<MouseEvent>{
 				FXMLLoader loader = new FXMLLoader();
 		        Pane root = loader.load(getClass().getResource("generalGameboard.fxml").openStream());
 		        ControllerGameboard userController = (ControllerGameboard)loader.getController();
-		        /*
-		         * Disse tre if setningene viser hvilke parameter som bli videresendt til gameController. 
-		         * Dette basert på hvilke radioknapp brukeren har trykket på. 
-		         */
-		        if(toogleSelected) {
-		        	if(smallboardSelected) {
-		        		userController.passOnParameter(name, 3);
-			        }
-		        	if(mediumboardSelected) {
-		        		 userController.passOnParameter(name, 6);
-			        }
-		        	if(largeboardSelected) {
-		        		 userController.passOnParameter(name, 9);
-			        }
+		        
+		        if(toogle.toggleIsSelected()) {
+		        	userController.passOnParameter(name, toogle.boardSizeSelected());
 		        	Scene scene = new Scene(root);
 			        primaryStage.setScene(scene);
 			        primaryStage.show();
@@ -94,42 +79,8 @@ public class ControllerIntro implements Initializable, EventHandler<MouseEvent>{
 		        	errorField.setTextFill(Color.color(1, 0, 0));
 		        }
 		    } catch (IOException e) {
-
+		    	
 		    }
           }
 		}
-	
-	/*
-	 * Dette er logikken bak de ulike radioknappene på intromenyen. 
-	 */
-	private void handleToogle() {
-		smallBoard.setToggleGroup(group);
-		mediumBoard.setToggleGroup(group);
-		largeBoard.setToggleGroup(group);
-		group.selectedToggleProperty().addListener(new ChangeListener<Toggle>()  
-        { 
-            public void changed(ObservableValue<? extends Toggle> ob,  Toggle o, Toggle n) 
-            { 
-                RadioButton tempRadioButton = (RadioButton)group.getSelectedToggle(); 
-                if (tempRadioButton != null) { 
-                	toogleSelected=true;
-                   if(tempRadioButton.getId().equals("smallBoard")) {
-                	   smallboardSelected = true;
-                	   mediumboardSelected = false;
-                	   largeboardSelected = false;
-                   }
-                   if(tempRadioButton.getId().equals("mediumBoard")) {
-                	   smallboardSelected = false;
-                	   mediumboardSelected = true;
-                	   largeboardSelected = false;
-                   }
-                   if(tempRadioButton.getId().equals("largeBoard")) {
-                	   smallboardSelected = false;
-                	   mediumboardSelected = false;
-                	   largeboardSelected = true;
-                   }
-                } 
-            } 
-        }); 
-	}
 }

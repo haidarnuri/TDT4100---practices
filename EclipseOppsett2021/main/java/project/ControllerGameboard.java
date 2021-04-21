@@ -34,7 +34,7 @@ public class ControllerGameboard implements Initializable,EventHandler<MouseEven
 
 	@FXML private Pane visualGameboard;
 	@FXML private Label yourName;
-	@FXML Button smileyButton, loadButton, saveButton;
+	@FXML private Button smileyButton, loadButton, saveButton;
 	private Gameboard board;
 	private HashMap<Integer, Button> integerButtonIdMap = new HashMap<>();
 	private int boardSize;
@@ -72,7 +72,6 @@ public class ControllerGameboard implements Initializable,EventHandler<MouseEven
 		saveAndLoad.saveFile();
 		createButtonsOnBoard();
 	}
-	
 	
 	/**
 	 * Viser hva som skjer når ulike knapper på brettet blir trykket på. 
@@ -268,7 +267,6 @@ public class ControllerGameboard implements Initializable,EventHandler<MouseEven
 			view.setPreserveRatio(true);
 			button.setGraphic(view);
 		}
-		
 	}
 	
 	/**
